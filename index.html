@@ -6,7 +6,7 @@
 <title>Faris — Cloud &amp; Network Engineering</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
 <script>
 /* anime.js v3.2.1 — embedded inline so the page works fully offline / on static hosting with no external dependency */
 /*
@@ -43,6 +43,23 @@
     font-family:var(--body);
     line-height:1.6;
     overflow-x:hidden;
+  }
+  /* continuous dark hue wash down the page — makes section transitions blend rather than hard-cut */
+  body::after{
+    content:'';
+    position:fixed;inset:0;
+    z-index:-1;pointer-events:none;
+    background:linear-gradient(180deg,
+      #0A0E12 0%,
+      #0A1015 12%,
+      #0F0E13 26%,
+      #0A0F15 39%,
+      #0A1210 52%,
+      #100E0B 65%,
+      #0A0E15 78%,
+      #0E0A13 90%,
+      #0A0E12 100%);
+    background-attachment:fixed;
   }
   body::before{
     content:'';
@@ -90,6 +107,32 @@
     min-height:100vh;
     display:flex;flex-direction:column;justify-content:center;
     padding:120px 0 80px;
+    position:relative;
+    overflow:hidden;
+  }
+
+  /* ---------- per-section XMB backgrounds ---------- */
+  section{overflow:hidden;}
+  .wrap{position:relative;z-index:2;}
+  .sec-xmb{
+    position:absolute;inset:0;width:100%;height:100%;
+    z-index:0;pointer-events:none;opacity:0;
+  }
+  .sec-glow{
+    position:absolute;inset:0;z-index:0;pointer-events:none;
+  }
+  .sec-wave{fill:none;stroke-width:1.2;animation-play-state:paused;will-change:transform;}
+  .sec-xmb.in-view .sec-wave{animation-play-state:running;}
+  .xmb-bubble{opacity:0;}
+  @keyframes waveDriftA{
+    0%{transform:translate(0,0);}
+    50%{transform:translate(34px,-22px);}
+    100%{transform:translate(0,0);}
+  }
+  @keyframes waveDriftB{
+    0%{transform:translate(0,0);}
+    50%{transform:translate(-28px,18px);}
+    100%{transform:translate(0,0);}
   }
   .term{
     background:var(--bg-panel);
@@ -112,14 +155,40 @@
   .term-line .prompt{color:var(--cyan);}
   .term-line b{color:var(--text);font-weight:600;}
 
+  .hero-kicker{
+    font-family:var(--mono);font-size:13px;letter-spacing:.18em;
+    color:var(--text-faint);text-transform:uppercase;
+    margin-top:34px;opacity:0;
+  }
+  .hero-kicker::before{content:'// ';color:var(--cyan);}
   .hero-name{
     font-family:var(--mono);
     font-weight:800;
-    font-size:clamp(48px,9vw,96px);
-    letter-spacing:-0.02em;
+    font-size:clamp(40px,8.5vw,92px);
+    letter-spacing:-0.03em;
     line-height:1;
-    margin:34px 0 6px;
+    margin:10px 0 12px;
+    display:flex;flex-wrap:wrap;align-items:baseline;gap:0 20px;
     opacity:0;
+  }
+  .hn-word{
+    background-size:100% 100%;
+    -webkit-background-clip:text;background-clip:text;
+    -webkit-text-fill-color:transparent;color:transparent;
+    filter:drop-shadow(0 4px 24px #4FD1C522);
+  }
+  .hn-a{
+    font-family:var(--mono);font-weight:800;letter-spacing:-0.03em;
+    background-image:linear-gradient(120deg,#4FD1C5 0%,#8AF0E6 55%,#4FD1C5 100%);
+  }
+  .hn-b{
+    font-family:'Space Grotesk', var(--body);font-weight:700;letter-spacing:-0.02em;
+    background-image:linear-gradient(120deg,#F4A93E 0%,#FBD182 55%,#F4A93E 100%);
+  }
+  .hn-to{
+    font-family:var(--body);
+    font-size:.3em;font-weight:400;font-style:italic;color:var(--text-faint);
+    text-transform:lowercase;letter-spacing:0;align-self:center;
   }
   .hero-role{
     font-size:clamp(16px,2.2vw,20px);
@@ -153,7 +222,7 @@
   @keyframes drop{0%{transform:translateY(-6px);opacity:0;}50%{opacity:1;}100%{transform:translateY(6px);opacity:0;}}
 
   /* ---------- section shell ---------- */
-  .sec{padding:90px 0;border-top:1px solid var(--line-soft);}
+  .sec{padding:90px 0;border-top:1px solid transparent;border-image:linear-gradient(90deg, transparent, var(--line), transparent) 1;}
   .sec-head{display:flex;align-items:baseline;gap:14px;margin-bottom:40px;}
   .sec-head{opacity:0;transform:translateY(14px);}
   .sec-tag{
@@ -414,8 +483,9 @@
       </div>
     </div>
 
-    <h1 class="hero-name">FARIS</h1>
-    <p class="hero-role">Assistant Manager, Acting <b>Lead Cloud Engineer</b> — building and hardening the Azure landing zone for KAF Digital Bank, a BNM-licensed digital bank in Malaysia.</p>
+    <div class="hero-kicker">FARIS — Lead Cloud Engineer</div>
+    <h1 class="hero-name"><span class="hn-word hn-a">Packets</span><span class="hn-to">to</span><span class="hn-word hn-b">Platforms</span></h1>
+    <p class="hero-role">Assistant Manager, <b>Lead Cloud Engineer</b> — building and hardening the Azure landing zone for KAF Digital Bank, a BNM-licensed digital bank in Malaysia.</p>
 
     <div class="hero-meta">
       <span class="pill">📍 <b>Kuala Lumpur, Malaysia</b></span>
@@ -441,7 +511,7 @@
 
         <div class="kv-list">
           <div class="kv-row"><div class="k">EMPLOYER</div><div class="v">KAF Digital Bank <em>(KAF Group)</em></div></div>
-          <div class="kv-row"><div class="k">ROLE</div><div class="v">Assistant Manager, Acting Lead Cloud Engineer</div></div>
+          <div class="kv-row"><div class="k">ROLE</div><div class="v">Assistant Manager, Lead Cloud Engineer</div></div>
           <div class="kv-row"><div class="k">TEAM</div><div class="v">Built &amp; leads a 3-person Cloud &amp; Network Operations team</div></div>
           <div class="kv-row"><div class="k">SCOPE</div><div class="v">Azure — Malaysia West <em>(primary)</em>, Singapore, Hong Kong</div></div>
           <div class="kv-row"><div class="k">COMPLIANCE</div><div class="v">CIS benchmarks &amp; BNM RMiT requirements</div></div>
@@ -464,7 +534,7 @@
         <div class="hop-num">01</div>
         <div class="hop-card">
           <div class="hop-top"><div class="hop-host">kaf-digital-bank<span class="at">.internal</span></div><div class="hop-time">1 yr 6 mos · Mar 2025–present</div></div>
-          <div class="hop-role">Assistant Manager, Acting Lead Cloud Engineer</div>
+          <div class="hop-role">Assistant Manager, Lead Cloud Engineer</div>
           <div class="hop-desc">Built and lead a 3-person Cloud &amp; Network Operations team, defining operating models and processes for the bank's cloud scale-up.</div>
           <div class="hop-desc">Led the Azure Landing Zone rollout in Malaysia West, hardening the platform against CIS and RMiT requirements. Author ADR proposals shaping Virtual WAN migration, Windows Server 2025 migration, native Entra ID adoption, API Management, DMZ architecture, and JWT-based API security.</div>
           <div class="hop-status"><span class="d"></span>you are here — trace continues to origin</div>
@@ -568,7 +638,7 @@
           <path d="M545,116 L541,113 M545,116 L549,114" stroke="var(--amber)" stroke-width="1.2" fill="none" stroke-linecap="round"></path>
           <text x="555" y="146" style="font-size:8.5px;fill:var(--amber);">CONTINUOUS IMPROVEMENT</text>
           <text class="sub" x="555" y="362" style="font-size:9px;">MAR 2025 – PRESENT</text>
-          <text class="sub" x="555" y="374" style="font-size:9px;fill:var(--amber);">Acting Lead Cloud Engineer</text>
+          <text class="sub" x="555" y="374" style="font-size:9px;fill:var(--amber);">Lead Cloud Engineer</text>
         </g>
       </svg>
       <div class="phase-grid">
@@ -833,7 +903,7 @@
         <div><b>2</b>RMiT domains for BNM license</div>
       </div>
     </div>
-    <div class="footer-note">// Ahmad Faris Aiman bin Arizal · +6012-5153385</div>
+    <div class="footer-note">// Ahmad Faris Aiman bin Arizal </div>
   </div>
 </section>
 
@@ -844,18 +914,137 @@ document.addEventListener('DOMContentLoaded', () => {
   // Fail-safe: if anime.js didn't load for any reason, reveal everything that
   // starts hidden (opacity:0 / transformed) so content is never stuck invisible.
   if (typeof anime === 'undefined') {
-    document.querySelectorAll('.hero-name, .hero-role, .hero-meta, .scroll-cue, .term, .term-line, .sec-head, .about-p, .kv-row, .card, .badge, .pub, .honor-chip, .footer-panel, .proj-card, .chip, .topo-chip, .refine-row, .refine-dot, .card-contribution, .hop, .topo-node, .topo-line, .packet, .growth-arrow, [id^="growthBar"]').forEach(el => {
+    document.querySelectorAll('.hero-kicker, .hero-name, .hero-role, .hero-meta, .scroll-cue, .term, .term-line, .sec-head, .about-p, .kv-row, .card, .badge, .pub, .honor-chip, .footer-panel, .proj-card, .chip, .topo-chip, .refine-row, .refine-dot, .card-contribution, .hop, .topo-node, .topo-line, .packet, .growth-arrow, [id^="growthBar"]').forEach(el => {
       el.style.opacity = '1';
       el.style.transform = 'none';
     });
     return;
   }
 
+  // ---- hero PSP XMB background: themed flowing waves + rising bubbles (hero only) ----
+  const sectionThemes = {
+    intro:          {a:'#4FD1C5', b:'#F4A93E', waves:4, bubbles:true,  glow:'#4FD1C5'}
+  };
+  const SVGNS = 'http://www.w3.org/2000/svg';
+
+  function wavePath(baseY, amp, phase) {
+    const p = phase || 0;
+    return `M-200,${baseY} C100,${baseY-amp+p} 300,${baseY+amp} 600,${baseY-p} C900,${baseY-amp} 1100,${baseY+amp-p} 1400,${baseY}`;
+  }
+
+  Object.keys(sectionThemes).forEach(id => {
+    const section = document.getElementById(id);
+    if (!section) return;
+    const theme = sectionThemes[id];
+
+    // soft radial glow wash keyed to the section's hue (the "catchy" color per section)
+    const glow = document.createElement('div');
+    glow.className = 'sec-glow';
+    glow.style.background = `radial-gradient(120% 80% at 80% 20%, ${theme.glow}0F 0%, transparent 55%), radial-gradient(90% 70% at 10% 90%, ${theme.b}0C 0%, transparent 50%)`;
+    section.insertBefore(glow, section.firstChild);
+
+    if (reduce) return; // no moving waves/bubbles under reduced motion
+
+    const svg = document.createElementNS(SVGNS, 'svg');
+    svg.setAttribute('class', 'sec-xmb');
+    svg.setAttribute('viewBox', '0 0 1200 800');
+    svg.setAttribute('preserveAspectRatio', 'xMidYMid slice');
+    svg.setAttribute('aria-hidden', 'true');
+
+    // per-section gradient defs so wave strokes fade at both edges
+    const defs = document.createElementNS(SVGNS, 'defs');
+    ['a','b'].forEach(k => {
+      const g = document.createElementNS(SVGNS, 'linearGradient');
+      g.setAttribute('id', `wg-${id}-${k}`);
+      g.setAttribute('x1','0'); g.setAttribute('y1','0'); g.setAttribute('x2','1'); g.setAttribute('y2','0');
+      [['0','0'],['0.5','1'],['1','0']].forEach(([off,op]) => {
+        const s = document.createElementNS(SVGNS, 'stop');
+        s.setAttribute('offset', off);
+        s.setAttribute('stop-color', k === 'a' ? theme.a : theme.b);
+        s.setAttribute('stop-opacity', op);
+        g.appendChild(s);
+      });
+      defs.appendChild(g);
+    });
+    svg.appendChild(defs);
+
+    // spread the waves down the section, alternating hue + drift direction
+    for (let i = 0; i < theme.waves; i++) {
+      const baseY = 240 + i * (320 / theme.waves) + (i % 2 ? 40 : 0);
+      const amp = 55 + (i % 3) * 22;
+      const path = document.createElementNS(SVGNS, 'path');
+      path.setAttribute('class', 'sec-wave');
+      path.setAttribute('d', wavePath(baseY, amp, i * 12));
+      path.setAttribute('stroke', `url(#wg-${id}-${i % 2 ? 'b' : 'a'})`);
+      path.style.opacity = String(0.5 - i * 0.08);
+      path.style.animationName = i % 2 ? 'waveDriftB' : 'waveDriftA';
+      path.style.animationDuration = (9 + i * 2.5) + 's';
+      path.style.animationTimingFunction = 'ease-in-out';
+      path.style.animationIterationCount = 'infinite';
+      path.style.animationDelay = (-i * 1.5) + 's';
+      svg.appendChild(path);
+    }
+
+    const bubbleGroup = document.createElementNS(SVGNS, 'g');
+    svg.appendChild(bubbleGroup);
+    section.insertBefore(svg, section.firstChild);
+
+    // fade the layer in
+    anime({targets: svg, opacity:[0,1], duration:1400, easing:'easeOutQuad'});
+
+    // pause wave animation while the section is offscreen (perf)
+    const viz = new IntersectionObserver((entries) => {
+      entries.forEach(e => svg.classList.toggle('in-view', e.isIntersecting));
+    }, {threshold:0});
+    viz.observe(section);
+
+    // rising bubbles only on the bookend sections (hero + contact)
+    if (theme.bubbles) {
+      const colors = [theme.a, theme.b, '#E8EDF2'];
+      let bubbleTimer = null;
+      let sectionVisible = false;
+      const spawnBubble = () => {
+        if (!sectionVisible) return;
+        const c = document.createElementNS(SVGNS, 'circle');
+        const r = 2 + Math.random() * 6;
+        const x = Math.random() * 1200;
+        c.setAttribute('class', 'xmb-bubble');
+        c.setAttribute('cx', x); c.setAttribute('cy', 820); c.setAttribute('r', r);
+        c.setAttribute('fill', colors[Math.floor(Math.random() * colors.length)]);
+        bubbleGroup.appendChild(c);
+        anime({
+          targets: c,
+          cy: -40,
+          cx: x + (Math.random() * 120 - 60),
+          opacity: [{value: 0.35 + Math.random() * 0.3, duration: 1200},
+                    {value: 0, duration: 2000, delay: 4000 + Math.random() * 3000}],
+          duration: 9000 + Math.random() * 7000,
+          easing: 'easeInOutSine',
+          complete: () => c.remove()
+        });
+      };
+      const bubbleViz = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          sectionVisible = e.isIntersecting;
+          if (sectionVisible && !bubbleTimer) {
+            for (let i = 0; i < 6; i++) setTimeout(spawnBubble, i * 700);
+            bubbleTimer = setInterval(spawnBubble, 1500);
+          } else if (!sectionVisible && bubbleTimer) {
+            clearInterval(bubbleTimer); bubbleTimer = null;
+          }
+        });
+      }, {threshold:0});
+      bubbleViz.observe(section);
+    }
+  });
+
   // ---- hero terminal + name sequence ----
   const tl = anime.timeline({easing:'easeOutQuad'});
   tl.add({targets:'.term', opacity:[0,1], translateY:[16,0], duration: reduce?1:600})
     .add({targets:'.term-line', opacity:[0,1], translateX:[-8,0], delay: anime.stagger(reduce?1:220), duration: reduce?1:400}, '-=200')
-    .add({targets:'.hero-name', opacity:[0,1], translateY:[24,0], duration: reduce?1:700}, '-=100')
+    .add({targets:'.hero-kicker', opacity:[0,1], translateY:[10,0], duration: reduce?1:500}, '-=100')
+    .add({targets:'.hero-name', opacity:[0,1], duration: reduce?1:400}, '-=250')
+    .add({targets:'.hn-word, .hn-to', opacity:[0,1], translateY:[24,0], duration: reduce?1:650, delay: anime.stagger(reduce?0:120)}, '-=250')
     .add({targets:'.hero-role', opacity:[0,1], translateY:[14,0], duration: reduce?1:600}, '-=400')
     .add({targets:'.hero-meta', opacity:[0,1], translateY:[10,0], duration: reduce?1:600}, '-=350')
     .add({targets:'.scroll-cue', opacity:[0,1], duration: reduce?1:600}, '-=300');
