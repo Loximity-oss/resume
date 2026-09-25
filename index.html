@@ -1,123 +1,1121 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Resume - Ahmad Faris Aiman</title>
-    <link href="https://fonts.googleapis.com/css?family=Mukta:300,400,500,600,700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="assets/vendors/@fortawesome/fontawesome-free/css/all.min.css">
-    <link rel="stylesheet" href="assets/css/live-resume.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Faris — Cloud &amp; Network Engineering</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script>
+/* anime.js v3.2.1 — embedded inline so the page works fully offline / on static hosting with no external dependency */
+/*
+ * anime.js v3.2.1
+ * (c) 2020 Julian Garnier
+ * Released under the MIT license
+ * animejs.com
+ */
+
+!function(n,e){"object"==typeof exports&&"undefined"!=typeof module?module.exports=e():"function"==typeof define&&define.amd?define(e):n.anime=e()}(this,function(){"use strict";var n={update:null,begin:null,loopBegin:null,changeBegin:null,change:null,changeComplete:null,loopComplete:null,complete:null,loop:1,direction:"normal",autoplay:!0,timelineOffset:0},e={duration:1e3,delay:0,endDelay:0,easing:"easeOutElastic(1, .5)",round:0},t=["translateX","translateY","translateZ","rotate","rotateX","rotateY","rotateZ","scale","scaleX","scaleY","scaleZ","skew","skewX","skewY","perspective","matrix","matrix3d"],r={CSS:{},springs:{}};function a(n,e,t){return Math.min(Math.max(n,e),t)}function o(n,e){return n.indexOf(e)>-1}function u(n,e){return n.apply(null,e)}var i={arr:function(n){return Array.isArray(n)},obj:function(n){return o(Object.prototype.toString.call(n),"Object")},pth:function(n){return i.obj(n)&&n.hasOwnProperty("totalLength")},svg:function(n){return n instanceof SVGElement},inp:function(n){return n instanceof HTMLInputElement},dom:function(n){return n.nodeType||i.svg(n)},str:function(n){return"string"==typeof n},fnc:function(n){return"function"==typeof n},und:function(n){return void 0===n},nil:function(n){return i.und(n)||null===n},hex:function(n){return/(^#[0-9A-F]{6}$)|(^#[0-9A-F]{3}$)/i.test(n)},rgb:function(n){return/^rgb/.test(n)},hsl:function(n){return/^hsl/.test(n)},col:function(n){return i.hex(n)||i.rgb(n)||i.hsl(n)},key:function(t){return!n.hasOwnProperty(t)&&!e.hasOwnProperty(t)&&"targets"!==t&&"keyframes"!==t}};function c(n){var e=/\(([^)]+)\)/.exec(n);return e?e[1].split(",").map(function(n){return parseFloat(n)}):[]}function s(n,e){var t=c(n),o=a(i.und(t[0])?1:t[0],.1,100),u=a(i.und(t[1])?100:t[1],.1,100),s=a(i.und(t[2])?10:t[2],.1,100),f=a(i.und(t[3])?0:t[3],.1,100),l=Math.sqrt(u/o),d=s/(2*Math.sqrt(u*o)),p=d<1?l*Math.sqrt(1-d*d):0,v=1,h=d<1?(d*l-f)/p:-f+l;function g(n){var t=e?e*n/1e3:n;return t=d<1?Math.exp(-t*d*l)*(v*Math.cos(p*t)+h*Math.sin(p*t)):(v+h*t)*Math.exp(-t*l),0===n||1===n?n:1-t}return e?g:function(){var e=r.springs[n];if(e)return e;for(var t=0,a=0;;)if(1===g(t+=1/6)){if(++a>=16)break}else a=0;var o=t*(1/6)*1e3;return r.springs[n]=o,o}}function f(n){return void 0===n&&(n=10),function(e){return Math.ceil(a(e,1e-6,1)*n)*(1/n)}}var l,d,p=function(){var n=11,e=1/(n-1);function t(n,e){return 1-3*e+3*n}function r(n,e){return 3*e-6*n}function a(n){return 3*n}function o(n,e,o){return((t(e,o)*n+r(e,o))*n+a(e))*n}function u(n,e,o){return 3*t(e,o)*n*n+2*r(e,o)*n+a(e)}return function(t,r,a,i){if(0<=t&&t<=1&&0<=a&&a<=1){var c=new Float32Array(n);if(t!==r||a!==i)for(var s=0;s<n;++s)c[s]=o(s*e,t,a);return function(n){return t===r&&a===i?n:0===n||1===n?n:o(f(n),r,i)}}function f(r){for(var i=0,s=1,f=n-1;s!==f&&c[s]<=r;++s)i+=e;var l=i+(r-c[--s])/(c[s+1]-c[s])*e,d=u(l,t,a);return d>=.001?function(n,e,t,r){for(var a=0;a<4;++a){var i=u(e,t,r);if(0===i)return e;e-=(o(e,t,r)-n)/i}return e}(r,l,t,a):0===d?l:function(n,e,t,r,a){for(var u,i,c=0;(u=o(i=e+(t-e)/2,r,a)-n)>0?t=i:e=i,Math.abs(u)>1e-7&&++c<10;);return i}(r,i,i+e,t,a)}}}(),v=(l={linear:function(){return function(n){return n}}},d={Sine:function(){return function(n){return 1-Math.cos(n*Math.PI/2)}},Circ:function(){return function(n){return 1-Math.sqrt(1-n*n)}},Back:function(){return function(n){return n*n*(3*n-2)}},Bounce:function(){return function(n){for(var e,t=4;n<((e=Math.pow(2,--t))-1)/11;);return 1/Math.pow(4,3-t)-7.5625*Math.pow((3*e-2)/22-n,2)}},Elastic:function(n,e){void 0===n&&(n=1),void 0===e&&(e=.5);var t=a(n,1,10),r=a(e,.1,2);return function(n){return 0===n||1===n?n:-t*Math.pow(2,10*(n-1))*Math.sin((n-1-r/(2*Math.PI)*Math.asin(1/t))*(2*Math.PI)/r)}}},["Quad","Cubic","Quart","Quint","Expo"].forEach(function(n,e){d[n]=function(){return function(n){return Math.pow(n,e+2)}}}),Object.keys(d).forEach(function(n){var e=d[n];l["easeIn"+n]=e,l["easeOut"+n]=function(n,t){return function(r){return 1-e(n,t)(1-r)}},l["easeInOut"+n]=function(n,t){return function(r){return r<.5?e(n,t)(2*r)/2:1-e(n,t)(-2*r+2)/2}},l["easeOutIn"+n]=function(n,t){return function(r){return r<.5?(1-e(n,t)(1-2*r))/2:(e(n,t)(2*r-1)+1)/2}}}),l);function h(n,e){if(i.fnc(n))return n;var t=n.split("(")[0],r=v[t],a=c(n);switch(t){case"spring":return s(n,e);case"cubicBezier":return u(p,a);case"steps":return u(f,a);default:return u(r,a)}}function g(n){try{return document.querySelectorAll(n)}catch(n){return}}function m(n,e){for(var t=n.length,r=arguments.length>=2?arguments[1]:void 0,a=[],o=0;o<t;o++)if(o in n){var u=n[o];e.call(r,u,o,n)&&a.push(u)}return a}function y(n){return n.reduce(function(n,e){return n.concat(i.arr(e)?y(e):e)},[])}function b(n){return i.arr(n)?n:(i.str(n)&&(n=g(n)||n),n instanceof NodeList||n instanceof HTMLCollection?[].slice.call(n):[n])}function M(n,e){return n.some(function(n){return n===e})}function x(n){var e={};for(var t in n)e[t]=n[t];return e}function w(n,e){var t=x(n);for(var r in n)t[r]=e.hasOwnProperty(r)?e[r]:n[r];return t}function k(n,e){var t=x(n);for(var r in e)t[r]=i.und(n[r])?e[r]:n[r];return t}function O(n){return i.rgb(n)?(t=/rgb\((\d+,\s*[\d]+,\s*[\d]+)\)/g.exec(e=n))?"rgba("+t[1]+",1)":e:i.hex(n)?(r=n.replace(/^#?([a-f\d])([a-f\d])([a-f\d])$/i,function(n,e,t,r){return e+e+t+t+r+r}),a=/^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(r),"rgba("+parseInt(a[1],16)+","+parseInt(a[2],16)+","+parseInt(a[3],16)+",1)"):i.hsl(n)?function(n){var e,t,r,a=/hsl\((\d+),\s*([\d.]+)%,\s*([\d.]+)%\)/g.exec(n)||/hsla\((\d+),\s*([\d.]+)%,\s*([\d.]+)%,\s*([\d.]+)\)/g.exec(n),o=parseInt(a[1],10)/360,u=parseInt(a[2],10)/100,i=parseInt(a[3],10)/100,c=a[4]||1;function s(n,e,t){return t<0&&(t+=1),t>1&&(t-=1),t<1/6?n+6*(e-n)*t:t<.5?e:t<2/3?n+(e-n)*(2/3-t)*6:n}if(0==u)e=t=r=i;else{var f=i<.5?i*(1+u):i+u-i*u,l=2*i-f;e=s(l,f,o+1/3),t=s(l,f,o),r=s(l,f,o-1/3)}return"rgba("+255*e+","+255*t+","+255*r+","+c+")"}(n):void 0;var e,t,r,a}function C(n){var e=/[+-]?\d*\.?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?(%|px|pt|em|rem|in|cm|mm|ex|ch|pc|vw|vh|vmin|vmax|deg|rad|turn)?$/.exec(n);if(e)return e[1]}function P(n,e){return i.fnc(n)?n(e.target,e.id,e.total):n}function I(n,e){return n.getAttribute(e)}function D(n,e,t){if(M([t,"deg","rad","turn"],C(e)))return e;var a=r.CSS[e+t];if(!i.und(a))return a;var o=document.createElement(n.tagName),u=n.parentNode&&n.parentNode!==document?n.parentNode:document.body;u.appendChild(o),o.style.position="absolute",o.style.width=100+t;var c=100/o.offsetWidth;u.removeChild(o);var s=c*parseFloat(e);return r.CSS[e+t]=s,s}function B(n,e,t){if(e in n.style){var r=e.replace(/([a-z])([A-Z])/g,"$1-$2").toLowerCase(),a=n.style[e]||getComputedStyle(n).getPropertyValue(r)||"0";return t?D(n,a,t):a}}function T(n,e){return i.dom(n)&&!i.inp(n)&&(!i.nil(I(n,e))||i.svg(n)&&n[e])?"attribute":i.dom(n)&&M(t,e)?"transform":i.dom(n)&&"transform"!==e&&B(n,e)?"css":null!=n[e]?"object":void 0}function E(n){if(i.dom(n)){for(var e,t=n.style.transform||"",r=/(\w+)\(([^)]*)\)/g,a=new Map;e=r.exec(t);)a.set(e[1],e[2]);return a}}function F(n,e,t,r){var a,u=o(e,"scale")?1:0+(o(a=e,"translate")||"perspective"===a?"px":o(a,"rotate")||o(a,"skew")?"deg":void 0),i=E(n).get(e)||u;return t&&(t.transforms.list.set(e,i),t.transforms.last=e),r?D(n,i,r):i}function A(n,e,t,r){switch(T(n,e)){case"transform":return F(n,e,r,t);case"css":return B(n,e,t);case"attribute":return I(n,e);default:return n[e]||0}}function N(n,e){var t=/^(\*=|\+=|-=)/.exec(n);if(!t)return n;var r=C(n)||0,a=parseFloat(e),o=parseFloat(n.replace(t[0],""));switch(t[0][0]){case"+":return a+o+r;case"-":return a-o+r;case"*":return a*o+r}}function S(n,e){if(i.col(n))return O(n);if(/\s/g.test(n))return n;var t=C(n),r=t?n.substr(0,n.length-t.length):n;return e?r+e:r}function L(n,e){return Math.sqrt(Math.pow(e.x-n.x,2)+Math.pow(e.y-n.y,2))}function j(n){for(var e,t=n.points,r=0,a=0;a<t.numberOfItems;a++){var o=t.getItem(a);a>0&&(r+=L(e,o)),e=o}return r}function q(n){if(n.getTotalLength)return n.getTotalLength();switch(n.tagName.toLowerCase()){case"circle":return o=n,2*Math.PI*I(o,"r");case"rect":return 2*I(a=n,"width")+2*I(a,"height");case"line":return L({x:I(r=n,"x1"),y:I(r,"y1")},{x:I(r,"x2"),y:I(r,"y2")});case"polyline":return j(n);case"polygon":return t=(e=n).points,j(e)+L(t.getItem(t.numberOfItems-1),t.getItem(0))}var e,t,r,a,o}function H(n,e){var t=e||{},r=t.el||function(n){for(var e=n.parentNode;i.svg(e)&&i.svg(e.parentNode);)e=e.parentNode;return e}(n),a=r.getBoundingClientRect(),o=I(r,"viewBox"),u=a.width,c=a.height,s=t.viewBox||(o?o.split(" "):[0,0,u,c]);return{el:r,viewBox:s,x:s[0]/1,y:s[1]/1,w:u,h:c,vW:s[2],vH:s[3]}}function V(n,e,t){function r(t){void 0===t&&(t=0);var r=e+t>=1?e+t:0;return n.el.getPointAtLength(r)}var a=H(n.el,n.svg),o=r(),u=r(-1),i=r(1),c=t?1:a.w/a.vW,s=t?1:a.h/a.vH;switch(n.property){case"x":return(o.x-a.x)*c;case"y":return(o.y-a.y)*s;case"angle":return 180*Math.atan2(i.y-u.y,i.x-u.x)/Math.PI}}function $(n,e){var t=/[+-]?\d*\.?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?/g,r=S(i.pth(n)?n.totalLength:n,e)+"";return{original:r,numbers:r.match(t)?r.match(t).map(Number):[0],strings:i.str(n)||e?r.split(t):[]}}function W(n){return m(n?y(i.arr(n)?n.map(b):b(n)):[],function(n,e,t){return t.indexOf(n)===e})}function X(n){var e=W(n);return e.map(function(n,t){return{target:n,id:t,total:e.length,transforms:{list:E(n)}}})}function Y(n,e){var t=x(e);if(/^spring/.test(t.easing)&&(t.duration=s(t.easing)),i.arr(n)){var r=n.length;2===r&&!i.obj(n[0])?n={value:n}:i.fnc(e.duration)||(t.duration=e.duration/r)}var a=i.arr(n)?n:[n];return a.map(function(n,t){var r=i.obj(n)&&!i.pth(n)?n:{value:n};return i.und(r.delay)&&(r.delay=t?0:e.delay),i.und(r.endDelay)&&(r.endDelay=t===a.length-1?e.endDelay:0),r}).map(function(n){return k(n,t)})}function Z(n,e){var t=[],r=e.keyframes;for(var a in r&&(e=k(function(n){for(var e=m(y(n.map(function(n){return Object.keys(n)})),function(n){return i.key(n)}).reduce(function(n,e){return n.indexOf(e)<0&&n.push(e),n},[]),t={},r=function(r){var a=e[r];t[a]=n.map(function(n){var e={};for(var t in n)i.key(t)?t==a&&(e.value=n[t]):e[t]=n[t];return e})},a=0;a<e.length;a++)r(a);return t}(r),e)),e)i.key(a)&&t.push({name:a,tweens:Y(e[a],n)});return t}function G(n,e){var t;return n.tweens.map(function(r){var a=function(n,e){var t={};for(var r in n){var a=P(n[r],e);i.arr(a)&&1===(a=a.map(function(n){return P(n,e)})).length&&(a=a[0]),t[r]=a}return t.duration=parseFloat(t.duration),t.delay=parseFloat(t.delay),t}(r,e),o=a.value,u=i.arr(o)?o[1]:o,c=C(u),s=A(e.target,n.name,c,e),f=t?t.to.original:s,l=i.arr(o)?o[0]:f,d=C(l)||C(s),p=c||d;return i.und(u)&&(u=f),a.from=$(l,p),a.to=$(N(u,l),p),a.start=t?t.end:0,a.end=a.start+a.delay+a.duration+a.endDelay,a.easing=h(a.easing,a.duration),a.isPath=i.pth(o),a.isPathTargetInsideSVG=a.isPath&&i.svg(e.target),a.isColor=i.col(a.from.original),a.isColor&&(a.round=1),t=a,a})}var Q={css:function(n,e,t){return n.style[e]=t},attribute:function(n,e,t){return n.setAttribute(e,t)},object:function(n,e,t){return n[e]=t},transform:function(n,e,t,r,a){if(r.list.set(e,t),e===r.last||a){var o="";r.list.forEach(function(n,e){o+=e+"("+n+") "}),n.style.transform=o}}};function z(n,e){X(n).forEach(function(n){for(var t in e){var r=P(e[t],n),a=n.target,o=C(r),u=A(a,t,o,n),i=N(S(r,o||C(u)),u),c=T(a,t);Q[c](a,t,i,n.transforms,!0)}})}function _(n,e){return m(y(n.map(function(n){return e.map(function(e){return function(n,e){var t=T(n.target,e.name);if(t){var r=G(e,n),a=r[r.length-1];return{type:t,property:e.name,animatable:n,tweens:r,duration:a.end,delay:r[0].delay,endDelay:a.endDelay}}}(n,e)})})),function(n){return!i.und(n)})}function R(n,e){var t=n.length,r=function(n){return n.timelineOffset?n.timelineOffset:0},a={};return a.duration=t?Math.max.apply(Math,n.map(function(n){return r(n)+n.duration})):e.duration,a.delay=t?Math.min.apply(Math,n.map(function(n){return r(n)+n.delay})):e.delay,a.endDelay=t?a.duration-Math.max.apply(Math,n.map(function(n){return r(n)+n.duration-n.endDelay})):e.endDelay,a}var J=0;var K=[],U=function(){var n;function e(t){for(var r=K.length,a=0;a<r;){var o=K[a];o.paused?(K.splice(a,1),r--):(o.tick(t),a++)}n=a>0?requestAnimationFrame(e):void 0}return"undefined"!=typeof document&&document.addEventListener("visibilitychange",function(){en.suspendWhenDocumentHidden&&(nn()?n=cancelAnimationFrame(n):(K.forEach(function(n){return n._onDocumentVisibility()}),U()))}),function(){n||nn()&&en.suspendWhenDocumentHidden||!(K.length>0)||(n=requestAnimationFrame(e))}}();function nn(){return!!document&&document.hidden}function en(t){void 0===t&&(t={});var r,o=0,u=0,i=0,c=0,s=null;function f(n){var e=window.Promise&&new Promise(function(n){return s=n});return n.finished=e,e}var l,d,p,v,h,g,y,b,M=(d=w(n,l=t),p=w(e,l),v=Z(p,l),h=X(l.targets),g=_(h,v),y=R(g,p),b=J,J++,k(d,{id:b,children:[],animatables:h,animations:g,duration:y.duration,delay:y.delay,endDelay:y.endDelay}));f(M);function x(){var n=M.direction;"alternate"!==n&&(M.direction="normal"!==n?"normal":"reverse"),M.reversed=!M.reversed,r.forEach(function(n){return n.reversed=M.reversed})}function O(n){return M.reversed?M.duration-n:n}function C(){o=0,u=O(M.currentTime)*(1/en.speed)}function P(n,e){e&&e.seek(n-e.timelineOffset)}function I(n){for(var e=0,t=M.animations,r=t.length;e<r;){var o=t[e],u=o.animatable,i=o.tweens,c=i.length-1,s=i[c];c&&(s=m(i,function(e){return n<e.end})[0]||s);for(var f=a(n-s.start-s.delay,0,s.duration)/s.duration,l=isNaN(f)?1:s.easing(f),d=s.to.strings,p=s.round,v=[],h=s.to.numbers.length,g=void 0,y=0;y<h;y++){var b=void 0,x=s.to.numbers[y],w=s.from.numbers[y]||0;b=s.isPath?V(s.value,l*x,s.isPathTargetInsideSVG):w+l*(x-w),p&&(s.isColor&&y>2||(b=Math.round(b*p)/p)),v.push(b)}var k=d.length;if(k){g=d[0];for(var O=0;O<k;O++){d[O];var C=d[O+1],P=v[O];isNaN(P)||(g+=C?P+C:P+" ")}}else g=v[0];Q[o.type](u.target,o.property,g,u.transforms),o.currentValue=g,e++}}function D(n){M[n]&&!M.passThrough&&M[n](M)}function B(n){var e=M.duration,t=M.delay,l=e-M.endDelay,d=O(n);M.progress=a(d/e*100,0,100),M.reversePlayback=d<M.currentTime,r&&function(n){if(M.reversePlayback)for(var e=c;e--;)P(n,r[e]);else for(var t=0;t<c;t++)P(n,r[t])}(d),!M.began&&M.currentTime>0&&(M.began=!0,D("begin")),!M.loopBegan&&M.currentTime>0&&(M.loopBegan=!0,D("loopBegin")),d<=t&&0!==M.currentTime&&I(0),(d>=l&&M.currentTime!==e||!e)&&I(e),d>t&&d<l?(M.changeBegan||(M.changeBegan=!0,M.changeCompleted=!1,D("changeBegin")),D("change"),I(d)):M.changeBegan&&(M.changeCompleted=!0,M.changeBegan=!1,D("changeComplete")),M.currentTime=a(d,0,e),M.began&&D("update"),n>=e&&(u=0,M.remaining&&!0!==M.remaining&&M.remaining--,M.remaining?(o=i,D("loopComplete"),M.loopBegan=!1,"alternate"===M.direction&&x()):(M.paused=!0,M.completed||(M.completed=!0,D("loopComplete"),D("complete"),!M.passThrough&&"Promise"in window&&(s(),f(M)))))}return M.reset=function(){var n=M.direction;M.passThrough=!1,M.currentTime=0,M.progress=0,M.paused=!0,M.began=!1,M.loopBegan=!1,M.changeBegan=!1,M.completed=!1,M.changeCompleted=!1,M.reversePlayback=!1,M.reversed="reverse"===n,M.remaining=M.loop,r=M.children;for(var e=c=r.length;e--;)M.children[e].reset();(M.reversed&&!0!==M.loop||"alternate"===n&&1===M.loop)&&M.remaining++,I(M.reversed?M.duration:0)},M._onDocumentVisibility=C,M.set=function(n,e){return z(n,e),M},M.tick=function(n){i=n,o||(o=i),B((i+(u-o))*en.speed)},M.seek=function(n){B(O(n))},M.pause=function(){M.paused=!0,C()},M.play=function(){M.paused&&(M.completed&&M.reset(),M.paused=!1,K.push(M),C(),U())},M.reverse=function(){x(),M.completed=!M.reversed,C()},M.restart=function(){M.reset(),M.play()},M.remove=function(n){rn(W(n),M)},M.reset(),M.autoplay&&M.play(),M}function tn(n,e){for(var t=e.length;t--;)M(n,e[t].animatable.target)&&e.splice(t,1)}function rn(n,e){var t=e.animations,r=e.children;tn(n,t);for(var a=r.length;a--;){var o=r[a],u=o.animations;tn(n,u),u.length||o.children.length||r.splice(a,1)}t.length||r.length||e.pause()}return en.version="3.2.1",en.speed=1,en.suspendWhenDocumentHidden=!0,en.running=K,en.remove=function(n){for(var e=W(n),t=K.length;t--;)rn(e,K[t])},en.get=A,en.set=z,en.convertPx=D,en.path=function(n,e){var t=i.str(n)?g(n)[0]:n,r=e||100;return function(n){return{property:n,el:t,svg:H(t),totalLength:q(t)*(r/100)}}},en.setDashoffset=function(n){var e=q(n);return n.setAttribute("stroke-dasharray",e),e},en.stagger=function(n,e){void 0===e&&(e={});var t=e.direction||"normal",r=e.easing?h(e.easing):null,a=e.grid,o=e.axis,u=e.from||0,c="first"===u,s="center"===u,f="last"===u,l=i.arr(n),d=l?parseFloat(n[0]):parseFloat(n),p=l?parseFloat(n[1]):0,v=C(l?n[1]:n)||0,g=e.start||0+(l?d:0),m=[],y=0;return function(n,e,i){if(c&&(u=0),s&&(u=(i-1)/2),f&&(u=i-1),!m.length){for(var h=0;h<i;h++){if(a){var b=s?(a[0]-1)/2:u%a[0],M=s?(a[1]-1)/2:Math.floor(u/a[0]),x=b-h%a[0],w=M-Math.floor(h/a[0]),k=Math.sqrt(x*x+w*w);"x"===o&&(k=-x),"y"===o&&(k=-w),m.push(k)}else m.push(Math.abs(u-h));y=Math.max.apply(Math,m)}r&&(m=m.map(function(n){return r(n/y)*y})),"reverse"===t&&(m=m.map(function(n){return o?n<0?-1*n:-n:Math.abs(y-n)}))}return g+(l?(p-d)/y:d)*(Math.round(100*m[e])/100)+v}},en.timeline=function(n){void 0===n&&(n={});var t=en(n);return t.duration=0,t.add=function(r,a){var o=K.indexOf(t),u=t.children;function c(n){n.passThrough=!0}o>-1&&K.splice(o,1);for(var s=0;s<u.length;s++)c(u[s]);var f=k(r,w(e,n));f.targets=f.targets||n.targets;var l=t.duration;f.autoplay=!1,f.direction=t.direction,f.timelineOffset=i.und(a)?l:N(a,l),c(t),t.seek(f.timelineOffset);var d=en(f);c(d),u.push(d);var p=R(u,n);return t.delay=p.delay,t.endDelay=p.endDelay,t.duration=p.duration,t.seek(0),t.reset(),t.autoplay&&t.play(),t},t},en.easing=h,en.penner=v,en.random=function(n,e){return Math.floor(Math.random()*(e-n+1))+n},en});
+</script>
+<style>
+  :root{
+    --bg-deep:#0A0E12;
+    --bg-panel:#10161C;
+    --bg-panel-2:#141B22;
+    --line:#1E262E;
+    --line-soft:#171E25;
+    --text:#E8EDF2;
+    --text-muted:#7C8A96;
+    --text-faint:#4B5762;
+    --cyan:#4FD1C5;
+    --cyan-dim:#4FD1C533;
+    --amber:#F4A93E;
+    --amber-dim:#F4A93E33;
+    --mono:'JetBrains Mono', ui-monospace, monospace;
+    --body:'Inter', system-ui, sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg-deep);
+    color:var(--text);
+    font-family:var(--body);
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+  body::before{
+    content:'';
+    position:fixed;inset:0;
+    background-image:
+      radial-gradient(circle at 1px 1px, #ffffff08 1px, transparent 0);
+    background-size:28px 28px;
+    pointer-events:none;
+    z-index:0;
+  }
+  a{color:inherit;}
+  ::selection{background:var(--cyan-dim);color:var(--text);}
+
+  /* focus visibility */
+  a:focus-visible, button:focus-visible{
+    outline:2px solid var(--cyan);
+    outline-offset:3px;
+  }
+
+  .wrap{max-width:920px;margin:0 auto;padding:0 28px;}
+
+  /* ---------- nav ---------- */
+  .nav{
+    position:fixed;top:0;left:0;right:0;z-index:50;
+    background:#0A0E12CC;
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line-soft);
+    font-family:var(--mono);
+    font-size:12.5px;
+  }
+  .nav .wrap{
+    display:flex;align-items:center;justify-content:space-between;
+    height:44px;max-width:920px;
+  }
+  .nav-path{color:var(--text-muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .nav-path .prompt{color:var(--cyan);}
+  .nav-status{display:flex;align-items:center;gap:6px;color:var(--text-faint);}
+  .dot-live{width:6px;height:6px;border-radius:50%;background:var(--cyan);box-shadow:0 0 8px var(--cyan);animation:pulse 2s ease-in-out infinite;}
+  @keyframes pulse{0%,100%{opacity:1;}50%{opacity:.35;}}
+
+  section{position:relative;z-index:1;}
+
+  /* ---------- hero ---------- */
+  .hero{
+    min-height:100vh;
+    display:flex;flex-direction:column;justify-content:center;
+    padding:120px 0 80px;
+  }
+  .term{
+    background:var(--bg-panel);
+    border:1px solid var(--line);
+    border-radius:10px;
+    overflow:hidden;
+    box-shadow:0 30px 80px -30px #000c;
+  }
+  .term-bar{
+    display:flex;align-items:center;gap:8px;
+    padding:10px 14px;
+    background:var(--bg-panel-2);
+    border-bottom:1px solid var(--line);
+  }
+  .term-bar span{width:10px;height:10px;border-radius:50%;display:inline-block;}
+  .term-bar .r{background:#F2555580;} .term-bar .y{background:#F4A93E80;} .term-bar .g{background:#4FD1C580;}
+  .term-title{margin-left:8px;font-family:var(--mono);font-size:12px;color:var(--text-faint);}
+  .term-body{padding:22px 24px 26px;font-family:var(--mono);font-size:13.5px;color:var(--text-muted);}
+  .term-line{opacity:0;white-space:pre-wrap;}
+  .term-line .prompt{color:var(--cyan);}
+  .term-line b{color:var(--text);font-weight:600;}
+
+  .hero-name{
+    font-family:var(--mono);
+    font-weight:800;
+    font-size:clamp(48px,9vw,96px);
+    letter-spacing:-0.02em;
+    line-height:1;
+    margin:34px 0 6px;
+    opacity:0;
+  }
+  .hero-role{
+    font-size:clamp(16px,2.2vw,20px);
+    color:var(--text);
+    max-width:640px;
+    opacity:0;
+  }
+  .hero-role b{color:var(--cyan);font-weight:600;}
+  .hero-meta{
+    display:flex;flex-wrap:wrap;gap:10px;
+    margin-top:20px;
+    font-family:var(--mono);font-size:12.5px;
+    opacity:0;
+  }
+  .pill{
+    border:1px solid var(--line);
+    background:var(--bg-panel);
+    color:var(--text-muted);
+    padding:6px 12px;border-radius:20px;
+    display:flex;align-items:center;gap:7px;
+  }
+  .pill b{color:var(--text);font-weight:500;}
+
+  .scroll-cue{
+    margin-top:56px;
+    font-family:var(--mono);font-size:11.5px;color:var(--text-faint);
+    display:flex;align-items:center;gap:8px;
+    opacity:0;
+  }
+  .scroll-cue .bar{width:1px;height:26px;background:linear-gradient(var(--cyan),transparent);animation:drop 1.6s ease-in-out infinite;}
+  @keyframes drop{0%{transform:translateY(-6px);opacity:0;}50%{opacity:1;}100%{transform:translateY(6px);opacity:0;}}
+
+  /* ---------- section shell ---------- */
+  .sec{padding:90px 0;border-top:1px solid var(--line-soft);}
+  .sec-head{display:flex;align-items:baseline;gap:14px;margin-bottom:40px;}
+  .sec-head{opacity:0;transform:translateY(14px);}
+  .sec-tag{
+    font-family:var(--mono);font-size:12px;color:var(--amber);
+    letter-spacing:.06em;
+  }
+  .sec-title{
+    font-family:var(--mono);font-weight:700;font-size:clamp(22px,3vw,30px);
+    letter-spacing:-0.01em;
+  }
+  .sec-title span{color:var(--text-faint);}
+
+  /* ---------- about ---------- */
+  .about-grid{display:grid;grid-template-columns:170px 1fr;gap:36px;}
+  .about-label{font-family:var(--mono);font-size:12.5px;color:var(--text-faint);padding-top:4px;}
+  .about-body p{color:var(--text-muted);font-size:15.5px;max-width:60ch;opacity:0;transform:translateY(12px);}
+  .about-body p + p{margin-top:14px;}
+  .kv-list{margin-top:26px;border-top:1px solid var(--line-soft);}
+  .kv-row{
+    display:grid;grid-template-columns:140px 1fr;gap:20px;
+    padding:11px 0;border-bottom:1px solid var(--line-soft);
+    font-size:14px;
+  }
+  .kv-row .k{font-family:var(--mono);color:var(--text-faint);font-size:12.5px;padding-top:2px;}
+  .kv-row .v{color:var(--text);}
+  .kv-row .v em{color:var(--cyan);font-style:normal;}
+
+  /* ---------- experience / traceroute ---------- */
+  .trace-intro{
+    font-family:var(--mono);font-size:12.5px;color:var(--text-faint);
+    margin-bottom:34px;padding-bottom:18px;border-bottom:1px dashed var(--line);
+  }
+  .trace{position:relative;padding-left:46px;}
+  .trace-spine{
+    position:absolute;left:15px;top:6px;bottom:6px;width:1px;
+    background:var(--line);
+  }
+  .trace-spine-fill{
+    position:absolute;left:0;top:0;width:100%;height:0%;
+    background:linear-gradient(var(--cyan), var(--cyan-dim));
+  }
+  .hop{position:relative;padding-bottom:44px;opacity:0;transform:translateY(18px);}
+  .hop:last-child{padding-bottom:0;}
+  .hop-num{
+    position:absolute;left:-46px;top:0;
+    width:32px;height:32px;border-radius:50%;
+    background:var(--bg-panel);border:1px solid var(--line);
+    display:flex;align-items:center;justify-content:center;
+    font-family:var(--mono);font-size:11.5px;color:var(--text-muted);
+    z-index:2;
+  }
+  .hop.current .hop-num{border-color:var(--amber);color:var(--amber);box-shadow:0 0 0 4px var(--amber-dim);}
+  .hop-card{
+    background:var(--bg-panel);border:1px solid var(--line);border-radius:10px;
+    padding:20px 22px;
+  }
+  .hop.current .hop-card{border-color:#F4A93E44;}
+  .hop-top{display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px;margin-bottom:10px;}
+  .hop-host{font-family:var(--mono);font-weight:600;font-size:14.5px;color:var(--text);}
+  .hop-host .at{color:var(--text-faint);font-weight:400;}
+  .hop-time{
+    font-family:var(--mono);font-size:11px;color:var(--text-faint);
+    border:1px solid var(--line);padding:3px 9px;border-radius:20px;
+  }
+  .hop.current .hop-time{color:var(--amber);border-color:#F4A93E44;}
+  .hop-role{font-weight:600;font-size:15.5px;margin-bottom:8px;}
+  .hop-desc{color:var(--text-muted);font-size:14.5px;max-width:64ch;}
+  .hop-desc + .hop-desc{margin-top:8px;}
+  .hop-status{
+    display:inline-flex;align-items:center;gap:6px;margin-top:12px;
+    font-family:var(--mono);font-size:11px;color:var(--cyan);
+  }
+  .hop-status .d{width:5px;height:5px;border-radius:50%;background:var(--cyan);}
+
+  /* ---------- education / certs ---------- */
+  .ed-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+  .phase-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:22px;}
+  .phase-grid p{text-align:justify;text-justify:inter-word;}
+  .card-contribution{margin:12px 0;padding:10px 12px;border-left:2px solid var(--cyan);background:var(--cyan-dim);border-radius:0 6px 6px 0;font-size:13px;line-height:1.5;color:var(--text);opacity:0;transform:scaleX(0);transform-origin:left center;}
+  .card-contribution .label{display:block;font-family:var(--mono);font-size:10px;color:var(--cyan);margin-bottom:4px;letter-spacing:.04em;}
+  .phase-grid .card:last-child .card-contribution{border-left-color:var(--amber);background:var(--amber-dim);}
+  .phase-grid .card:last-child .card-contribution .label{color:var(--amber);}
+  .story-card{margin-top:24px;}
+  .story-card h3{margin-bottom:14px;}
+  .story-card p{text-align:justify;text-justify:inter-word;}
+  .story-card p + p{margin-top:12px;}
+  .featured-project{margin-top:18px;border-color:#4FD1C544;}
+  .featured-project .proj-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px;}
+  .featured-project .proj-tag{font-family:var(--mono);font-size:10.5px;color:var(--text-muted);border:1px solid var(--line);padding:3px 8px;border-radius:12px;}
+  .card{
+    background:var(--bg-panel);border:1px solid var(--line);border-radius:10px;
+    padding:22px;opacity:0;transform:translateY(16px);
+  }
+  .card-tag{
+    font-family:var(--mono);font-size:11px;color:var(--amber);
+    display:inline-flex;align-items:center;gap:6px;margin-bottom:10px;
+  }
+  .card-tag.active{color:var(--cyan);}
+  .card-tag .d{width:5px;height:5px;border-radius:50%;background:currentColor;animation:pulse 2s ease-in-out infinite;}
+  .card h3{font-size:16.5px;margin-bottom:4px;}
+  .card .sub{font-family:var(--mono);font-size:12.5px;color:var(--text-muted);margin-bottom:12px;}
+  .card p{font-size:14px;color:var(--text-muted);}
+  .card .meta{margin-top:14px;padding-top:14px;border-top:1px solid var(--line-soft);font-family:var(--mono);font-size:12px;color:var(--text-faint);}
+
+  .badge-grid{display:flex;flex-wrap:wrap;gap:12px;}
+  .badge{
+    display:flex;align-items:center;gap:10px;
+    background:var(--bg-panel);border:1px solid var(--line);border-radius:8px;
+    padding:12px 16px;opacity:0;transform:scale(.94);
+  }
+  .badge-icon{
+    width:30px;height:30px;border-radius:6px;
+    background:var(--cyan-dim);color:var(--cyan);
+    display:flex;align-items:center;justify-content:center;
+    font-family:var(--mono);font-weight:700;font-size:12px;
+    flex-shrink:0;
+  }
+  .badge-text{font-size:13.5px;line-height:1.3;}
+  .badge-text .issuer{display:block;font-family:var(--mono);font-size:11px;color:var(--text-faint);margin-top:2px;}
+  .badge.more{color:var(--text-faint);font-family:var(--mono);font-size:12.5px;border-style:dashed;}
+
+  /* ---------- publications / honors ---------- */
+  .pub{padding:16px 0;border-top:1px solid var(--line-soft);opacity:0;}
+  .pub:last-child{border-bottom:1px solid var(--line-soft);}
+  .pub-title{font-weight:600;font-size:14.5px;margin-bottom:4px;}
+  .pub-meta{font-family:var(--mono);font-size:12px;color:var(--text-faint);}
+  .honors-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px;}
+  .honor-chip{
+    font-family:var(--mono);font-size:12px;color:var(--amber);
+    border:1px solid #F4A93E33;background:var(--amber-dim);
+    padding:7px 13px;border-radius:20px;opacity:0;
+  }
+
+  /* ---------- footer ---------- */
+  .footer{padding:90px 0 60px;text-align:center;}
+  .footer-panel{
+    background:var(--bg-panel);border:1px solid var(--line);border-radius:14px;
+    padding:48px 32px;opacity:0;transform:translateY(16px);
+  }
+  .footer-title{font-family:var(--mono);font-weight:700;font-size:clamp(22px,3vw,30px);margin-bottom:12px;}
+  .footer-sub{color:var(--text-muted);font-size:15px;max-width:52ch;margin:0 auto 26px;}
+  .cta{
+    display:inline-flex;align-items:center;gap:8px;
+    font-family:var(--mono);font-size:13px;font-weight:500;
+    background:var(--cyan);color:#0A0E12;
+    padding:12px 22px;border-radius:8px;text-decoration:none;
+    transition:transform .15s ease, box-shadow .15s ease;
+    border:none;cursor:pointer;
+  }
+  .cta:hover{transform:translateY(-2px);box-shadow:0 10px 30px -10px var(--cyan-dim);}
+  .footer-links{display:flex;justify-content:center;flex-wrap:wrap;gap:8px 20px;margin-top:22px;font-family:var(--mono);font-size:12.5px;}
+  .footer-links a{color:var(--cyan);text-decoration:none;}
+  .footer-links a:hover{text-decoration:underline;}
+  .footer-stats{
+    display:flex;justify-content:center;gap:32px;margin-top:32px;
+    font-family:var(--mono);font-size:11.5px;color:var(--text-faint);
+    flex-wrap:wrap;
+  }
+  .footer-stats b{display:block;color:var(--text);font-size:18px;font-weight:700;margin-bottom:2px;}
+  .footer-note{margin-top:40px;font-family:var(--mono);font-size:11px;color:var(--text-faint);}
+
+  /* ---------- topology diagram ---------- */
+  .topo-wrap{margin-top:8px;}
+  .topo-svg{width:100%;height:auto;display:block;overflow:visible;}
+  .topo-line{fill:none;stroke:var(--line);stroke-width:1.5;stroke-dasharray:6 6;opacity:0;animation:flow 2.2s linear infinite;}
+  @keyframes flow{to{stroke-dashoffset:-24;}}
+  .topo-node{opacity:0;}
+  .topo-node .body{fill:var(--bg-panel);stroke:var(--line);stroke-width:1.5;}
+  .topo-node.hub .body{stroke:var(--cyan);fill:var(--cyan-dim);}
+  .topo-node .body.core{stroke:var(--cyan);}
+  .topo-node .body.l2{stroke-dasharray:3 3;}
+  .topo-node .body.dmz{stroke:var(--amber);}
+  .vpn-line{stroke:var(--amber);}
+  .dmz-line{stroke-dasharray:5 5;}
+  .packet.vpn{fill:var(--amber);filter:drop-shadow(0 0 4px var(--amber));}
+  .topo-legend{display:flex;gap:18px;flex-wrap:wrap;margin-top:16px;font-family:var(--mono);font-size:10.5px;color:var(--text-faint);}
+  .topo-legend span{display:flex;align-items:center;gap:6px;}
+  .growth-arrow{stroke:var(--cyan);stroke-width:2;stroke-dasharray:none;animation:none;}
+
+  /* ---------- refinement table ---------- */
+  .refine-wrap{margin-top:36px;}
+  .refine-table{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--bg-panel);margin-top:14px;}
+  .refine-head,.refine-row{display:grid;grid-template-columns:1.7fr 1fr 1fr 1fr;gap:10px;align-items:center;padding:14px 16px;}
+  .refine-head{font-family:var(--mono);font-size:10px;color:var(--text-faint);border-bottom:1px solid var(--line-soft);letter-spacing:.04em;}
+  .refine-row{border-bottom:1px solid var(--line-soft);font-size:13.5px;opacity:0;}
+  .refine-row:last-child{border-bottom:none;}
+  .refine-tech{font-weight:500;}
+  .refine-sub{font-family:var(--mono);font-size:10px;color:var(--text-faint);margin-top:4px;font-weight:400;}
+  .refine-dash{color:var(--text-faint);font-family:var(--mono);}
+  .refine-cell{display:flex;align-items:center;gap:6px;font-family:var(--mono);font-size:10px;color:var(--text-faint);}
+  .refine-dots{display:flex;gap:4px;}
+  .refine-dot{width:7px;height:7px;border-radius:50%;background:var(--line);flex-shrink:0;}
+  .refine-dot.on{background:var(--cyan);transform:scale(0);opacity:0;}
+  .refine-legend{font-family:var(--mono);font-size:11px;color:var(--text-faint);margin-top:10px;}
+  @media (max-width:760px){
+    .refine-head{display:none;}
+    .refine-row{grid-template-columns:1fr;gap:6px;padding:14px 16px;}
+  }
+  .topo-node text{font-family:var(--mono);font-size:11px;fill:var(--text);text-anchor:middle;font-weight:600;}
+  .topo-node text.sub{fill:var(--text-faint);font-size:9px;font-weight:400;}
+  .hub-ping{fill:none;stroke:var(--cyan);stroke-width:1.4;opacity:.55;transform-box:fill-box;transform-origin:center;animation:ping 2.4s ease-out infinite;}
+  @keyframes ping{0%{transform:scale(1);opacity:.5;}100%{transform:scale(1.7);opacity:0;}}
+  .packet{fill:var(--cyan);filter:drop-shadow(0 0 4px var(--cyan));opacity:0;}
+  .topo-caption{font-family:var(--mono);font-size:12px;color:var(--text-faint);margin-top:18px;}
+  .topo-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;}
+  .topo-chip{font-family:var(--mono);font-size:11px;color:var(--text-muted);border:1px solid var(--line);background:var(--bg-panel);padding:6px 11px;border-radius:16px;opacity:0;}
+
+  /* ---------- side projects ---------- */
+  .proj-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+  .proj-card{background:var(--bg-panel);border:1px solid var(--line);border-radius:10px;padding:22px;opacity:0;transform:translateY(16px);}
+  .proj-icon{width:38px;height:38px;color:var(--cyan);margin-bottom:14px;}
+  .proj-card h3{font-size:15.5px;margin-bottom:5px;}
+  .proj-card .sub{font-family:var(--mono);font-size:11.5px;color:var(--text-faint);margin-bottom:10px;}
+  .proj-card p{font-size:13.5px;color:var(--text-muted);}
+  .proj-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px;}
+  .proj-tag{font-family:var(--mono);font-size:10.5px;color:var(--text-muted);border:1px solid var(--line);padding:3px 8px;border-radius:12px;}
+
+  /* ---------- progress chips ---------- */
+  .chip-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px;}
+  .chip{font-family:var(--mono);font-size:12px;padding:7px 13px;border-radius:20px;opacity:0;}
+  .chip.progress{color:var(--cyan);border:1px solid #4FD1C533;background:var(--cyan-dim);}
+  .chip.interest{color:var(--text-muted);border:1px solid var(--line);background:var(--bg-panel);}
+
+  @media (max-width:760px){
+    .proj-grid{grid-template-columns:1fr;}
+    .about-grid{grid-template-columns:1fr;gap:14px;}
+    .ed-grid{grid-template-columns:1fr;}
+    .phase-grid{grid-template-columns:1fr;}
+    .sec{padding:64px 0;}
+    .hero{padding-top:96px;}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important;}
+  }
+</style>
 </head>
-
 <body>
-    <div class="content-wrapper">
-        <aside>
-            <div class="profile-img-wrapper">
-                <img src="assets/images/Profile.png" alt="profile">
-            </div>
-            <h1 class="profile-name">Ahmad Faris Aiman bin Arizal</h1>
-            <div class="text-center">
-                <span class="badge badge-white badge-pill profile-designation">IT System Engineer</span>
-            </div>
-            <div class="widget">
-                <h5 class="widget-title">personal information</h5>
-                <div class="widget-content">
-                    <p>MAIL : af.aiman5578@gmail.com</p>
-                    <p>Location : Selangor, Malaysia</p>
-                    <a href="assets/pdf/Ahmad Faris Aiman bin Arizal - Resume.pdf" class="btn btn-download-cv btn-primary rounded-pill" download>
-                        <img src="assets/images/download.svg" alt="download" class="btn-img">DOWNLOAD RESUME
-                    </a>
-                </div>
-            </div>
-            <div class="widget card">
-                <div class="card-body">
-                    <div class="widget-content">
-                        <h5 class="widget-title card-title">LANGUAGES</h5>
-                        <p>English : Fluent</p>
-                        <p>Malay : Native</p>
-                    </div>
-                </div>
-            </div>
-            <div class="widget card">
-                <div class="card-body">
-                    <div class="widget-content">
-                        <h5 class="widget-title card-title">INTERESTS</h5>
-                        <p>Homelab</p>
-                        <p>Finance</p>
-                        <p>All things tech</p>
-                    </div>
-                </div>
-            </div>
-        </aside>
-        <main>
-            <section class="intro-section">
-                <h2 class="section-title">Hello world!</h2>
-                <p>I’m a Systems Engineer at KAF Digital Bank, with experience in network infrastructure and security. I’ve contributed to the development of a secure, scalable infrastructure, helping KAF Digital Bank achieve its Islamic Digital Bank license. I’m passionate about technology, security, and cloud services, and I’m always eager to expand my knowledge and grow in operational and architectural roles.</p>
-            </section>
-            <section class="resume-section">
-                <div class="row">
-                    <div class="col-lg-6">
-                        <h6 class="section-subtitle">EDUCATION</h6>
-                        <h2 class="section-title">Education</h2>
-                        <ul class="time-line">
-                            <li class="time-line-item">
-                                <span class="badge badge-primary">Present</span>
-                                <h6 class="time-line-item-title">Doctor of Philosophy in Computer Science</h6>
-                                <p class="time-line-item-subtitle">Universiti Teknologi Malaysia</p>
-                                <p class="time-line-item-content">Researching in AI, security, and privacy in financial systems.</p>
-                            </li>
-                            <li class="time-line-item">
-                                <span class="badge badge-primary">Completed - Feb 2024</span>
-                                <h6 class="time-line-item-title">Bachelor in Computer Science</h6>
-                                <p class="time-line-item-subtitle">Universiti Teknologi Malaysia</p>
-                                <p class="time-line-item-content">Specialized in Computer Networks and Security, achieving a 3.81 GPA.</p>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="col-lg-6">
-                        <h6 class="section-subtitle">EXPERIENCE</h6>
-                        <h2 class="section-title">Experience</h2>
-                        <ul class="time-line">
-                            <li class="time-line-item">
-                                <span class="badge badge-primary">Mar 2024-Present</span>
-                                <h6 class="time-line-item-title">Systems Engineer</h6>
-                                <p class="time-line-item-subtitle">KAF Digital Bank</p>
-                                <p class="time-line-item-content">Led the bank’s network infrastructure to secure the Islamic Digital Bank License. Implemented Azure PIM, identity management, and redesigned network security for multiple services.</p>
-                            </li>
-                            <li class="time-line-item">
-                                <span class="badge badge-primary">Aug 2023- Feb 2024</span>
-                                <h6 class="time-line-item-title">Systems Engineer Intern</h6>
-                                <p class="time-line-item-subtitle">KAF Digital Bank</p>
-                                <p class="time-line-item-content">Developed and deployed a secure Managed File Transfer solution, contributed to the design of the bank’s Azure Network Infrastructure.</p>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
-           
-            <section class="testimonial-section">
-                <div id="testimonialCarousel" class="testimonial-carousel carousel slide" data-ride="carousel">
-                    <div class="carousel-inner">
-                        <div class="carousel-item active">
-                            <p class="testimonial-content">"Ahmad's technical expertise and dedication have been instrumental in achieving key milestones for KAF Digital Bank."</p>
-                            <p class="testimonial-name">Nurudin Zainal, Enterprise Architect at KAF Digital Bank</p>
-                        </div>
-                    </div>
-                    <ol class="carousel-indicators">
-                        <li data-target="#testimonialCarousel" data-slide-to="0" class="active"></li>
-                    </ol>
-                </div>
-            </section>
 
-            <footer> All Rights Reserved 2020</footer>
-        </main>
+<nav class="nav">
+  <div class="wrap">
+    <div class="nav-path"><span class="prompt">faris@kaf-db</span>:~<span id="navPath">/intro</span>$</div>
+    <div class="nav-status"><span class="dot-live"></span>session active</div>
+  </div>
+</nav>
+
+<section class="hero" id="intro">
+  <div class="wrap">
+    <div class="term">
+      <div class="term-bar">
+        <span class="r"></span><span class="y"></span><span class="g"></span>
+        <span class="term-title">faris — traceroute</span>
+      </div>
+      <div class="term-body" id="termBody">
+        <div class="term-line">$ traceroute <b>faris.career</b></div>
+        <div class="term-line">traceroute to faris.career, 7 hops max, 6 years in transit</div>
+        <div class="term-line">origin: Universiti Teknologi Malaysia (Networks &amp; Security) → destination: <b>KAF Digital Bank</b></div>
+      </div>
     </div>
-    <script src="assets/vendors/jquery/dist/jquery.min.js"></script>
-    <script src="assets/vendors/@popperjs/core/dist/umd/popper-base.min.js"></script>
-    <script src="assets/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="assets/js/live-resume.js"></script>
-</body>
 
+    <h1 class="hero-name">FARIS</h1>
+    <p class="hero-role">Assistant Manager, Acting <b>Lead Cloud Engineer</b> — building and hardening the Azure landing zone for KAF Digital Bank, a BNM-licensed digital bank in Malaysia.</p>
+
+    <div class="hero-meta">
+      <span class="pill">📍 <b>Kuala Lumpur, Malaysia</b></span>
+      <span class="pill">🎓 <b>PhD candidate</b> — Cybersecurity / Classical ML</span>
+      <span class="pill">🛡️ <b>CCNA</b> · Azure Solutions Architect Expert</span>
+      <span class="pill">🧭 network engineer at heart</span>
+      <span class="pill">🧪 side build: <b>OpenClaw</b> — a self-hosted AIOps agent</span>
+    </div>
+
+    <div class="scroll-cue"><span class="bar"></span>scroll to continue the trace</div>
+  </div>
+</section>
+
+<section class="sec" id="about">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-tag">01</span><span class="sec-title">whoami <span>// about</span></span></div>
+    <div class="about-grid">
+      <div class="about-label">$ cat bio.txt</div>
+      <div class="about-body">
+        <p class="about-p">I started in networking — a Computer Science degree majoring in Networks &amp; Security, a CCNA, and a habit of thinking in packets, routes, and failure domains. That lens followed me into the cloud.</p>
+        <p class="about-p">I joined KAF Digital Bank as an intern while the platform was still greenfield, and grew into the engineer who now owns its multi-region Azure infrastructure across Malaysia West, Singapore, and Hong Kong — under BNM's RMiT framework. Along the way I built and now lead a small Cloud &amp; Network Operations team, while staying close to the infrastructure itself; I'd rather go deep on the systems than manage from a distance.</p>
+        <p class="about-p">As a founding member of the bank, I've had a hand in the platform since before it had customers — from the first Entra ID rollout to the Landing Zone that runs it today.</p>
+
+        <div class="kv-list">
+          <div class="kv-row"><div class="k">EMPLOYER</div><div class="v">KAF Digital Bank <em>(KAF Group)</em></div></div>
+          <div class="kv-row"><div class="k">ROLE</div><div class="v">Assistant Manager, Acting Lead Cloud Engineer</div></div>
+          <div class="kv-row"><div class="k">TEAM</div><div class="v">Built &amp; leads a 3-person Cloud &amp; Network Operations team</div></div>
+          <div class="kv-row"><div class="k">SCOPE</div><div class="v">Azure — Malaysia West <em>(primary)</em>, Singapore, Hong Kong</div></div>
+          <div class="kv-row"><div class="k">COMPLIANCE</div><div class="v">CIS benchmarks &amp; BNM RMiT requirements</div></div>
+          <div class="kv-row"><div class="k">EDUCATION</div><div class="v">B.Sc Computer Science (Networks &amp; Security), UTM — <em>3.81 GPA</em></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="experience">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-tag">02</span><span class="sec-title">career path <span>// traceroute</span></span></div>
+    <div class="trace-intro">$ traceroute faris.career — 7 hops, present → origin (Dec 2017)</div>
+
+    <div class="trace">
+      <div class="trace-spine"><div class="trace-spine-fill" id="spineFill"></div></div>
+
+      <div class="hop current">
+        <div class="hop-num">01</div>
+        <div class="hop-card">
+          <div class="hop-top"><div class="hop-host">kaf-digital-bank<span class="at">.internal</span></div><div class="hop-time">1 yr 6 mos · Mar 2025–present</div></div>
+          <div class="hop-role">Assistant Manager, Acting Lead Cloud Engineer</div>
+          <div class="hop-desc">Built and lead a 3-person Cloud &amp; Network Operations team, defining operating models and processes for the bank's cloud scale-up.</div>
+          <div class="hop-desc">Led the Azure Landing Zone rollout in Malaysia West, hardening the platform against CIS and RMiT requirements. Author ADR proposals shaping Virtual WAN migration, Windows Server 2025 migration, native Entra ID adoption, API Management, DMZ architecture, and JWT-based API security.</div>
+          <div class="hop-status"><span class="d"></span>you are here — trace continues to origin</div>
+        </div>
+      </div>
+
+      <div class="hop">
+        <div class="hop-num">02</div>
+        <div class="hop-card">
+          <div class="hop-top"><div class="hop-host">kaf-digital-bank<span class="at">.internal</span></div><div class="hop-time">1 yr 1 mo · Mar 2024–Mar 2025</div></div>
+          <div class="hop-role">Executive, IT System Engineer</div>
+          <div class="hop-desc">Owned technical delivery for core platform components through the bank's launch, including core banking and payments integration architecture.</div>
+          <div class="hop-desc">Delivered BNM remediation ahead of go-live — Microsoft Entra ID (SSO) and Azure PIM — and resolved integration issues vendors couldn't close on their own.</div>
+        </div>
+      </div>
+
+      <div class="hop">
+        <div class="hop-num">03</div>
+        <div class="hop-card">
+          <div class="hop-top"><div class="hop-host">kaf-digital-bank<span class="at">.internal</span></div><div class="hop-time">7 mos · Aug 2023–Feb 2024</div></div>
+          <div class="hop-role">Intern, IT System Engineer</div>
+          <div class="hop-desc">Built proof-of-concepts for core infrastructure in a greenfield Azure environment. Independently designed the file transfer system underpinning core banking and payments integration.</div>
+          <div class="hop-desc">Helped stand up early identity foundations with Microsoft Entra ID and Entra Domain Services.</div>
+        </div>
+      </div>
+
+      <div class="hop">
+        <div class="hop-num">04</div>
+        <div class="hop-card">
+          <div class="hop-top"><div class="hop-host">utm<span class="at">.fc-networking</span></div><div class="hop-time">5 mos · 2023</div></div>
+          <div class="hop-role">Teaching Assistant — Network Programming (SECR3253)</div>
+          <div class="hop-desc">Supported the Faculty of Computing: grading, review sessions, office hours, course material development, and exam proctoring.</div>
+        </div>
+      </div>
+
+      <div class="hop">
+        <div class="hop-num">05</div>
+        <div class="hop-card">
+          <div class="hop-top"><div class="hop-host">utm<span class="at">.razak-faculty</span></div><div class="hop-time">5 mos · 2020–21</div></div>
+          <div class="hop-role">Research Assistant Intern</div>
+          <div class="hop-desc">Supported M-learning research at the Faculty of Technology Informatics Razak — literature review, data collection and analysis, contributing to publication outputs.</div>
+        </div>
+      </div>
+
+      <div class="hop">
+        <div class="hop-num">06</div>
+        <div class="hop-card">
+          <div class="hop-top"><div class="hop-host">utm<span class="at">.edu.my</span></div><div class="hop-time">10 mos · 2019–20</div></div>
+          <div class="hop-role">Academic Tutor</div>
+          <div class="hop-desc">President of Academic Tutorship, 2019/2020. Organized tutoring sessions and taught C++ and Assembly Language to fellow students.</div>
+        </div>
+      </div>
+
+      <div class="hop">
+        <div class="hop-num">07</div>
+        <div class="hop-card">
+          <div class="hop-top"><div class="hop-host">amk-holidays<span class="at">.internal</span></div><div class="hop-time">4 mos · 2017–18</div></div>
+          <div class="hop-role">Graphic Design Intern</div>
+          <div class="hop-desc">Designed flyers and Instagram posters for hotel promotions and pricing.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="growth">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-tag">03</span><span class="sec-title">the buildout <span>// platform growth &amp; stack</span></span></div>
+    <div class="topo-wrap">
+      <div class="topo-caption" style="margin-top:0;margin-bottom:14px;">$ log --graph platform.git — three phases, one platform</div>
+      <svg class="topo-svg growth-svg" viewBox="0 0 760 400" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="5" refY="3" orient="auto">
+            <path d="M0,0 L6,3 L0,6 Z" fill="var(--cyan)"></path>
+          </marker>
+        </defs>
+
+        <line class="topo-line" x1="60" y1="340" x2="650" y2="340"></line>
+        <path class="topo-line growth-arrow" d="M155,270 L355,200 L555,120 L610,95" marker-end="url(#arrowhead)"></path>
+
+        <rect id="growthBar1" class="topo-node body" x="90" y="340" width="130" height="0" rx="4"></rect>
+        <rect id="growthBar2" class="topo-node body" x="290" y="340" width="130" height="0" rx="4"></rect>
+        <rect id="growthBar3" class="topo-node body dmz" x="490" y="340" width="130" height="0" rx="4"></rect>
+
+        <g class="topo-node">
+          <path d="M140,254 L170,254 M135,262 L175,262" stroke="var(--text-faint)" stroke-width="1.4" fill="none"></path>
+          <text x="155" y="286" style="font-size:10px;">FOUNDATION</text>
+          <text class="sub" x="155" y="362" style="font-size:9px;">AUG 2023 – FEB 2024</text>
+          <text class="sub" x="155" y="374" style="font-size:9px;">Intern, IT System Engineer</text>
+        </g>
+
+        <g class="topo-node">
+          <path d="M355,180 L367,184.5 L367,196.5 C367,204.5 361,210.5 355,213.5 C349,210.5 343,204.5 343,196.5 L343,184.5 Z" stroke="var(--text-faint)" stroke-width="1.3" fill="none"></path>
+          <text x="355" y="228" style="font-size:10px;">HARDENING</text>
+          <text class="sub" x="355" y="362" style="font-size:9px;">MAR 2024 – MAR 2025</text>
+          <text class="sub" x="355" y="374" style="font-size:9px;">Executive, IT System Engineer</text>
+        </g>
+
+        <g class="topo-node">
+          <path d="M547,100 A12,12 0 1 1 545,116" stroke="var(--amber)" stroke-width="1.4" fill="none"></path>
+          <path d="M545,116 L541,113 M545,116 L549,114" stroke="var(--amber)" stroke-width="1.2" fill="none" stroke-linecap="round"></path>
+          <text x="555" y="146" style="font-size:8.5px;fill:var(--amber);">CONTINUOUS IMPROVEMENT</text>
+          <text class="sub" x="555" y="362" style="font-size:9px;">MAR 2025 – PRESENT</text>
+          <text class="sub" x="555" y="374" style="font-size:9px;fill:var(--amber);">Acting Lead Cloud Engineer</text>
+        </g>
+      </svg>
+      <div class="phase-grid">
+        <div class="card">
+          <div class="card-tag">AUG 2023 – FEB 2024</div>
+          <h3>Foundation</h3>
+          <div class="sub">Intern, IT Systems Engineer</div>
+          <div class="card-contribution"><span class="label">$ contribution</span>Designed and deployed a managed file transfer (MFT) solution for 150+ users — JSCAPE MFT on Azure VMs behind a Load Balancer, backed by Azure Blob — connecting core banking and payments integration.</div>
+          <p>Built proof-of-concepts for core infrastructure in a greenfield Azure environment. First hands-on identity work here too — standing up Microsoft Entra ID and Entra Domain Services — alongside the start of a thread that never stopped: helping set up the bank's Backup and Recovery Services Vaults.</p>
+        </div>
+        <div class="card">
+          <div class="card-tag">MAR 2024 – MAR 2025</div>
+          <h3>Hardening</h3>
+          <div class="sub">Executive, IT Systems Engineer</div>
+          <div class="card-contribution"><span class="label">$ contribution</span>Led the bank's Operational Readiness Review with Bank Negara Malaysia — authoring the network security architecture submission that satisfied two RMiT domains (DCRA and Network Resilience) and helped secure the Islamic digital bank license.</div>
+          <p>Owned technical delivery through the bank's launch, including the core banking and payments integration architecture. Spearheaded Azure PIM, RBAC, and SSO — optimizing IAM for 150+ user identities over SAML/OIDC — and migrated the IaaS-based Active Directory to Entra Domain Services for a legacy LDAP-dependent app, all while the DR role grew from helping out to coordinating failovers with vendors.</p>
+        </div>
+        <div class="card">
+          <div class="card-tag active"><span class="d"></span>ONGOING</div>
+          <h3>Continuous Improvement</h3>
+          <div class="sub">Assistant Manager, Lead Cloud Engineer</div>
+          <div class="card-contribution"><span class="label">$ contribution</span>Built a 3-person cloud operations team from the ground up — cutting dependency on senior engineers by 60% within three months — and authored the ADRs behind KAF's Azure Landing Zone, now leading the team hardening it against CIS and RMiT.</div>
+          <p>Shapes vWAN migration, native Entra ID adoption, API Management, and DMZ architecture. Circles back to harden and provision Entra Domain Services itself, secures the Azure Files shares linked to it, rolls out Azure Monitor and Syslog forwarding under a P1–P4 alert framework, and keeps tightening the backup/DR program with source-scan integration and RMiT immutability.</p>
+        </div>
+      </div>
+      <div class="chip-row">
+        <span class="chip interest">1 → 3 engineers led</span>
+        <span class="chip interest">−60% senior-engineer dependency</span>
+        <span class="chip interest">150+ identities · IAM (SAML/OIDC)</span>
+        <span class="chip progress">2 RMiT domains satisfied for BNM license</span>
+      </div>
+
+      <div class="refine-wrap">
+        <div class="topo-caption">$ diff --stat skillset.log — same platform, widening scope</div>
+        <div class="refine-table" id="refineTable"></div>
+        <div class="refine-legend">I = Intern (2023) · E = Executive (2024) · L = Lead (2025–present) · — = not yet part of the job</div>
+        <div class="card story-card">
+          <div class="card-tag">$ log --follow platform.story</div>
+          <h3>The Story</h3>
+          <p>The depth grew first, then the breadth followed. As an intern, the platform meant a virtual network, a firewall, an app gateway, and APIM — all touched while building proof-of-concepts in a brand-new environment, with Entra ID and Domain Services as his first taste of identity work, on top of a networking foundation (routing, switching, VLANs) he already carried in from his CCNA. One thread started right there and never stopped: helping set up the bank's Backup and Recovery Services Vaults, and standing alongside the team on disaster recovery, coordinating with vendors, since before he was full-time.</p>
+          <p>As Executive, those same pieces became load-bearing: the virtual network turned into the payments integration architecture, Entra ID grew into SSO and Azure PIM against a BNM remediation deadline, and the DR role grew from helping to actively running failovers.</p>
+          <p>As Lead, three things are happening at once. What he already knew got deeper — Entra ID became a native-adoption ADR he authored himself, APIM became a service design he owns end-to-end, wired through DMZ architecture and JWT-secured APIs. Whole categories opened up that didn't exist for him before: governing access itself through Azure RBAC at Management Group and resource scope plus Entra ID RBAC, hardening Windows Server images against CIS through Azure Image Builder, watching the estate with Network Watcher, Azure Monitor, and Syslog forwarding under a P1–P4 alert framework, and writing the Python automation that keeps an eye on things like certificate expiry without anyone having to ask. The identity foundation he first touched as an intern came back around too — Entra Domain Services itself is now something he hardens and provisions, right down to the Azure Files shares that lean on it for security. And the oldest thread is still being pulled tighter — the backup and DR program he's run since intern days is now getting source-scan integrations and immutability, closing it out against BNM RMiT.</p>
+        </div>
+        <div class="card featured-project">
+          <div class="card-tag active"><span class="d"></span>FEATURED PROJECT</div>
+          <h3>Azure Landing Zone — Inter-SaaS Connectivity</h3>
+          <div class="sub">Bicep · Azure</div>
+          <p>Designed the landing zone connecting external SaaS platforms (core banking, RPP, Cards) and hybrid endpoints (RENTAS NWI). The initial stack — VPN Gateway, Azure Firewall, Peplink NVA, Application Gateway, APIM, and VNets/routing — is the foundation that later evolved into the bank's Virtual WAN architecture.</p>
+          <div class="proj-tags"><span class="proj-tag">Bicep</span><span class="proj-tag">VPN Gateway</span><span class="proj-tag">Azure Firewall</span><span class="proj-tag">Peplink NVA</span><span class="proj-tag">App Gateway</span><span class="proj-tag">APIM</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="sideprojects">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-tag">04</span><span class="sec-title">off the clock <span>// side builds</span></span></div>
+    <div class="proj-grid">
+      <div class="proj-card">
+        <svg class="proj-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="6" y="8" width="28" height="18" rx="4"></rect><path d="M14 26 L14 32 L20 26" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="14" cy="17" r="1.3" fill="currentColor" stroke="none"></circle><circle cx="20" cy="17" r="1.3" fill="currentColor" stroke="none"></circle><circle cx="26" cy="17" r="1.3" fill="currentColor" stroke="none"></circle></svg>
+        <h3>OpenClaw</h3>
+        <div class="sub">self-hosted AIOps agent</div>
+        <p>A chat-driven assistant for his own Ubiquiti network — not just monitoring, but querying and controlling it. Runs self-hosted on a Proxmox node via an MCP server, with a staged confirm-token pattern before any write action.</p>
+        <div class="proj-tags"><span class="proj-tag">UniFi Network API</span><span class="proj-tag">MCP</span><span class="proj-tag">Python</span><span class="proj-tag">Claude Code</span></div>
+      </div>
+      <div class="proj-card">
+        <svg class="proj-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="7" y="6" width="26" height="8" rx="1.5"></rect><rect x="7" y="16" width="26" height="8" rx="1.5"></rect><rect x="7" y="26" width="26" height="8" rx="1.5"></rect><circle cx="12" cy="10" r="1.1" fill="currentColor" stroke="none"></circle><circle cx="12" cy="20" r="1.1" fill="currentColor" stroke="none"></circle><circle cx="12" cy="30" r="1.1" fill="currentColor" stroke="none"></circle></svg>
+        <h3>Home Lab</h3>
+        <div class="sub">Ubiquiti + Proxmox</div>
+        <p>UDM Pro Max at the edge, an USW Pro Max 24 as L3 core (with the old SFP aggregation switch demoted to pure L2), and U7 Pro XGS access points wired throughout the house. A separate DMZ box — a 32c/64t, 128GB RAM Proxmox desktop — runs AdGuard today, with room to grow into AIOps infrastructure.</p>
+        <div class="proj-tags"><span class="proj-tag">L3 core switching</span><span class="proj-tag">DMZ isolation</span><span class="proj-tag">Proxmox</span></div>
+      </div>
+      <div class="proj-card">
+        <svg class="proj-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="9" cy="10" r="3.2"></circle><circle cx="31" cy="10" r="3.2"></circle><circle cx="20" cy="30" r="3.2"></circle><path d="M12 12.5 L17.5 26.5 M28 12.5 L22.5 26.5" stroke-linecap="round"></path></svg>
+        <h3>IaC &amp; Agentic AI Roadmap</h3>
+        <div class="sub">self-directed learning track</div>
+        <p>A three-phase roadmap for building infrastructure-as-code and agentic AI skills with Terraform and Ansible, run against his own Proxmox and UniFi infrastructure rather than a sandbox.</p>
+        <div class="proj-tags"><span class="proj-tag">Terraform</span><span class="proj-tag">Ansible</span><span class="proj-tag">Agentic AI</span></div>
+      </div>
+    </div>
+
+    <div class="topo-wrap" style="margin-top:34px;">
+      <div class="topo-caption" style="margin-top:0;margin-bottom:14px;">$ cat homelab-topology.yaml — full stack, Internet → edge → core → leaves</div>
+      <svg class="topo-svg homelab-svg" viewBox="0 0 900 420" xmlns="http://www.w3.org/2000/svg">
+        <path id="homelabFlowPath" d="M260,44 L260,225 C260,255 680,255 680,278 L680,302" fill="none" stroke="none"></path>
+        <path id="vpnFlowPath" d="M680,82 C580,60 380,58 290,103" fill="none" stroke="none"></path>
+
+        <!-- DMZ zone -->
+        <rect class="topo-node" x="628" y="256" width="104" height="96" rx="10" fill="none" stroke="var(--amber)" stroke-dasharray="4 4" opacity="0"></rect>
+        <text class="topo-node" x="636" y="270" style="font-family:var(--mono);font-size:9px;fill:var(--amber);opacity:0;">DMZ</text>
+
+        <!-- lines -->
+        <path class="topo-line" d="M260,44 L260,84"></path>
+        <path class="topo-line" d="M260,146 L260,185"></path>
+        <path class="topo-line" d="M260,226 C260,255 100,255 100,278"></path>
+        <path class="topo-line" d="M260,226 C260,250 290,250 290,272"></path>
+        <path class="topo-line" d="M260,226 C260,255 475,255 475,278"></path>
+        <path class="topo-line vpn-line" d="M680,82 C580,60 380,58 290,103"></path>
+        <path class="topo-line dmz-line" d="M260,226 C260,255 680,255 680,278"></path>
+
+        <!-- Internet -->
+        <g class="topo-node">
+          <path d="M232,20 a10,10 0 0 1 6,-18.6 a13,13 0 0 1 24.6,-3 a11,11 0 0 1 -1.6,21.6 Z" transform="translate(0,10)" fill="none" stroke="var(--text-faint)" stroke-width="1.4"></path>
+          <text x="260" y="42" class="sub" style="font-size:9.5px;">INTERNET</text>
+        </g>
+
+        <!-- Cudy WR6000 (portable, hex) -->
+        <g class="topo-node">
+          <polygon class="body" points="702,60 691,40.95 669,40.95 658,60 669,79.05 691,79.05"></polygon>
+          <text x="680" y="63" style="font-size:8.5px;">CUDY WR6000</text>
+          <text class="sub" x="680" y="93" style="font-size:8px;">portable · WireGuard</text>
+        </g>
+
+        <!-- UDM Pro Max (hex, hub) -->
+        <g class="topo-node hub">
+          <circle class="hub-ping" cx="260" cy="115" r="34"></circle>
+          <polygon class="body" points="290,115 275,89.02 245,89.02 230,115 245,140.98 275,140.98"></polygon>
+          <text x="260" y="112">UDM PRO MAX</text>
+          <text class="sub" x="260" y="126">gateway · firewall</text>
+        </g>
+
+        <!-- USW Pro Max 24 (core, rect) -->
+        <g class="topo-node">
+          <rect class="body core" x="200" y="185" width="120" height="40" rx="8"></rect>
+          <text x="260" y="201">USW PRO MAX 24</text>
+          <text class="sub" x="260" y="214">core switch · L3</text>
+        </g>
+
+        <!-- SFP Agg switch (demoted, L2, rect) -->
+        <g class="topo-node">
+          <rect class="body l2" x="50" y="278" width="100" height="40" rx="8"></rect>
+          <text x="100" y="294" style="font-size:9.5px;">SFP AGG SWITCH</text>
+          <text class="sub" x="100" y="307" style="font-size:8.5px;">pure L2 (demoted)</text>
+        </g>
+
+        <!-- U7 Pro XGS APs (diamond) -->
+        <g class="topo-node">
+          <path d="M278,248 a12,10 0 0 1 24,0" fill="none" stroke="var(--text-faint)" stroke-width="1.2"></path>
+          <path d="M283,254 a7,6 0 0 1 14,0" fill="none" stroke="var(--text-faint)" stroke-width="1.2"></path>
+          <polygon class="body" points="290,272 316,300 290,328 264,300"></polygon>
+          <text x="290" y="296" style="font-size:8px;">U7 PRO</text>
+          <text x="290" y="305" style="font-size:8px;">XGS</text>
+          <text class="sub" x="290" y="342" style="font-size:8.5px;">wired throughout home</text>
+        </g>
+
+        <!-- UNAS Pro 7 (storage bays, rect) -->
+        <g class="topo-node">
+          <rect class="body" x="440" y="278" width="70" height="44" rx="6"></rect>
+          <line x1="440" y1="291" x2="510" y2="291" stroke="var(--line)" stroke-width="1"></line>
+          <line x1="440" y1="304" x2="510" y2="304" stroke="var(--line)" stroke-width="1"></line>
+          <text x="475" y="337" class="sub" style="font-size:8.5px;">UNAS PRO 7 · storage</text>
+        </g>
+
+        <!-- Proxmox DMZ (chip rect) -->
+        <g class="topo-node">
+          <rect class="body dmz" x="654" y="278" width="52" height="48" rx="6"></rect>
+          <rect x="666" y="290" width="28" height="24" rx="2" fill="none" stroke="var(--text-faint)" stroke-width="1"></rect>
+          <line x1="680" y1="278" x2="680" y2="286" stroke="var(--text-faint)" stroke-width="1"></line>
+          <line x1="680" y1="318" x2="680" y2="326" stroke="var(--text-faint)" stroke-width="1"></line>
+          <line x1="654" y1="302" x2="646" y2="302" stroke="var(--text-faint)" stroke-width="1"></line>
+          <line x1="706" y1="302" x2="714" y2="302" stroke="var(--text-faint)" stroke-width="1"></line>
+          <text x="680" y="357" class="sub" style="font-size:8px;">PROXMOX · 32c/64t · 128GB</text>
+          <text x="680" y="368" class="sub" style="font-size:8px;fill:var(--amber);">AdGuard now → AIOps next</text>
+        </g>
+
+        <circle id="homelabPacket" class="packet" r="4" cx="0" cy="0"></circle>
+        <circle id="vpnPacket" class="packet vpn" r="3.5" cx="0" cy="0"></circle>
+      </svg>
+      <div class="topo-legend">
+        <span><svg width="14" height="14" viewBox="0 0 30 30"><polygon points="26,15 21,6 9,6 4,15 9,24 21,24" fill="none" stroke="var(--text-faint)" stroke-width="2"></polygon></svg> routing</span>
+        <span><svg width="14" height="14" viewBox="0 0 30 30"><rect x="4" y="8" width="22" height="14" rx="3" fill="none" stroke="var(--text-faint)" stroke-width="2"></rect></svg> switching / compute</span>
+        <span><svg width="14" height="14" viewBox="0 0 30 30"><polygon points="15,4 26,15 15,26 4,15" fill="none" stroke="var(--text-faint)" stroke-width="2"></polygon></svg> wireless</span>
+      </div>
+      <div class="topo-chips">
+        <span class="topo-chip">UDM Pro Max — gateway &amp; firewall</span>
+        <span class="topo-chip">USW Pro Max 24 — L3 core</span>
+        <span class="topo-chip">SFP Agg switch — pure L2</span>
+        <span class="topo-chip">U7 Pro XGS — wired APs</span>
+        <span class="topo-chip">Proxmox DMZ — 32c/64t · 128GB RAM</span>
+        <span class="topo-chip">Cudy WR6000 — portable WireGuard to UDM</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="education">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-tag">05</span><span class="sec-title">education</span></div>
+    <div class="ed-grid">
+      <div class="card">
+        <div class="card-tag active"><span class="d"></span>IN PROGRESS</div>
+        <h3>PhD, Cybersecurity / Classical ML</h3>
+        <div class="sub">Universiti Teknologi Malaysia · Mar 2024 – Mar 2027</div>
+        <p>Doctoral research spanning cybersecurity and classical machine learning approaches.</p>
+      </div>
+      <div class="card">
+        <div class="card-tag">COMPLETE</div>
+        <h3>B.Sc Computer Science</h3>
+        <div class="sub">Networks &amp; Security · UTM · Sep 2021 – Feb 2024</div>
+        <p>Graduated with a 3.81 GPA. Final year projects: a comparative study of XGBoost vs. Random Forest for zero-day malware classification (shipped as a Chrome extension), and a Flutter/Firebase study planner for live timetable clash detection.</p>
+        <div class="meta">Dean's Award — 2021 &amp; 2024 · URC 2023 participant</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="certifications">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-tag">06</span><span class="sec-title">certifications</span></div>
+    <div class="badge-grid">
+      <div class="badge"><div class="badge-icon">AZ</div><div class="badge-text">Azure Solutions Architect Expert<span class="issuer">Microsoft</span></div></div>
+      <div class="badge"><div class="badge-icon">AZ</div><div class="badge-text">Azure Network Engineer Associate<span class="issuer">Microsoft</span></div></div>
+      <div class="badge"><div class="badge-icon">AZ</div><div class="badge-text">Azure Administrator Associate<span class="issuer">Microsoft</span></div></div>
+      <div class="badge more">+4 more on file</div>
+    </div>
+    <div class="chip-row">
+      <span class="chip progress">→ pursuing AZ-700 next</span>
+      <span class="chip interest">↗ CCNP / CCIE — longer-term interest</span>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="publications">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-tag">07</span><span class="sec-title">publications <span>&amp; honors</span></span></div>
+
+    <div class="pub">
+      <div class="pub-title">Development of the green mobile application prototype for green campus initiatives — case study: Diploma SPACE UTM Kuala Lumpur</div>
+      <div class="pub-meta">American Institute of Physics · Jan 2023</div>
+    </div>
+    <div class="pub">
+      <div class="pub-title">Development of an M-learning Application for Postgraduate University Students</div>
+      <div class="pub-meta">Journal of ICT in Education (JICTIE) · Nov 2022</div>
+    </div>
+    <div class="pub">
+      <div class="pub-title" style="color:var(--text-faint);">+1 more publication on file</div>
+    </div>
+
+    <div class="honors-row">
+      <span class="honor-chip">🏅 Dean's Award — 2024</span>
+      <span class="honor-chip">🏅 Dean's Award — 2021</span>
+    </div>
+  </div>
+</section>
+
+<section class="footer" id="contact">
+  <div class="wrap">
+    <div class="footer-panel">
+      <div class="footer-title">$ connect --to=faris</div>
+      <p class="footer-sub">Based in Kuala Lumpur, currently deep in Azure networking, RMiT compliance, and the occasional home-lab traceroute. Open to a conversation.</p>
+      <a class="cta" href="mailto:af.aiman5578@gmail.com">establish_connection()  →</a>
+      <div class="footer-links">
+        <a href="mailto:af.aiman5578@gmail.com">af.aiman5578@gmail.com</a>
+        <a href="https://linkedin.com/in/loximity" target="_blank" rel="noopener">linkedin.com/in/loximity</a>
+        <a href="https://resume.loximity.dev" target="_blank" rel="noopener">resume.loximity.dev</a>
+      </div>
+      <div class="footer-stats">
+        <div><b>150</b>+ identities (IAM)</div>
+        <div><b>3.81</b>GPA</div>
+        <div><b>3</b>-person team built</div>
+        <div><b>2</b>RMiT domains for BNM license</div>
+      </div>
+    </div>
+    <div class="footer-note">// Ahmad Faris Aiman bin Arizal · +6012-5153385</div>
+  </div>
+</section>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Fail-safe: if anime.js didn't load for any reason, reveal everything that
+  // starts hidden (opacity:0 / transformed) so content is never stuck invisible.
+  if (typeof anime === 'undefined') {
+    document.querySelectorAll('.hero-name, .hero-role, .hero-meta, .scroll-cue, .term, .term-line, .sec-head, .about-p, .kv-row, .card, .badge, .pub, .honor-chip, .footer-panel, .proj-card, .chip, .topo-chip, .refine-row, .refine-dot, .card-contribution, .hop, .topo-node, .topo-line, .packet, .growth-arrow, [id^="growthBar"]').forEach(el => {
+      el.style.opacity = '1';
+      el.style.transform = 'none';
+    });
+    return;
+  }
+
+  // ---- hero terminal + name sequence ----
+  const tl = anime.timeline({easing:'easeOutQuad'});
+  tl.add({targets:'.term', opacity:[0,1], translateY:[16,0], duration: reduce?1:600})
+    .add({targets:'.term-line', opacity:[0,1], translateX:[-8,0], delay: anime.stagger(reduce?1:220), duration: reduce?1:400}, '-=200')
+    .add({targets:'.hero-name', opacity:[0,1], translateY:[24,0], duration: reduce?1:700}, '-=100')
+    .add({targets:'.hero-role', opacity:[0,1], translateY:[14,0], duration: reduce?1:600}, '-=400')
+    .add({targets:'.hero-meta', opacity:[0,1], translateY:[10,0], duration: reduce?1:600}, '-=350')
+    .add({targets:'.scroll-cue', opacity:[0,1], duration: reduce?1:600}, '-=300');
+
+  // ---- refinement table: platform stack, category-level, widening + deepening across phases ----
+  const refineTable = document.getElementById('refineTable');
+  if (refineTable) {
+    const refineData = [
+      {tech:'Core Networking', tags:'VNet · Hub-and-Spoke · UDR · routing, switching &amp; VLANs', levels:[3,4,5]},
+      {tech:'Security &amp; Perimeter', tags:'Azure Firewall · NSG · DDoS Protection · Private Link · Bastion', levels:[1,3,5]},
+      {tech:'Load Balancing &amp; Delivery', tags:'Application Gateway · APIM · Traffic Manager · Front Door', levels:[1,2,5]},
+      {tech:'DNS &amp; Storage', tags:'Private DNS Resolver · Azure Files security (Domain Services–linked) · Blob / ADLS Gen2 replication', levels:[0,1,4]},
+      {tech:'Identity &amp; Governance', tags:'Entra ID · Entra Domain Services hardening &amp; provisioning · Azure RBAC · Entra RBAC · Azure Policy · DSC', levels:[2,4,5]},
+      {tech:'Hardening &amp; Observability', tags:'CIS hardening · Network Watcher · packet capture · Azure Monitor · Syslog · P1–P4 framework · Jira paging', levels:[1,2,4]},
+      {tech:'Backup &amp; Disaster Recovery', tags:'Recovery Services Vaults · vendor-coordinated DR · RMiT immutability', levels:[2,3,5]},
+      {tech:'Automation &amp; Data Movement', tags:'Python / Azure Functions · MFT → Azure File Share', levels:[0,1,3]}
+    ];
+    const phaseLabels = ['INTERN','EXECUTIVE','LEAD'];
+    const prefixes = ['I','E','L'];
+
+    function dotsHTML(count, prefix){
+      if (count === 0) {
+        return `<div class="refine-cell"><span>${prefix}</span><span class="refine-dash">—</span></div>`;
+      }
+      let dots = '';
+      for (let i=0; i<5; i++){
+        dots += `<span class="refine-dot${i<count?' on':''}"></span>`;
+      }
+      return `<div class="refine-cell"><span>${prefix}</span><div class="refine-dots">${dots}</div></div>`;
+    }
+
+    let html = `<div class="refine-head"><div>CATEGORY</div><div>${phaseLabels[0]}</div><div>${phaseLabels[1]}</div><div>${phaseLabels[2]}</div></div>`;
+    refineData.forEach(row => {
+      html += `<div class="refine-row"><div class="refine-tech">${row.tech}<div class="refine-sub">${row.tags}</div></div>${row.levels.map((lv,i) => dotsHTML(lv, prefixes[i])).join('')}</div>`;
+    });
+    refineTable.innerHTML = html;
+
+    const refineIO = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          anime({
+            targets: entry.target.querySelectorAll('.refine-dot.on'),
+            scale: [0,1],
+            opacity: [0,1],
+            duration: reduce?1:400,
+            delay: anime.stagger(reduce?0:30),
+            easing: 'easeOutBack'
+          });
+          refineIO.unobserve(entry.target);
+        }
+      });
+    }, {threshold:0.2});
+    refineTable.querySelectorAll('.refine-row').forEach(row => refineIO.observe(row));
+  }
+
+  // ---- generic reveal-on-scroll ----
+  const revealTargets = document.querySelectorAll('.kv-row, .card, .badge, .pub, .honor-chip, .footer-panel, .proj-card, .chip, .topo-chip, .refine-row, .sec-head, .about-p');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        anime({
+          targets: entry.target,
+          opacity: [0,1],
+          translateY: [entry.target.classList.contains('badge') ? 0 : 14, 0],
+          scale: entry.target.classList.contains('badge') ? [0.94,1] : [1,1],
+          duration: reduce?1:600,
+          easing: 'easeOutCubic',
+          delay: reduce?0:60
+        });
+        io.unobserve(entry.target);
+      }
+    });
+  }, {threshold:0.15});
+  revealTargets.forEach(el => io.observe(el));
+
+  // ---- section numbers count up on scroll ----
+  const secTags = document.querySelectorAll('.sec-tag');
+  secTags.forEach(tag => {
+    const target = parseInt(tag.textContent, 10);
+    if (isNaN(target)) return;
+    tag.textContent = '00';
+    const tagIO = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const counter = {val: 0};
+          anime({
+            targets: counter,
+            val: target,
+            round: 1,
+            duration: reduce?1:900,
+            easing: 'easeOutExpo',
+            update: () => { tag.textContent = String(counter.val).padStart(2,'0'); }
+          });
+          tagIO.unobserve(entry.target);
+        }
+      });
+    }, {threshold:0.5});
+    tagIO.observe(tag);
+  });
+
+  // ---- contribution accent bars grow in from the left ----
+  const contribs = document.querySelectorAll('.card-contribution');
+  const contribIO = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        anime({
+          targets: entry.target,
+          opacity: [0,1],
+          scaleX: [0,1],
+          duration: reduce?1:550,
+          delay: reduce?0:200,
+          easing: 'easeOutQuint'
+        });
+        contribIO.unobserve(entry.target);
+      }
+    });
+  }, {threshold:0.2});
+  contribs.forEach(el => contribIO.observe(el));
+
+  // ---- footer stats count up ----
+  const footerStats = document.querySelectorAll('.footer-stats b');
+  if (footerStats.length) {
+    const statsIO = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          footerStats.forEach(stat => {
+            const target = parseFloat(stat.textContent);
+            if (isNaN(target)) return;
+            const isDecimal = stat.textContent.includes('.');
+            const counter = {val: 0};
+            anime({
+              targets: counter,
+              val: target,
+              round: isDecimal ? 100 : 1,
+              duration: reduce?1:1100,
+              easing: 'easeOutExpo',
+              update: () => { stat.textContent = isDecimal ? counter.val.toFixed(2) : String(Math.round(counter.val)); }
+            });
+          });
+          statsIO.unobserve(entry.target);
+        }
+      });
+    }, {threshold:0.3});
+    statsIO.observe(document.querySelector('.footer-stats'));
+  }
+
+  // ---- traceroute hops: stagger in + spine draw ----
+  const hops = document.querySelectorAll('.hop');
+  const hopIO = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        anime({
+          targets: entry.target,
+          opacity:[0,1],
+          translateY:[18,0],
+          duration: reduce?1:550,
+          easing:'easeOutCubic'
+        });
+        hopIO.unobserve(entry.target);
+      }
+    });
+  }, {threshold:0.2});
+  hops.forEach(h => hopIO.observe(h));
+
+  const spineFill = document.getElementById('spineFill');
+  const traceEl = document.querySelector('.trace');
+  function updateSpine(){
+    if (!traceEl) return;
+    const rect = traceEl.getBoundingClientRect();
+    const vh = window.innerHeight;
+    const total = rect.height;
+    const visible = Math.min(Math.max(vh*0.75 - rect.top, 0), total);
+    const pct = total > 0 ? (visible/total)*100 : 0;
+    spineFill.style.height = pct + '%';
+  }
+  window.addEventListener('scroll', updateSpine, {passive:true});
+  window.addEventListener('resize', updateSpine);
+  updateSpine();
+
+  // ---- growth diagram reveal (bars grow, arrow draws, icons fade in) ----
+  const topo = document.querySelector('.growth-svg');
+  if (topo) {
+    const topoIO = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const bars = [
+            {id:'#growthBar1', y:270, h:70},
+            {id:'#growthBar2', y:200, h:140},
+            {id:'#growthBar3', y:120, h:220}
+          ];
+          const tl = anime.timeline({easing:'easeOutCubic'});
+          bars.forEach((b, i) => {
+            tl.add({
+              targets: b.id,
+              y: reduce ? b.y : [340, b.y],
+              height: reduce ? b.h : [0, b.h],
+              opacity: [0,1],
+              duration: reduce?1:650
+            }, i === 0 ? 0 : '-=420');
+          });
+          tl.add({targets: topo.querySelectorAll('.topo-node:not([id^="growthBar"])'), opacity:[0,1], translateY: reduce?0:[8,0], duration: reduce?1:450, delay: anime.stagger(reduce?0:150)}, '-=200')
+            .add({targets: topo.querySelectorAll('.topo-line'), opacity:[0,.9], duration: reduce?1:500}, '-=150');
+          topoIO.unobserve(entry.target);
+        }
+      });
+    }, {threshold:0.3});
+    topoIO.observe(topo);
+  }
+
+  // ---- homelab topology: node/line reveal + anime.js path-driven packet ----
+  const homelabSvg = document.querySelector('.homelab-svg');
+  if (homelabSvg) {
+    const homelabIO = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          anime.timeline({easing:'easeOutCubic'})
+            .add({targets: homelabSvg.querySelectorAll('.topo-node'), opacity:[0,1], translateY: reduce?0:[8,0], duration: reduce?1:450, delay: anime.stagger(reduce?0:140)})
+            .add({targets: homelabSvg.querySelectorAll('.topo-line'), opacity:[0,.9], duration: reduce?1:450}, '-=250')
+            .add({targets: ['#homelabPacket','#vpnPacket'], opacity:[0,1], duration: reduce?1:300}, '-=200');
+
+          if (!reduce) {
+            const flowPath = anime.path('#homelabFlowPath');
+            anime({
+              targets: '#homelabPacket',
+              translateX: flowPath('x'),
+              translateY: flowPath('y'),
+              easing: 'linear',
+              duration: 2800,
+              loop: true
+            });
+            const vpnPath = anime.path('#vpnFlowPath');
+            anime({
+              targets: '#vpnPacket',
+              translateX: vpnPath('x'),
+              translateY: vpnPath('y'),
+              easing: 'linear',
+              duration: 2200,
+              loop: true,
+              delay: 600
+            });
+          }
+          homelabIO.unobserve(entry.target);
+        }
+      });
+    }, {threshold:0.25});
+    homelabIO.observe(homelabSvg);
+  }
+
+  // ---- nav breadcrumb ----
+  const navPath = document.getElementById('navPath');
+  const sections = document.querySelectorAll('section[id]');
+  const navIO = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navPath.textContent = '/' + entry.target.id;
+      }
+    });
+  }, {threshold:0, rootMargin:'-45% 0px -50% 0px'});
+  sections.forEach(s => navIO.observe(s));
+});
+</script>
+</body>
 </html>
