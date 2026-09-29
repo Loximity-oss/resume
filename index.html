@@ -455,6 +455,80 @@
     .hero{padding-top:96px;}
   }
 
+
+  /* ---------- resume lists & work projects ---------- */
+  .hop-list{margin:0;padding-left:18px;color:var(--text-muted);font-size:14.5px;max-width:68ch;}
+  .hop-list li{padding-left:2px;}
+  .hop-list li + li{margin-top:7px;}
+  .hop-list li::marker{color:var(--cyan);}
+  .hop-list b{color:var(--text);font-weight:600;}
+  .work-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px;}
+  .work-grid .featured-project{margin-top:0;border-color:var(--line);}
+  .work-grid .hop-list{font-size:13.5px;margin-top:10px;}
+  .featured-project .sub{font-family:var(--mono);font-size:11.5px;color:var(--text-faint);margin-bottom:6px;}
+
+  /* growth-chart bars carry both classes on one element, so style them directly */
+  rect.topo-node.body{fill:var(--bg-panel);stroke:#4FD1C566;stroke-width:1.5;}
+  rect.topo-node.body.dmz{fill:#F4A93E14;stroke:var(--amber);}
+  /* ---------- quick-jump droplet rail (left edge, appears after the hero) ---------- */
+  section[id]{scroll-margin-top:60px;}
+  .droprail{
+    position:fixed;left:22px;top:50%;z-index:49;
+    display:flex;flex-direction:column;gap:14px;
+    transform:translate(-14px,-50%);opacity:0;pointer-events:none;
+    transition:transform .4s ease, opacity .4s ease;
+  }
+  .droprail.show{transform:translate(0,-50%);opacity:1;pointer-events:auto;}
+  /* the thread the droplets hang on */
+  .droprail::before{
+    content:'';position:absolute;left:5px;top:6px;bottom:6px;width:1px;
+    background:linear-gradient(var(--line), #4FD1C544, var(--line));
+  }
+  .droprail a{
+    position:relative;display:flex;align-items:center;gap:12px;
+    text-decoration:none;min-height:12px;
+  }
+  .droprail .drop{
+    width:11px;height:11px;flex-shrink:0;
+    border-radius:50% 0 50% 50%;           /* teardrop, tip points right once rotated */
+    transform:rotate(45deg) scale(.8);
+    border:1.5px solid var(--text-faint);background:var(--bg-deep);
+    transition:transform .3s ease, background .3s, border-color .3s, box-shadow .3s;
+  }
+  .droprail a:hover .drop,
+  .droprail a:focus-visible .drop{border-color:var(--text-muted);transform:rotate(45deg) scale(1);}
+  .droprail a.active .drop{
+    background:var(--cyan);border-color:var(--cyan);
+    transform:rotate(45deg) scale(1.25);
+    box-shadow:0 0 12px #4FD1C599;
+  }
+  .droprail .lbl{
+    font-family:var(--mono);font-size:11.5px;color:var(--text-muted);white-space:nowrap;
+    padding:3px 9px;border-radius:12px;background:#0A0E12E6;border:1px solid var(--line);
+    opacity:0;transform:translateX(-6px);pointer-events:none;
+    transition:opacity .25s ease, transform .25s ease, color .2s;
+  }
+  .droprail .lbl .n{color:var(--text-faint);margin-right:6px;}
+  /* labels unfurl when the rail is hovered or keyboard-focused */
+  .droprail:hover .lbl,
+  .droprail:focus-within .lbl{opacity:1;transform:none;pointer-events:auto;}
+  .droprail a.active .lbl{color:var(--cyan);border-color:#4FD1C555;}
+  .droprail a.active .lbl .n{color:var(--cyan);}
+  .droprail a:focus-visible{outline:none;}
+  .droprail a:focus-visible .lbl{border-color:var(--cyan);}
+  /* on wide screens there's room to keep the current section's label showing */
+  @media (min-width:1260px){
+    .droprail a.active .lbl{opacity:1;transform:none;}
+  }
+  @media (max-width:760px){
+    .droprail{left:6px;gap:12px;}
+    .droprail .drop{width:8px;height:8px;}
+    .droprail::before{left:3.5px;}
+    .droprail .lbl{display:none;}
+  }
+  @media (max-width:760px){ .work-grid{grid-template-columns:1fr;} .nav-status{display:none;} }
+  .nav-status{white-space:nowrap;}
+
   @media (prefers-reduced-motion: reduce){
     *{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important;}
   }
@@ -467,6 +541,17 @@
     <div class="nav-path"><span class="prompt">faris@kaf-db</span>:~<span id="navPath">/intro</span>$</div>
     <div class="nav-status"><span class="dot-live"></span>session active</div>
   </div>
+</nav>
+
+<nav class="droprail" id="jumpbar" aria-label="Jump to section">
+  <a href="#about"><span class="drop" aria-hidden="true"></span><span class="lbl"><span class="n">01</span>about</span></a>
+  <a href="#experience"><span class="drop" aria-hidden="true"></span><span class="lbl"><span class="n">02</span>career</span></a>
+  <a href="#growth"><span class="drop" aria-hidden="true"></span><span class="lbl"><span class="n">03</span>buildout</span></a>
+  <a href="#sideprojects"><span class="drop" aria-hidden="true"></span><span class="lbl"><span class="n">04</span>side builds</span></a>
+  <a href="#education"><span class="drop" aria-hidden="true"></span><span class="lbl"><span class="n">05</span>education</span></a>
+  <a href="#certifications"><span class="drop" aria-hidden="true"></span><span class="lbl"><span class="n">06</span>certifications</span></a>
+  <a href="#publications"><span class="drop" aria-hidden="true"></span><span class="lbl"><span class="n">07</span>publications</span></a>
+  <a href="#contact"><span class="drop" aria-hidden="true"></span><span class="lbl"><span class="n">↳</span>contact</span></a>
 </nav>
 
 <section class="hero" id="intro">
@@ -485,14 +570,14 @@
 
     <div class="hero-kicker">FARIS — Lead Cloud Engineer</div>
     <h1 class="hero-name"><span class="hn-word hn-a">Packets</span><span class="hn-to">to</span><span class="hn-word hn-b">Platforms</span></h1>
-    <p class="hero-role">Assistant Manager, <b>Lead Cloud Engineer</b> — building and hardening the Azure landing zone for KAF Digital Bank, a BNM-licensed digital bank in Malaysia.</p>
+    <p class="hero-role">Cloud network engineer with 3+ years designing and operating multi-region Azure networks for <b>KAF Digital Bank</b>, a BNM RMiT-regulated Islamic digital bank — from intern to team lead.</p>
 
     <div class="hero-meta">
       <span class="pill">📍 <b>Kuala Lumpur, Malaysia</b></span>
-      <span class="pill">🎓 <b>PhD candidate</b> — Cybersecurity / Classical ML</span>
-      <span class="pill">🛡️ <b>CCNA</b> · Azure Solutions Architect Expert</span>
-      <span class="pill">🧭 network engineer at heart</span>
-      <span class="pill">🧪 side build: <b>OpenClaw</b> — a self-hosted AIOps agent</span>
+      <span class="pill">🌏 Malaysia · Singapore · Hong Kong</span>
+      <span class="pill">🛡️ <b>CCNA</b> · AZ-700 due Nov 2026</span>
+      <span class="pill">🏦 BNM RMiT · Islamic digital bank</span>
+      <span class="pill">🧭 open to <b>senior network engineering</b> roles</span>
     </div>
 
     <div class="scroll-cue"><span class="bar"></span>scroll to continue the trace</div>
@@ -505,17 +590,18 @@
     <div class="about-grid">
       <div class="about-label">$ cat bio.txt</div>
       <div class="about-body">
-        <p class="about-p">I started in networking — a Computer Science degree majoring in Networks &amp; Security, a CCNA, and a habit of thinking in packets, routes, and failure domains. That lens followed me into the cloud.</p>
-        <p class="about-p">I joined KAF Digital Bank as an intern while the platform was still greenfield, and grew into the engineer who now owns its multi-region Azure infrastructure across Malaysia West, Singapore, and Hong Kong — under BNM's RMiT framework. Along the way I built and now lead a small Cloud &amp; Network Operations team, while staying close to the infrastructure itself; I'd rather go deep on the systems than manage from a distance.</p>
-        <p class="about-p">As a founding member of the bank, I've had a hand in the platform since before it had customers — from the first Entra ID rollout to the Landing Zone that runs it today.</p>
+        <p class="about-p">I started in networking — a Computer Science degree in Computer Networks &amp; Security, a CCNA, and a habit of thinking in packets, routes, and failure domains. That lens followed me into the cloud.</p>
+        <p class="about-p">For 3+ years I've designed and operated multi-region Azure network infrastructure across Malaysia, Singapore and Hong Kong for a BNM RMiT-regulated Islamic digital bank. I authored the network security architecture behind the bank's licensing review, designed its Azure Virtual WAN estate connecting core banking and national payment rails, and grew from intern to team lead along the way.</p>
+        <p class="about-p">I'd rather go deep on the network than manage from a distance — which is why the next step I'm looking for is a senior network engineering role.</p>
 
         <div class="kv-list">
-          <div class="kv-row"><div class="k">EMPLOYER</div><div class="v">KAF Digital Bank <em>(KAF Group)</em></div></div>
+          <div class="kv-row"><div class="k">EMPLOYER</div><div class="v">KAF Digital Bank</div></div>
           <div class="kv-row"><div class="k">ROLE</div><div class="v">Assistant Manager, Lead Cloud Engineer</div></div>
-          <div class="kv-row"><div class="k">TEAM</div><div class="v">Built &amp; leads a 3-person Cloud &amp; Network Operations team</div></div>
+          <div class="kv-row"><div class="k">TEAM</div><div class="v">Built a 3-person cloud operations team from the ground up</div></div>
           <div class="kv-row"><div class="k">SCOPE</div><div class="v">Azure — Malaysia West <em>(primary)</em>, Singapore, Hong Kong</div></div>
-          <div class="kv-row"><div class="k">COMPLIANCE</div><div class="v">CIS benchmarks &amp; BNM RMiT requirements</div></div>
-          <div class="kv-row"><div class="k">EDUCATION</div><div class="v">B.Sc Computer Science (Networks &amp; Security), UTM — <em>3.81 GPA</em></div></div>
+          <div class="kv-row"><div class="k">COMPLIANCE</div><div class="v">BNM RMiT, CIS Benchmarks, CAB change governance</div></div>
+          <div class="kv-row"><div class="k">EDUCATION</div><div class="v">B.CS (Computer Networks &amp; Security), UTM — <em>3.81 CGPA</em></div></div>
+          <div class="kv-row"><div class="k">SEEKING</div><div class="v">Senior network engineering role</div></div>
         </div>
       </div>
     </div>
@@ -533,10 +619,17 @@
       <div class="hop current">
         <div class="hop-num">01</div>
         <div class="hop-card">
-          <div class="hop-top"><div class="hop-host">kaf-digital-bank<span class="at">.internal</span></div><div class="hop-time">1 yr 6 mos · Mar 2025–present</div></div>
+          <div class="hop-top"><div class="hop-host">kaf-digital-bank<span class="at">.internal</span></div><div class="hop-time">Mar 2025 – present</div></div>
           <div class="hop-role">Assistant Manager, Lead Cloud Engineer</div>
-          <div class="hop-desc">Built and lead a 3-person Cloud &amp; Network Operations team, defining operating models and processes for the bank's cloud scale-up.</div>
-          <div class="hop-desc">Led the Azure Landing Zone rollout in Malaysia West, hardening the platform against CIS and RMiT requirements. Author ADR proposals shaping Virtual WAN migration, Windows Server 2025 migration, native Entra ID adoption, API Management, DMZ architecture, and JWT-based API security.</div>
+          <ul class="hop-list">
+            <li>Led the bank's <b>Operational Readiness Review</b> with Bank Negara Malaysia, authoring the network security architecture submission that satisfied <b>2 RMiT domains (DCRA, Network Resilience)</b> and helped secure the <b>Islamic Digital Bank license</b>.</li>
+            <li>Designed and led migration to an <b>Azure Virtual WAN</b> hub-and-spoke architecture across 2 sites, with Routing Intent and centralised Azure Firewall Policy, connecting core banking, payment services (RPP, Cards) and hybrid endpoints in Malaysia, Singapore and Hong Kong — observed through VNet Flow Logs and Traffic Analytics.</li>
+            <li>Segmented remote access with <b>vWAN Point-to-Site user groups</b>: each department gets its own address pool and firewall-enforced policy. Integrated dual Peplink SD-WAN NVAs and split-horizon DNS via Private DNS Resolver.</li>
+            <li>Authored the ADR for Malaysia West hardening — Management Group hierarchy, CIS/RMiT controls enforced through <b>Azure Policy (DINE/AINE)</b> and Machine Configuration — and built a CIS-hardened Windows Server 2025 golden image with Azure Image Builder and Compute Gallery.</li>
+            <li>Leading migration of the last Entra-joined Azure Files share to <b>Azure Blob Storage</b>, replacing an early lift-and-shift design and clearing the way to decommission Entra Domain Services.</li>
+            <li>Built a 3-person cloud operations team on a ticket-first, CAB-aligned operating model; within 6 months engineers were resolving a growing share of tickets independently and reported a <b>60% increase in operational confidence</b>.</li>
+            <li>Lead disaster recovery with third-party vendors for core banking and payments: <b>~5 live failover drills a month</b> and an annual landing-zone DR exercise hitting a <b>1-hour RTO against BNM's 2-hour mandate</b>, backed by immutable backups.</li>
+          </ul>
           <div class="hop-status"><span class="d"></span>you are here — trace continues to origin</div>
         </div>
       </div>
@@ -544,20 +637,26 @@
       <div class="hop">
         <div class="hop-num">02</div>
         <div class="hop-card">
-          <div class="hop-top"><div class="hop-host">kaf-digital-bank<span class="at">.internal</span></div><div class="hop-time">1 yr 1 mo · Mar 2024–Mar 2025</div></div>
-          <div class="hop-role">Executive, IT System Engineer</div>
-          <div class="hop-desc">Owned technical delivery for core platform components through the bank's launch, including core banking and payments integration architecture.</div>
-          <div class="hop-desc">Delivered BNM remediation ahead of go-live — Microsoft Entra ID (SSO) and Azure PIM — and resolved integration issues vendors couldn't close on their own.</div>
+          <div class="hop-top"><div class="hop-host">kaf-digital-bank<span class="at">.internal</span></div><div class="hop-time">Mar 2024 – Mar 2025</div></div>
+          <div class="hop-role">Executive, IT Systems Engineer</div>
+          <ul class="hop-list">
+            <li>Remediated a <b>pre-go-live BNM ORR finding</b> on privileged access by implementing Azure PIM, Azure RBAC and SSO (SAML/OIDC) for <b>150+ privileged and non-privileged identities</b> across SaaS and IaaS applications.</li>
+            <li>Replaced self-managed Active Directory domain controllers on Azure VMs with <b>Entra Domain Services</b>, keeping LDAP working for legacy workloads and hardening its integration with Azure Files.</li>
+            <li>Designed and deployed the bank's first <b>Azure landing zone</b> connectivity stack — VPN Gateway, Azure Firewall, Peplink SD-WAN NVA, Application Gateway, API Management, VNets and routing — connecting core banking SaaS, <b>RPP, Cards and RENTAS NWI</b>. It later evolved into the Virtual WAN architecture.</li>
+          </ul>
         </div>
       </div>
 
       <div class="hop">
         <div class="hop-num">03</div>
         <div class="hop-card">
-          <div class="hop-top"><div class="hop-host">kaf-digital-bank<span class="at">.internal</span></div><div class="hop-time">7 mos · Aug 2023–Feb 2024</div></div>
-          <div class="hop-role">Intern, IT System Engineer</div>
-          <div class="hop-desc">Built proof-of-concepts for core infrastructure in a greenfield Azure environment. Independently designed the file transfer system underpinning core banking and payments integration.</div>
-          <div class="hop-desc">Helped stand up early identity foundations with Microsoft Entra ID and Entra Domain Services.</div>
+          <div class="hop-top"><div class="hop-host">kaf-digital-bank<span class="at">.internal</span></div><div class="hop-time">Aug 2023 – Feb 2024</div></div>
+          <div class="hop-role">IT Systems Engineer Intern</div>
+          <ul class="hop-list">
+            <li>Designed and deployed a <b>Managed File Transfer platform for 150+ users</b> using JSCAPE MFT, Azure VMs, Load Balancer and Azure Blob, for secure, compliant file exchange with strategic partners.</li>
+            <li>Built proofs of concept with the Cloud Engineer for VNets, VPN Gateway, Private DNS Zones, Application Gateway and API Management ahead of the bank's landing zone build.</li>
+            <li>Helped establish <b>Azure Backup and Recovery Services Vaults</b> for IaaS workloads — the backup foundation later used for DR and RMiT retention.</li>
+          </ul>
         </div>
       </div>
 
@@ -623,14 +722,14 @@
           <path d="M140,254 L170,254 M135,262 L175,262" stroke="var(--text-faint)" stroke-width="1.4" fill="none"></path>
           <text x="155" y="286" style="font-size:10px;">FOUNDATION</text>
           <text class="sub" x="155" y="362" style="font-size:9px;">AUG 2023 – FEB 2024</text>
-          <text class="sub" x="155" y="374" style="font-size:9px;">Intern, IT System Engineer</text>
+          <text class="sub" x="155" y="374" style="font-size:9px;">IT Systems Engineer Intern</text>
         </g>
 
         <g class="topo-node">
           <path d="M355,180 L367,184.5 L367,196.5 C367,204.5 361,210.5 355,213.5 C349,210.5 343,204.5 343,196.5 L343,184.5 Z" stroke="var(--text-faint)" stroke-width="1.3" fill="none"></path>
           <text x="355" y="228" style="font-size:10px;">HARDENING</text>
           <text class="sub" x="355" y="362" style="font-size:9px;">MAR 2024 – MAR 2025</text>
-          <text class="sub" x="355" y="374" style="font-size:9px;">Executive, IT System Engineer</text>
+          <text class="sub" x="355" y="374" style="font-size:9px;">Executive, IT Systems Engineer</text>
         </g>
 
         <g class="topo-node">
@@ -645,30 +744,31 @@
         <div class="card">
           <div class="card-tag">AUG 2023 – FEB 2024</div>
           <h3>Foundation</h3>
-          <div class="sub">Intern, IT Systems Engineer</div>
-          <div class="card-contribution"><span class="label">$ contribution</span>Designed and deployed a managed file transfer (MFT) solution for 150+ users — JSCAPE MFT on Azure VMs behind a Load Balancer, backed by Azure Blob — connecting core banking and payments integration.</div>
-          <p>Built proof-of-concepts for core infrastructure in a greenfield Azure environment. First hands-on identity work here too — standing up Microsoft Entra ID and Entra Domain Services — alongside the start of a thread that never stopped: helping set up the bank's Backup and Recovery Services Vaults.</p>
+          <div class="sub">IT Systems Engineer Intern</div>
+          <div class="card-contribution"><span class="label">$ contribution</span>Designed and deployed a Managed File Transfer platform for 150+ users — JSCAPE MFT on Azure VMs behind a Load Balancer, backed by Azure Blob — for secure, compliant file exchange with the bank's partners.</div>
+          <p>Built proofs of concept with the Cloud Engineer for VNets, VPN Gateway, Private DNS Zones, Application Gateway and API Management ahead of the landing zone build, and helped establish the Azure Backup and Recovery Services Vaults that later carried DR and RMiT retention.</p>
         </div>
         <div class="card">
           <div class="card-tag">MAR 2024 – MAR 2025</div>
           <h3>Hardening</h3>
           <div class="sub">Executive, IT Systems Engineer</div>
-          <div class="card-contribution"><span class="label">$ contribution</span>Led the bank's Operational Readiness Review with Bank Negara Malaysia — authoring the network security architecture submission that satisfied two RMiT domains (DCRA and Network Resilience) and helped secure the Islamic digital bank license.</div>
-          <p>Owned technical delivery through the bank's launch, including the core banking and payments integration architecture. Spearheaded Azure PIM, RBAC, and SSO — optimizing IAM for 150+ user identities over SAML/OIDC — and migrated the IaaS-based Active Directory to Entra Domain Services for a legacy LDAP-dependent app, all while the DR role grew from helping out to coordinating failovers with vendors.</p>
+          <div class="card-contribution"><span class="label">$ contribution</span>Closed a pre-go-live BNM ORR finding on privileged access — Azure PIM, RBAC and SSO (SAML/OIDC) for 150+ identities across SaaS and IaaS.</div>
+          <p>Designed the bank's first landing zone connectivity stack, linking core banking SaaS to RPP, Cards and RENTAS NWI, and replaced self-managed domain controllers with Entra Domain Services so legacy LDAP workloads kept working.</p>
         </div>
         <div class="card">
           <div class="card-tag active"><span class="d"></span>ONGOING</div>
           <h3>Continuous Improvement</h3>
           <div class="sub">Assistant Manager, Lead Cloud Engineer</div>
-          <div class="card-contribution"><span class="label">$ contribution</span>Built a 3-person cloud operations team from the ground up — cutting dependency on senior engineers by 60% within three months — and authored the ADRs behind KAF's Azure Landing Zone, now leading the team hardening it against CIS and RMiT.</div>
-          <p>Shapes vWAN migration, native Entra ID adoption, API Management, and DMZ architecture. Circles back to harden and provision Entra Domain Services itself, secures the Azure Files shares linked to it, rolls out Azure Monitor and Syslog forwarding under a P1–P4 alert framework, and keeps tightening the backup/DR program with source-scan integration and RMiT immutability.</p>
+          <div class="card-contribution"><span class="label">$ contribution</span>Led the Operational Readiness Review with BNM — the network security architecture he authored satisfied 2 RMiT domains (DCRA, Network Resilience) and helped secure the Islamic Digital Bank license.</div>
+          <p>Moved the estate onto Azure Virtual WAN across 2 sites with Routing Intent, segmented remote access per department with P2S user groups, codified hardening in an ADR enforced through Azure Policy, and is retiring Entra Domain Services by moving the last Azure Files share to Blob. DR now runs as ~5 live failover drills a month with a 1-hour RTO.</p>
         </div>
       </div>
       <div class="chip-row">
-        <span class="chip interest">1 → 3 engineers led</span>
-        <span class="chip interest">−60% senior-engineer dependency</span>
-        <span class="chip interest">150+ identities · IAM (SAML/OIDC)</span>
-        <span class="chip progress">2 RMiT domains satisfied for BNM license</span>
+        <span class="chip interest">3-person team built</span>
+        <span class="chip interest">+60% operational confidence in 6 months</span>
+        <span class="chip interest">150+ identities under PIM, RBAC &amp; SSO</span>
+        <span class="chip interest">1h RTO vs BNM's 2h mandate</span>
+        <span class="chip progress">2 RMiT domains · Islamic Digital Bank license</span>
       </div>
 
       <div class="refine-wrap">
@@ -678,16 +778,38 @@
         <div class="card story-card">
           <div class="card-tag">$ log --follow platform.story</div>
           <h3>The Story</h3>
-          <p>The depth grew first, then the breadth followed. As an intern, the platform meant a virtual network, a firewall, an app gateway, and APIM — all touched while building proof-of-concepts in a brand-new environment, with Entra ID and Domain Services as his first taste of identity work, on top of a networking foundation (routing, switching, VLANs) he already carried in from his CCNA. One thread started right there and never stopped: helping set up the bank's Backup and Recovery Services Vaults, and standing alongside the team on disaster recovery, coordinating with vendors, since before he was full-time.</p>
-          <p>As Executive, those same pieces became load-bearing: the virtual network turned into the payments integration architecture, Entra ID grew into SSO and Azure PIM against a BNM remediation deadline, and the DR role grew from helping to actively running failovers.</p>
-          <p>As Lead, three things are happening at once. What he already knew got deeper — Entra ID became a native-adoption ADR he authored himself, APIM became a service design he owns end-to-end, wired through DMZ architecture and JWT-secured APIs. Whole categories opened up that didn't exist for him before: governing access itself through Azure RBAC at Management Group and resource scope plus Entra ID RBAC, hardening Windows Server images against CIS through Azure Image Builder, watching the estate with Network Watcher, Azure Monitor, and Syslog forwarding under a P1–P4 alert framework, and writing the Python automation that keeps an eye on things like certificate expiry without anyone having to ask. The identity foundation he first touched as an intern came back around too — Entra Domain Services itself is now something he hardens and provisions, right down to the Azure Files shares that lean on it for security. And the oldest thread is still being pulled tighter — the backup and DR program he's run since intern days is now getting source-scan integrations and immutability, closing it out against BNM RMiT.</p>
+          <p>The depth grew first, then the breadth followed. As an intern, the platform meant proofs of concept — VNets, VPN Gateway, Private DNS Zones, Application Gateway and API Management — built alongside the Cloud Engineer before the landing zone existed, on top of a networking foundation he already carried in from his CCNA. Two threads started there and never stopped: the managed file transfer platform that moves files between the bank and its partners, and the Backup and Recovery Services Vaults that later became the base for DR and RMiT retention.</p>
+          <p>As Executive, those proofs of concept became the real thing: the bank's first landing zone connectivity stack, linking core banking SaaS to RPP, Cards and RENTAS NWI. Identity grew up too — a pre-go-live ORR finding on privileged access turned into Azure PIM, RBAC and SSO across 150+ identities, and self-managed domain controllers gave way to Entra Domain Services.</p>
+          <p>As Lead, the platform he built is being rebuilt properly. The first landing zone evolved into a Virtual WAN estate across two sites with Routing Intent and centralised firewall policy; remote access is segmented per department through P2S user groups; hardening is written down as an ADR and enforced through Azure Policy and a CIS-hardened golden image. Some of his own early decisions are being retired on purpose — the last Entra-joined Azure Files share is moving to Blob so Entra Domain Services can be decommissioned. And the oldest thread is still being pulled tighter: the DR he helped build as an intern now runs as roughly five live failover drills a month, with a 1-hour RTO against BNM's 2-hour mandate.</p>
         </div>
         <div class="card featured-project">
           <div class="card-tag active"><span class="d"></span>FEATURED PROJECT</div>
           <h3>Azure Landing Zone — Inter-SaaS Connectivity</h3>
           <div class="sub">Bicep · Azure</div>
-          <p>Designed the landing zone connecting external SaaS platforms (core banking, RPP, Cards) and hybrid endpoints (RENTAS NWI). The initial stack — VPN Gateway, Azure Firewall, Peplink NVA, Application Gateway, APIM, and VNets/routing — is the foundation that later evolved into the bank's Virtual WAN architecture.</p>
-          <div class="proj-tags"><span class="proj-tag">Bicep</span><span class="proj-tag">VPN Gateway</span><span class="proj-tag">Azure Firewall</span><span class="proj-tag">Peplink NVA</span><span class="proj-tag">App Gateway</span><span class="proj-tag">APIM</span></div>
+          <p>Designed the landing zone connecting external SaaS platforms (core banking, RPP, Cards) and hybrid endpoints (RENTAS NWI). The initial stack — VPN Gateway, Azure Firewall, Peplink SD-WAN NVA, Application Gateway, API Management, and VNets/routing — is the foundation that later evolved into the bank's Virtual WAN architecture.</p>
+          <div class="proj-tags"><span class="proj-tag">Bicep</span><span class="proj-tag">VPN Gateway</span><span class="proj-tag">Azure Firewall</span><span class="proj-tag">Peplink SD-WAN</span><span class="proj-tag">App Gateway</span><span class="proj-tag">APIM</span></div>
+        </div>
+        <div class="work-grid">
+          <div class="card featured-project">
+            <div class="card-tag">PROJECT</div>
+            <h3>Serverless Compliance Automation</h3>
+            <div class="sub">Python · Azure Functions · Azure Storage · Azure PIM · Azure Monitor</div>
+            <ul class="hop-list">
+              <li><b>SaaS log retention:</b> extended a SaaS application's 1-year in-app log retention to the <b>7 years BNM RMiT requires</b> by pulling logs through the vendor API into bank-owned storage.</li>
+              <li><b>eKYC data sovereignty:</b> moved Onfido identity verification records (IC documents, verification videos) out of SaaS into bank-owned storage to meet <b>PDPA</b>, retained 7 years under RMiT, with admin access gated through Azure PIM.</li>
+              <li><b>Certificate transparency monitor:</b> hourly crt.sh polling for new certificates on the bank's domains, alerting on-call via Azure Monitor, egressing only through the vWAN firewall.</li>
+            </ul>
+          </div>
+          <div class="card featured-project">
+            <div class="card-tag">PROJECT</div>
+            <h3>On-Call Alerting Framework</h3>
+            <div class="sub">Azure Monitor · Jira Service Management Ops</div>
+            <ul class="hop-list">
+              <li><b>P1–P4 severity framework</b> for Azure resources — IaaS VMs, API Management, Communication Services.</li>
+              <li>Routes Azure Monitor alerts to Jira Service Management Ops for on-call paging.</li>
+              <li>Staged expiry alerts for keys, certificates and licences, so renewals happen before anything breaks.</li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
@@ -700,24 +822,24 @@
     <div class="proj-grid">
       <div class="proj-card">
         <svg class="proj-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="6" y="8" width="28" height="18" rx="4"></rect><path d="M14 26 L14 32 L20 26" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="14" cy="17" r="1.3" fill="currentColor" stroke="none"></circle><circle cx="20" cy="17" r="1.3" fill="currentColor" stroke="none"></circle><circle cx="26" cy="17" r="1.3" fill="currentColor" stroke="none"></circle></svg>
-        <h3>OpenClaw</h3>
-        <div class="sub">self-hosted AIOps agent</div>
-        <p>A chat-driven assistant for his own Ubiquiti network — not just monitoring, but querying and controlling it. Runs self-hosted on a Proxmox node via an MCP server, with a staged confirm-token pattern before any write action.</p>
-        <div class="proj-tags"><span class="proj-tag">UniFi Network API</span><span class="proj-tag">MCP</span><span class="proj-tag">Python</span><span class="proj-tag">Claude Code</span></div>
+        <h3>AIOps Lab Agents</h3>
+        <div class="sub">self-hosted multi-agent system</div>
+        <p>An orchestrator coordinating network, hypervisor and monitoring agents over MCP, operating the lab through chat. Every infrastructure change goes through a GitOps pipeline, and destructive actions wait for approval.</p>
+        <div class="proj-tags"><span class="proj-tag">MCP</span><span class="proj-tag">Python</span><span class="proj-tag">GitOps</span><span class="proj-tag">UniFi</span><span class="proj-tag">Proxmox</span></div>
       </div>
       <div class="proj-card">
         <svg class="proj-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="7" y="6" width="26" height="8" rx="1.5"></rect><rect x="7" y="16" width="26" height="8" rx="1.5"></rect><rect x="7" y="26" width="26" height="8" rx="1.5"></rect><circle cx="12" cy="10" r="1.1" fill="currentColor" stroke="none"></circle><circle cx="12" cy="20" r="1.1" fill="currentColor" stroke="none"></circle><circle cx="12" cy="30" r="1.1" fill="currentColor" stroke="none"></circle></svg>
         <h3>Home Lab</h3>
         <div class="sub">Ubiquiti + Proxmox</div>
-        <p>UDM Pro Max at the edge, an USW Pro Max 24 as L3 core (with the old SFP aggregation switch demoted to pure L2), and U7 Pro XGS access points wired throughout the house. A separate DMZ box — a 32c/64t, 128GB RAM Proxmox desktop — runs AdGuard today, with room to grow into AIOps infrastructure.</p>
-        <div class="proj-tags"><span class="proj-tag">L3 core switching</span><span class="proj-tag">DMZ isolation</span><span class="proj-tag">Proxmox</span></div>
+        <p>A segmented Ubiquiti network — UDM Pro Max at the edge, an L3 core switch, VLANs with inter-VLAN routing, ACLs and WireGuard remote access. The Proxmox host is split into management, DMZ and shared-services networks, with an Apache Guacamole jumpbox for admin access.</p>
+        <div class="proj-tags"><span class="proj-tag">VLAN segmentation</span><span class="proj-tag">WireGuard</span><span class="proj-tag">Proxmox</span><span class="proj-tag">Guacamole</span></div>
       </div>
       <div class="proj-card">
         <svg class="proj-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="9" cy="10" r="3.2"></circle><circle cx="31" cy="10" r="3.2"></circle><circle cx="20" cy="30" r="3.2"></circle><path d="M12 12.5 L17.5 26.5 M28 12.5 L22.5 26.5" stroke-linecap="round"></path></svg>
-        <h3>IaC &amp; Agentic AI Roadmap</h3>
-        <div class="sub">self-directed learning track</div>
-        <p>A three-phase roadmap for building infrastructure-as-code and agentic AI skills with Terraform and Ansible, run against his own Proxmox and UniFi infrastructure rather than a sandbox.</p>
-        <div class="proj-tags"><span class="proj-tag">Terraform</span><span class="proj-tag">Ansible</span><span class="proj-tag">Agentic AI</span></div>
+        <h3>K3s &amp; Shared Services</h3>
+        <div class="sub">in progress</div>
+        <p>Laying the foundation for a low-power K3s cluster, alongside self-hosted shared services — Gitea for the lab's IaC and GitOps repos, and Keycloak for identity.</p>
+        <div class="proj-tags"><span class="proj-tag">K3s</span><span class="proj-tag">Gitea</span><span class="proj-tag">Keycloak</span><span class="proj-tag">IPSec</span></div>
       </div>
     </div>
 
@@ -830,17 +952,17 @@
     <div class="sec-head"><span class="sec-tag">05</span><span class="sec-title">education</span></div>
     <div class="ed-grid">
       <div class="card">
-        <div class="card-tag active"><span class="d"></span>IN PROGRESS</div>
-        <h3>PhD, Cybersecurity / Classical ML</h3>
-        <div class="sub">Universiti Teknologi Malaysia · Mar 2024 – Mar 2027</div>
-        <p>Doctoral research spanning cybersecurity and classical machine learning approaches.</p>
+        <div class="card-tag">SEPT 2021 – FEB 2024</div>
+        <h3>Bachelor of Computer Science</h3>
+        <div class="sub">Computer Networks and Security · Universiti Teknologi Malaysia, Skudai</div>
+        <p>Graduated with a 3.81 CGPA. Final year projects: a comparative study of XGBoost vs. Random Forest for zero-day malware classification (shipped as a Chrome extension), and a Flutter/Firebase study planner for live timetable clash detection.</p>
+        <div class="meta">Dean's Award — 2021 &amp; 2024 · URC 2023 participant</div>
       </div>
       <div class="card">
-        <div class="card-tag">COMPLETE</div>
-        <h3>B.Sc Computer Science</h3>
-        <div class="sub">Networks &amp; Security · UTM · Sep 2021 – Feb 2024</div>
-        <p>Graduated with a 3.81 GPA. Final year projects: a comparative study of XGBoost vs. Random Forest for zero-day malware classification (shipped as a Chrome extension), and a Flutter/Firebase study planner for live timetable clash detection.</p>
-        <div class="meta">Dean's Award — 2021 &amp; 2024 · URC 2023 participant</div>
+        <div class="card-tag">JUNE 2018 – FEB 2021</div>
+        <h3>Diploma of Computer Science</h3>
+        <div class="sub">Information Technology · Universiti Teknologi Malaysia, Kuala Lumpur</div>
+        <p>Graduated with a 3.83 CGPA.</p>
       </div>
     </div>
   </div>
@@ -850,14 +972,9 @@
   <div class="wrap">
     <div class="sec-head"><span class="sec-tag">06</span><span class="sec-title">certifications</span></div>
     <div class="badge-grid">
-      <div class="badge"><div class="badge-icon">AZ</div><div class="badge-text">Azure Solutions Architect Expert<span class="issuer">Microsoft</span></div></div>
-      <div class="badge"><div class="badge-icon">AZ</div><div class="badge-text">Azure Network Engineer Associate<span class="issuer">Microsoft</span></div></div>
-      <div class="badge"><div class="badge-icon">AZ</div><div class="badge-text">Azure Administrator Associate<span class="issuer">Microsoft</span></div></div>
-      <div class="badge more">+4 more on file</div>
-    </div>
-    <div class="chip-row">
-      <span class="chip progress">→ pursuing AZ-700 next</span>
-      <span class="chip interest">↗ CCNP / CCIE — longer-term interest</span>
+      <div class="badge"><div class="badge-icon">AZ</div><div class="badge-text">AZ-700: Azure Network Engineer Associate<span class="issuer">Microsoft · expected Nov 2026</span></div></div>
+      <div class="badge"><div class="badge-icon">CC</div><div class="badge-text">Cisco Certified Network Associate (CCNA)<span class="issuer">Cisco · 2022</span></div></div>
+      <div class="badge"><div class="badge-icon">CO</div><div class="badge-text">CyberOps Associate<span class="issuer">Cisco NetAcad · 2022</span></div></div>
     </div>
   </div>
 </section>
@@ -889,7 +1006,7 @@
   <div class="wrap">
     <div class="footer-panel">
       <div class="footer-title">$ connect --to=faris</div>
-      <p class="footer-sub">Based in Kuala Lumpur, currently deep in Azure networking, RMiT compliance, and the occasional home-lab traceroute. Open to a conversation.</p>
+      <p class="footer-sub">Based in Kuala Lumpur and looking for a senior network engineering role. References available on request.</p>
       <a class="cta" href="mailto:af.aiman5578@gmail.com">establish_connection()  →</a>
       <div class="footer-links">
         <a href="mailto:af.aiman5578@gmail.com">af.aiman5578@gmail.com</a>
@@ -897,10 +1014,10 @@
         <a href="https://resume.loximity.dev" target="_blank" rel="noopener">resume.loximity.dev</a>
       </div>
       <div class="footer-stats">
-        <div><b>150</b>+ identities (IAM)</div>
-        <div><b>3.81</b>GPA</div>
-        <div><b>3</b>-person team built</div>
-        <div><b>2</b>RMiT domains for BNM license</div>
+        <div><b>150</b>+ identities under PIM</div>
+        <div><b>2</b>RMiT domains for the license</div>
+        <div><b>1</b>h RTO vs 2h mandate</div>
+        <div><b>5</b>DR drills a month</div>
       </div>
     </div>
     <div class="footer-note">// Ahmad Faris Aiman bin Arizal · +6012-5153385</div>
@@ -908,6 +1025,29 @@
 </section>
 
 <script>
+// ---- quick-jump droplet rail: hidden on the hero, shown from the first section on; tracks the active section ----
+document.addEventListener('DOMContentLoaded', () => {
+  const bar = document.getElementById('jumpbar');
+  const hero = document.getElementById('intro');
+  if (!bar || !hero || !('IntersectionObserver' in window)) { if (bar) bar.classList.add('show'); return; }
+  new IntersectionObserver((entries) => {
+    entries.forEach(e => bar.classList.toggle('show', !e.isIntersecting));
+  }, {threshold:0, rootMargin:'-60% 0px 0px 0px'}).observe(hero);
+
+  const links = [...bar.querySelectorAll('a')];
+  const byId = Object.fromEntries(links.map(a => [a.getAttribute('href').slice(1), a]));
+  const activeIO = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      const link = byId[e.target.id];
+      if (!link) return;
+      links.forEach(a => { a.classList.toggle('active', a === link); a.removeAttribute('aria-current'); });
+      link.setAttribute('aria-current', 'true');
+    });
+  }, {threshold:0, rootMargin:'-45% 0px -50% 0px'});
+  Object.keys(byId).forEach(id => { const s = document.getElementById(id); if (s) activeIO.observe(s); });
+});
+
 document.addEventListener('DOMContentLoaded', () => {
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -1053,14 +1193,14 @@ document.addEventListener('DOMContentLoaded', () => {
   const refineTable = document.getElementById('refineTable');
   if (refineTable) {
     const refineData = [
-      {tech:'Core Networking', tags:'VNet · Hub-and-Spoke · UDR · routing, switching &amp; VLANs', levels:[3,4,5]},
-      {tech:'Security &amp; Perimeter', tags:'Azure Firewall · NSG · DDoS Protection · Private Link · Bastion', levels:[1,3,5]},
-      {tech:'Load Balancing &amp; Delivery', tags:'Application Gateway · APIM · Traffic Manager · Front Door', levels:[1,2,5]},
-      {tech:'DNS &amp; Storage', tags:'Private DNS Resolver · Azure Files security (Domain Services–linked) · Blob / ADLS Gen2 replication', levels:[0,1,4]},
-      {tech:'Identity &amp; Governance', tags:'Entra ID · Entra Domain Services hardening &amp; provisioning · Azure RBAC · Entra RBAC · Azure Policy · DSC', levels:[2,4,5]},
-      {tech:'Hardening &amp; Observability', tags:'CIS hardening · Network Watcher · packet capture · Azure Monitor · Syslog · P1–P4 framework · Jira paging', levels:[1,2,4]},
-      {tech:'Backup &amp; Disaster Recovery', tags:'Recovery Services Vaults · vendor-coordinated DR · RMiT immutability', levels:[2,3,5]},
-      {tech:'Automation &amp; Data Movement', tags:'Python / Azure Functions · MFT → Azure File Share', levels:[0,1,3]}
+      {tech:'Cloud Networking', tags:'Virtual WAN (Routing Intent) · S2S/P2S VPN · VPN Gateway · Peplink SD-WAN · NSG/UDR · routing, switching &amp; VLANs', levels:[3,4,5]},
+      {tech:'Security &amp; Perimeter', tags:'Azure Firewall · Private Link · DDoS Protection · Bastion · P2S user-group segmentation', levels:[1,3,5]},
+      {tech:'Load Balancing &amp; Delivery', tags:'Application Gateway (WAFv2) · API Management · Front Door · Traffic Manager', levels:[1,2,5]},
+      {tech:'DNS &amp; Storage', tags:'Private DNS Resolver (split-horizon) · Private DNS Zones · Azure Files → Blob migration', levels:[1,2,4]},
+      {tech:'Identity &amp; Governance', tags:'Entra ID · Azure PIM · Azure RBAC · Entra RBAC · Entra Domain Services · SSO (SAML/OIDC) · Azure Policy (DINE/AINE)', levels:[2,4,5]},
+      {tech:'Hardening &amp; Observability', tags:'CIS Benchmarks · Machine Configuration · Image Builder · VNet Flow Logs · Traffic Analytics · Azure Monitor · LogicMonitor', levels:[1,2,4]},
+      {tech:'Backup &amp; Disaster Recovery', tags:'Recovery Services Vaults · ~5 failover drills/month · 1h RTO · immutable backups', levels:[2,3,5]},
+      {tech:'Automation &amp; IaC', tags:'Python · PowerShell · Bicep · Azure Functions · JSCAPE MFT', levels:[2,2,4]}
     ];
     const phaseLabels = ['INTERN','EXECUTIVE','LEAD'];
     const prefixes = ['I','E','L'];
