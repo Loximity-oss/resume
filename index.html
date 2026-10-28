@@ -663,6 +663,18 @@
       linear-gradient(0deg,transparent 0,color-mix(in srgb,var(--c) 70%,transparent) 50%,transparent 100%) center/1px 100% no-repeat;
     border-radius:0;opacity:.8;
   }
+  /* static coloured stars: a bright core with a tinted bloom */
+  .nt-pop{position:absolute;width:var(--s);height:var(--s);transform:translate(-50%,-50%);border-radius:50%;
+    background:radial-gradient(circle,#fff 0 9%,var(--c) 16%,color-mix(in srgb,var(--c) 28%,transparent) 32%,transparent 60%);}
+  /* shape variants: x8 adds a shorter diagonal cross, spark is a concave four-point star, orb is a coloured bloom with a ring */
+  .nt-shine i{position:absolute;inset:18%;transform:rotate(45deg);opacity:.55;
+    background:
+      linear-gradient(90deg,transparent 0,var(--c) 50%,transparent 100%) center/100% 1px no-repeat,
+      linear-gradient(0deg,transparent 0,var(--c) 50%,transparent 100%) center/1px 100% no-repeat;}
+  .nt-shine.spark::after{background:var(--c);opacity:.95;inset:22%;
+    clip-path:polygon(50% 0,58% 42%,100% 50%,58% 58%,50% 100%,42% 58%,0 50%,42% 42%);}
+  .nt-shine.orb::before{background:radial-gradient(circle,#fff 0 6%,var(--c) 11%,color-mix(in srgb,var(--c) 30%,transparent) 26%,transparent 52%);}
+  .nt-shine.orb::after{background:none;border-radius:50%;inset:24%;opacity:.35;border:1px solid var(--c);}
   @media (prefers-reduced-motion:no-preference){
     .nt-shine{animation:ntTwinkle var(--d) ease-in-out var(--dl) infinite;}
   }
@@ -2821,21 +2833,24 @@ document.addEventListener('DOMContentLoaded', () => {
 (() => {
   const rnd = (a => () => (a = (a * 1664525 + 1013904223) >>> 0) / 4294967296)(4011996); // seeded so it's identical every load
 
-  // starfield: two 512px tiles — far: faint pinpricks, near: fewer, slightly larger and brighter
-  const tints = ['255,255,255','255,255,255','255,255,255','255,255,255','196,181,253','245,215,122'];
+  // starfield: two 512px tiles — far: faint pinpricks, near: fewer, larger, brighter
+  // colours follow the stellar classes (blue-white, white, yellow, orange, red) plus the site's violet and pink
+  const tints = ['255,255,255','255,255,255','255,255,255','170,196,255','143,168,255','158,230,255',
+                 '255,236,180','245,215,122','255,178,122','255,138,138','196,181,253','240,166,202'];
   const tile = (count, size, alpha) => {
     const st = document.createElement('canvas'); st.width = st.height = 512;
     const sx = st.getContext('2d');
     for (let i = 0; i < count; i++) {
-      const x = rnd() * 512, y = rnd() * 512;
-      sx.fillStyle = `rgba(${tints[(rnd() * tints.length) | 0]},${(alpha + rnd() * .4).toFixed(2)})`;
-      sx.beginPath(); sx.arc(x, y, size * (rnd() > .85 ? 1.6 : 1), 0, Math.PI * 2); sx.fill();
+      const x = rnd() * 512, y = rnd() * 512, c = tints[(rnd() * tints.length) | 0];
+      const a = alpha + rnd() * .45, big = rnd() > .8, r = size * (big ? 1.8 : 1);
+      sx.fillStyle = `rgba(${c},${a.toFixed(2)})`;
+      sx.beginPath(); sx.arc(x, y, r, 0, Math.PI * 2); sx.fill();
     }
     return `url(${st.toDataURL()})`;
   };
   const far = document.getElementById('ntStarsFar'), near = document.getElementById('ntStarsNear');
-  far.style.backgroundImage = tile(24, .5, .18);
-  near.style.backgroundImage = tile(10, .8, .35);
+  far.style.backgroundImage = tile(34, .5, .2);
+  near.style.backgroundImage = tile(14, .85, .4);
 
   // parallax: slide each tile layer by its share of how far the sky has scrolled, wrapped to the tile size
   const sky = document.querySelector('.nt-sky');
@@ -2866,12 +2881,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // glinting stars, scattered down the whole sky
   const shine = document.getElementById('ntShine');
-  const glints = ['#FFFFFF', '#FFFFFF', '#E4DCFF', '#F5D77A', '#C4B5FD'];
-  for (let i = 0; i < 26; i++) {
-    const el = document.createElement('span');
-    el.className = 'nt-shine';
+  const glints = ['#FFFFFF', '#FFFFFF', '#E4DCFF', '#F5D77A', '#C4B5FD', '#8FA8FF', '#9EE6FF', '#F0A6CA', '#FFB27A', '#FF8A8A'];
+  const shapes = ['', '', 'x8', 'x8', 'spark', 'spark', 'orb'];
+  for (let i = 0; i < 70; i++) {
+    const el = document.createElement('span'), c = glints[2 + ((rnd() * (glints.length - 2)) | 0)];
+    el.className = 'nt-pop';
+    el.style.cssText = `left:${(rnd() * 100).toFixed(2)}%;top:${(rnd() * 99).toFixed(2)}%;` +
+      `--s:${(6 + rnd() * 10).toFixed(0)}px;--c:${c};opacity:${(.45 + rnd() * .5).toFixed(2)};`;
+    shine.appendChild(el);
+  }
+  for (let i = 0; i < 48; i++) {
+    const el = document.createElement('span'), shape = shapes[(rnd() * shapes.length) | 0];
+    el.className = 'nt-shine' + (shape ? ' ' + shape : '');
+    if (shape === 'x8') el.appendChild(document.createElement('i'));
     el.style.cssText = `left:${(rnd() * 100).toFixed(2)}%;top:${(rnd() * 98).toFixed(2)}%;` +
-      `--s:${(14 + rnd() * 18).toFixed(0)}px;--c:${glints[(rnd() * glints.length) | 0]};` +
+      `--s:${((shape === 'orb' ? 18 : 12) + rnd() * 22).toFixed(0)}px;--c:${glints[(rnd() * glints.length) | 0]};` +
       `--d:${(3 + rnd() * 4).toFixed(1)}s;--dl:${(-rnd() * 6).toFixed(1)}s;`;
     shine.appendChild(el);
   }
