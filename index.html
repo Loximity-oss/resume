@@ -101,7 +101,7 @@
   .nav-path{color:var(--text-muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
   .nav-path .prompt{color:var(--violet);}
   .nav-status{display:flex;align-items:center;gap:6px;color:var(--text-faint);}
-  .dot-live{width:6px;height:6px;border-radius:50%;background:var(--violet);box-shadow:0 0 8px var(--violet);animation:pulse 2s ease-in-out infinite;}
+  .dot-live{width:6px;height:6px;border-radius:50%;background:#28C840;box-shadow:0 0 8px #28C840;animation:pulse 2s ease-in-out infinite;}
   @keyframes pulse{0%,100%{opacity:1;}50%{opacity:.35;}}
 
   section{position:relative;z-index:1;}
@@ -118,8 +118,8 @@
   /* ---------- hero particle-ocean video background ---------- */
   section{overflow:hidden;}
   .wrap{position:relative;z-index:2;}
-  .hero-bg{position:absolute;inset:0;z-index:0;pointer-events:none;background:#000 url('assets/hero-poster.jpg') center bottom/cover no-repeat;}
-  .hero-bg video{width:100%;height:100%;object-fit:cover;object-position:center bottom;display:block;}
+  .hero-bg{position:absolute;inset:0;z-index:0;pointer-events:none;background:#000;}
+  .hero-bg video{width:100%;height:100%;object-fit:cover;object-position:center bottom;display:block;opacity:.5;}
   /* darken behind the copy, and melt the bottom edge into the page */
   .hero-bg::after{
     content:'';position:absolute;inset:0;
@@ -143,7 +143,7 @@
     border-bottom:1px solid var(--line);
   }
   .term-bar span:not(.term-title){width:10px;height:10px;border-radius:50%;display:inline-block;}
-  .term-bar .r{background:#F2555580;} .term-bar .y{background:#F5D77A80;} .term-bar .g{background:#A78BFA80;}
+  .term-bar .r{background:#F2555580;} .term-bar .y{background:#F5D77A80;} .term-bar .g{background:#28C84080;}
   .term-title{margin-left:8px;font-family:var(--mono);font-size:12px;color:var(--text-faint);}
   .term-body{padding:22px 24px 26px;font-family:var(--mono);font-size:13.5px;color:var(--text-muted);}
   .term-line{opacity:0;white-space:pre-wrap;}
@@ -180,6 +180,28 @@
     font-family:'Space Grotesk', var(--body);font-weight:700;letter-spacing:-0.02em;
     background-image:linear-gradient(120deg,#F5D77A 0%,#FFF0C2 55%,#F5D77A 100%);
   }
+  /* split into letters by JS: each letter carries its own slice of the word's gradient (--ox/--ww),
+     plus a shimmer band layer whose sweep progress is --p (0 → 1) */
+  @property --p{syntax:'<number>';inherits:true;initial-value:0;}
+  .hn-a{--grad:linear-gradient(120deg,#A78BFA 0%,#E4DCFF 55%,#A78BFA 100%);}
+  .hn-b{--grad:linear-gradient(120deg,#F5D77A 0%,#FFF0C2 55%,#F5D77A 100%);}
+  .hn-word.split{background:none;position:relative;--p:0;--ww:300px;}
+  .hn-word.split .ch{
+    display:inline-block;white-space:pre;
+    background-image:linear-gradient(105deg,transparent 0 42%,#ffffffcc 50%,transparent 58% 100%), var(--grad);
+    background-size:calc(var(--ww) * 3) 100%, var(--ww) 100%;
+    background-position:calc(var(--ww) * (var(--p) * 1.8 - 1.9) - var(--ox)) 0, calc(var(--ox) * -1) 0;
+    background-repeat:no-repeat;
+    -webkit-background-clip:text;background-clip:text;
+    -webkit-text-fill-color:transparent;color:transparent;
+  }
+  .hn-word.split .ch.bit{opacity:.75;}
+  .hn-word.shine{animation:hnShimmer 6s ease-in-out infinite;}
+  .hn-b.shine{animation-delay:.25s;}
+  @keyframes hnShimmer{
+    0%{--p:0;}
+    35%,100%{--p:1;}
+  }
   .hn-to{
     font-family:var(--body);
     font-size:.3em;font-weight:400;font-style:italic;color:var(--text-faint);
@@ -209,7 +231,7 @@
 
   .scroll-cue{
     margin-top:56px;
-    font-family:var(--mono);font-size:11.5px;color:var(--text-faint);
+    font-family:var(--mono);font-size:11.5px;color:var(--text-muted);
     display:flex;align-items:center;gap:8px;
     opacity:0;
   }
@@ -1235,17 +1257,69 @@ document.addEventListener('DOMContentLoaded', () => {
     return;
   }
 
+  // ---- tagline: "Packets" decodes out of binary, "Platforms" builds up letter by letter, then a shimmer loops ----
+  function splitWord(word) {
+    const text = word.textContent;
+    word.textContent = '';
+    const chars = [...text].map(c => {
+      const ch = document.createElement('span');
+      ch.className = 'ch';
+      ch.textContent = c;
+      word.appendChild(ch);
+      return ch;
+    });
+    word.classList.add('split');
+    word.setAttribute('aria-label', text);
+    return chars;
+  }
+  function measureWord(word, chars) {
+    word.style.setProperty('--ww', word.offsetWidth + 'px');
+    chars.forEach(ch => ch.style.setProperty('--ox', ch.offsetLeft + 'px'));
+  }
+  function playTagline() {
+    const wa = document.querySelector('.hn-a'), wb = document.querySelector('.hn-b');
+    if (!wa || !wb) return;
+    const finals = [...wa.textContent];
+    const ca = splitWord(wa), cb = splitWord(wb);
+    const remeasure = () => { measureWord(wa, ca); measureWord(wb, cb); };
+    remeasure();
+    if (document.fonts) document.fonts.ready.then(remeasure);
+    window.addEventListener('resize', remeasure);
+
+    // bits flicker until each letter's turn to resolve, left to right
+    ca.forEach(ch => { ch.textContent = Math.random() < .5 ? '0' : '1'; ch.classList.add('bit'); });
+    anime.set(cb, {opacity:0, translateY:28});
+    anime.set('.hn-word, .hn-to', {opacity:1});
+    anime.set('.hn-to', {opacity:0});
+    const t0 = performance.now();
+    const flicker = setInterval(() => {
+      const t = performance.now() - t0;
+      let pending = 0;
+      ca.forEach((ch, i) => {
+        if (!ch.classList.contains('bit')) return;
+        if (t >= 250 + i*95) { ch.textContent = finals[i]; ch.classList.remove('bit'); }
+        else { ch.textContent = Math.random() < .5 ? '0' : '1'; pending++; }
+      });
+      if (!pending) clearInterval(flicker);
+    }, 55);
+
+    anime({targets:'.hn-to', opacity:[0,1], duration:400, delay:650, easing:'easeOutQuad'});
+    anime({targets:cb, opacity:[0,1], translateY:[28,0], duration:520, delay:anime.stagger(60, {start:800}), easing:'easeOutBack',
+      complete: () => { wa.classList.add('shine'); wb.classList.add('shine'); }});
+  }
+
   // ---- hero terminal + name sequence ----
   // under reduced motion, reveal directly — 1ms timeline steps can leave the first targets hidden
   if (reduce) {
     anime.set('.term, .term-line, .hero-kicker, .hero-name, .hn-word, .hn-to, .hero-role, .hero-meta, .scroll-cue', {opacity:1});
   } else {
+    anime.set('.hn-word, .hn-to', {opacity:0});
+    setTimeout(playTagline, 1400);
     anime.timeline({easing:'easeOutQuad'})
       .add({targets:'.term', opacity:[0,1], translateY:[16,0], duration:600})
       .add({targets:'.term-line', opacity:[0,1], translateX:[-8,0], delay: anime.stagger(220), duration:400}, '-=200')
       .add({targets:'.hero-kicker', opacity:[0,1], translateY:[10,0], duration:500}, '-=100')
       .add({targets:'.hero-name', opacity:[0,1], duration:400}, '-=250')
-      .add({targets:'.hn-word, .hn-to', opacity:[0,1], translateY:[24,0], duration:650, delay: anime.stagger(120)}, '-=250')
       .add({targets:'.hero-role', opacity:[0,1], translateY:[14,0], duration:600}, '-=400')
       .add({targets:'.hero-meta', opacity:[0,1], translateY:[10,0], duration:600}, '-=350')
       .add({targets:'.scroll-cue', opacity:[0,1], duration:600}, '-=300');
