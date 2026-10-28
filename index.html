@@ -95,13 +95,11 @@
     font-size:12.5px;
   }
   .nav .wrap{
-    display:flex;align-items:center;justify-content:space-between;
+    display:flex;align-items:center;justify-content:center;
     height:44px;max-width:920px;
   }
   .nav-path{color:var(--text-muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
   .nav-path .prompt{color:var(--violet);}
-  .nav-status{display:flex;align-items:center;gap:6px;color:var(--text-faint);}
-  .dot-live{width:6px;height:6px;border-radius:50%;background:#28C840;box-shadow:0 0 8px #28C840;animation:pulse 2s ease-in-out infinite;}
   @keyframes pulse{0%,100%{opacity:1;}50%{opacity:.35;}}
 
   section{position:relative;z-index:1;}
@@ -119,7 +117,7 @@
   section{overflow:hidden;}
   .wrap{position:relative;z-index:2;}
   .hero-bg{position:absolute;inset:0;z-index:0;pointer-events:none;background:#000;}
-  .hero-bg video{width:100%;height:100%;object-fit:cover;object-position:center bottom;display:block;opacity:.5;}
+  .hero-bg video{width:100%;height:100%;object-fit:cover;object-position:center bottom;display:block;opacity:.8;}
   /* darken behind the copy, and melt the bottom edge into the page */
   .hero-bg::after{
     content:'';position:absolute;inset:0;
@@ -316,6 +314,10 @@
 
   /* ---------- education / certs ---------- */
   .ed-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+  /* equal-height education cards, with the meta line pinned to the bottom so both rows line up */
+  .ed-grid .card{display:flex;flex-direction:column;}
+  .ed-grid .card .meta{margin-top:auto;}
+  .ed-grid .card p{margin-bottom:14px;}
   .phase-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:22px;}
   .phase-grid p{text-align:justify;text-justify:inter-word;}
   .card-contribution{margin:12px 0;padding:10px 12px;border-left:2px solid var(--violet);background:var(--violet-dim);border-radius:0 6px 6px 0;font-size:13px;line-height:1.5;color:var(--text);opacity:0;transform:scaleX(0);transform-origin:left center;}
@@ -323,7 +325,57 @@
   .phase-grid .card:last-child .card-contribution{border-left-color:var(--gold);background:var(--gold-dim);}
   .phase-grid .card:last-child .card-contribution .label{color:var(--gold);}
   .story-card{margin-top:24px;}
-  .story-card h3{margin-bottom:14px;}
+  .story-card summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:12px;}
+  .story-card summary::-webkit-details-marker{display:none;}
+  .story-card summary .card-tag{margin:0;}
+  .story-sum{font-family:var(--mono);font-size:11.5px;color:var(--text-muted);}
+  .story-sum i{font-style:normal;display:inline-block;transition:transform .25s;}
+  .story-card[open] .story-sum i{transform:rotate(180deg);}
+  .story-card[open] summary{margin-bottom:14px;}
+  /* ---------- buildout: stat tiles ---------- */
+  .stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:8px;}
+  .stat-tile{background:var(--bg-panel);border:1px solid var(--line);border-radius:12px;padding:18px 18px 16px;opacity:0;}
+  .stat-tile.wide{grid-column:span 2;display:grid;grid-template-columns:auto 1fr;gap:6px 22px;align-items:center;}
+  .stat-tile.wide .stat-lbl{grid-column:1 / -1;}
+  .stat-num{font-family:var(--mono);font-weight:700;font-size:34px;line-height:1.1;color:var(--text);letter-spacing:-.02em;}
+  .stat-num small{font-size:13px;color:var(--text-faint);font-weight:500;letter-spacing:.06em;}
+  .stat-tile.gold .stat-num,.stat-tile.wide .stat-num{color:var(--gold);}
+  .stat-lbl{font-size:13px;color:var(--text-muted);margin-top:6px;}
+  .rto-bars{display:flex;flex-direction:column;gap:8px;}
+  .rto-row{display:grid;grid-template-columns:64px 1fr 26px;gap:10px;align-items:center;font-family:var(--mono);font-size:10.5px;color:var(--text-faint);}
+  .rto-row b{color:var(--text-muted);font-weight:500;}
+  .rto-track{height:8px;border-radius:4px;background:var(--line-soft);overflow:hidden;}
+  .rto-fill{display:block;height:100%;width:0;border-radius:4px;}
+  .rto-fill.me{background:var(--gold);}
+  .rto-fill.cap{background:#8E89A659;}
+  @media (max-width:760px){.stat-grid{grid-template-columns:1fr 1fr;}.stat-tile.wide{grid-template-columns:1fr;}}
+  /* ---------- buildout: time-lapse phases ---------- */
+  .tl-ph{transition:opacity .6s ease;}
+  .tl-ph.retired .body{stroke-dasharray:3 4;}
+  .tl-ph.retired text:not(.sub){text-decoration:line-through;}
+  /* ---------- buildout: commit graph ---------- */
+  .graph-stage{padding-bottom:14px;}
+  .cg-phases text{font-family:var(--mono);font-size:9px;fill:var(--text-faint);letter-spacing:.08em;}
+  .cg-phases path{stroke:#ffffff26;stroke-dasharray:2 5;fill:none;}
+  .cg-lane{fill:none;stroke-width:2;}
+  .cg-dot{stroke:#000;stroke-width:2;}
+  .cg-lbl{font-family:var(--mono);font-size:8.5px;fill:var(--text-muted);text-anchor:middle;}
+  .cg-lbl.big{fill:var(--text);font-weight:600;}
+  .cg-name{font-family:var(--mono);font-size:9px;letter-spacing:.06em;}
+  /* ---------- buildout: skills as git diff --stat ---------- */
+  .diffstat{margin-top:14px;background:#000;border:1px solid #ffffff1f;border-radius:10px;padding:16px 18px;font-family:var(--mono);font-size:12.5px;}
+  .ds-row{display:grid;grid-template-columns:minmax(0,230px) 14px 22px 1fr;gap:0 8px;align-items:baseline;padding:5px 0;opacity:0;}
+  .ds-name{color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .ds-sep{color:var(--text-faint);}
+  .ds-n{color:var(--text-muted);text-align:right;}
+  .ds-bar{letter-spacing:.08em;white-space:nowrap;}
+  .ds-bar i{font-style:normal;opacity:0;}
+  .ds-bar i.i,.ds-key.i{color:var(--text-muted);} .ds-bar i.e,.ds-key.e{color:var(--violet);} .ds-bar i.l,.ds-key.l{color:var(--gold);}
+  .ds-tags{grid-column:1 / -1;color:var(--text-faint);font-size:10.5px;margin-top:2px;}
+  .ds-sum{color:var(--text-muted);margin-top:10px;padding-top:10px;border-top:1px solid #ffffff14;opacity:0;}
+  .ds-sum b{color:#7EE787;font-weight:500;} .ds-sum s{color:#FF7B72;text-decoration:none;}
+  .ds-key{font-family:var(--mono);font-weight:700;}
+  @media (max-width:640px){.ds-row{grid-template-columns:1fr 22px auto;}.ds-sep{display:none;}}
   .story-card p{text-align:justify;text-justify:inter-word;}
   .story-card p + p{margin-top:12px;}
   .featured-project{margin-top:18px;border-color:#A78BFA44;}
@@ -403,6 +455,26 @@
 
   /* ---------- topology diagram ---------- */
   .topo-wrap{margin-top:8px;}
+  /* ---------- diagram stories: black blueprint stage, chapter tabs, narration ---------- */
+  .topo-stage{background:#000;border:1px solid #ffffff1f;border-radius:14px;padding:14px 14px 0;overflow:hidden;}
+  .story-tabs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;}
+  .story-tab{font-family:var(--mono);font-size:11px;color:var(--text-faint);background:none;border:1px solid #ffffff1a;border-radius:14px;padding:5px 11px;cursor:pointer;transition:color .25s, border-color .25s, background .25s;}
+  .story-tab b{font-weight:400;color:var(--text-faint);margin-right:6px;}
+  .story-tab:hover{color:var(--text-muted);border-color:#ffffff40;}
+  .story-tab[aria-selected="true"]{color:var(--text);border-color:var(--violet);background:var(--violet-dim);}
+  .story-tab[aria-selected="true"] b{color:var(--gold);}
+  .story-panel{position:relative;border-top:1px solid #ffffff1a;margin:12px -14px 0;padding:16px 18px 18px;display:grid;grid-template-columns:1fr auto;gap:6px 18px;align-items:start;}
+  .story-meta{font-family:var(--mono);font-size:11px;color:var(--text-faint);letter-spacing:.06em;}
+  .story-meta b{color:var(--text);font-weight:600;letter-spacing:0;margin-left:8px;font-size:13px;}
+  .story-text{grid-column:1;color:var(--text-muted);font-size:14px;line-height:1.6;max-width:68ch;min-height:4.8em;}
+  .story-text em{color:var(--text);font-style:normal;}
+  .story-nav{grid-column:2;grid-row:1 / span 2;display:flex;gap:6px;}
+  .story-nav button{font-family:var(--mono);font-size:13px;width:34px;height:34px;border-radius:8px;border:1px solid #ffffff26;background:#0B0A13;color:var(--text-muted);cursor:pointer;}
+  .story-nav button:hover{color:var(--text);border-color:var(--violet);}
+  .story-progress{position:absolute;left:0;top:-1px;height:1px;width:0;background:var(--violet);}
+  .topo-stage .topo-svg{overflow:hidden;}   /* keep the grid and spotlight dim from bleeding over the tabs */
+  .spot-ring{fill:none;stroke:#fff;stroke-opacity:.35;stroke-width:1;stroke-dasharray:3 5;}
+  @media (max-width:640px){.story-panel{grid-template-columns:1fr;}.story-nav{grid-column:1;grid-row:auto;}}
   .topo-svg{width:100%;height:auto;display:block;overflow:visible;}
   .topo-line{fill:none;stroke:var(--line);stroke-width:1.5;stroke-dasharray:6 6;opacity:0;animation:flow 2.2s linear infinite;}
   @keyframes flow{to{stroke-dashoffset:-24;}}
@@ -421,26 +493,11 @@
   .flow-list i{width:6px;height:6px;border-radius:50%;margin-right:7px;background:currentColor;box-shadow:0 0 6px currentColor;}
   .topo-legend{display:flex;gap:18px;flex-wrap:wrap;margin-top:16px;font-family:var(--mono);font-size:10.5px;color:var(--text-faint);}
   .topo-legend span{display:flex;align-items:center;gap:6px;}
-  .growth-arrow{stroke:var(--violet);stroke-width:2;stroke-dasharray:none;animation:none;}
 
   /* ---------- refinement table ---------- */
   .refine-wrap{margin-top:36px;}
-  .refine-table{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--bg-panel);margin-top:14px;}
-  .refine-head,.refine-row{display:grid;grid-template-columns:1.7fr 1fr 1fr 1fr;gap:10px;align-items:center;padding:14px 16px;}
-  .refine-head{font-family:var(--mono);font-size:10px;color:var(--text-faint);border-bottom:1px solid var(--line-soft);letter-spacing:.04em;}
-  .refine-row{border-bottom:1px solid var(--line-soft);font-size:13.5px;opacity:0;}
-  .refine-row:last-child{border-bottom:none;}
-  .refine-tech{font-weight:500;}
-  .refine-sub{font-family:var(--mono);font-size:10px;color:var(--text-faint);margin-top:4px;font-weight:400;}
-  .refine-dash{color:var(--text-faint);font-family:var(--mono);}
-  .refine-cell{display:flex;align-items:center;gap:6px;font-family:var(--mono);font-size:10px;color:var(--text-faint);}
-  .refine-dots{display:flex;gap:4px;}
-  .refine-dot{width:7px;height:7px;border-radius:50%;background:var(--line);flex-shrink:0;}
-  .refine-dot.on{background:var(--violet);transform:scale(0);opacity:0;}
   .refine-legend{font-family:var(--mono);font-size:11px;color:var(--text-faint);margin-top:10px;}
   @media (max-width:760px){
-    .refine-head{display:none;}
-    .refine-row{grid-template-columns:1fr;gap:6px;padding:14px 16px;}
   }
   .topo-node text{font-family:var(--mono);font-size:11px;fill:var(--text);text-anchor:middle;font-weight:600;}
   .topo-node text.sub{fill:var(--text-faint);font-size:9px;font-weight:400;}
@@ -487,9 +544,6 @@
   .work-grid .hop-list{font-size:13.5px;margin-top:10px;}
   .featured-project .sub{font-family:var(--mono);font-size:11.5px;color:var(--text-faint);margin-bottom:6px;}
 
-  /* growth-chart bars carry both classes on one element, so style them directly */
-  rect.topo-node.body{fill:var(--bg-panel);stroke:#A78BFA66;stroke-width:1.5;}
-  rect.topo-node.body.dmz{fill:#F5D77A14;stroke:var(--gold);}
   /* ---------- quick-jump droplet rail (left edge, appears after the hero) ---------- */
   section[id]{scroll-margin-top:60px;}
   .droprail{
@@ -546,12 +600,79 @@
     .droprail::before{left:3.5px;}
     .droprail .lbl{display:none;}
   }
-  @media (max-width:760px){ .work-grid{grid-template-columns:1fr;} .nav-status{display:none;} }
-  .nav-status{white-space:nowrap;}
+  @media (max-width:760px){ .work-grid{grid-template-columns:1fr;} }
 
   @media (prefers-reduced-motion: reduce){
     *{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important;}
   }
+
+  /* ---------- purple space sky: near-black space with a faint violet lift toward the bottom, one continuous scene behind every section after the hero ---------- */
+  .nt-sky{position:relative;z-index:1;isolation:isolate;}
+  .nt-sky-bg{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden;overflow:clip;
+    background:linear-gradient(180deg,
+      #000004 0%,
+      #050410 35%,
+      #0A0818 65%,
+      #110C1F 100%);
+  }
+  /* starfield in two depths: a viewport-sized layer pinned while the sky is on screen, its tiles
+     sliding up slower than the page — far stars slowest — so the sky has depth as you scroll */
+  .nt-view{position:sticky;top:0;height:100vh;overflow:hidden;}
+  .nt-stars{position:absolute;left:0;right:0;top:0;height:calc(100% + 512px);background-repeat:repeat;will-change:transform;}
+  /* faint nebula haze, kept out in the side margins */
+  .nt-nebula{position:absolute;border-radius:50%;}
+  .nt-nebula.n1{top:10%;left:-320px;width:900px;height:700px;background:radial-gradient(closest-side,#A78BFA16,transparent);}
+  .nt-nebula.n2{top:42%;right:-360px;width:1000px;height:780px;background:radial-gradient(closest-side,#F0A6CA12,transparent);}
+  .nt-nebula.n3{top:74%;left:-280px;width:900px;height:720px;background:radial-gradient(closest-side,#8FA8FF14,transparent);}
+  /* a satellite drifting across now and then, nav light blinking */
+  .nt-sat{position:absolute;left:0;top:0;width:24px;height:12px;opacity:0;}
+  .nt-sat .light{animation:ntBlink 1.8s steps(1) infinite;}
+  @keyframes ntBlink{0%{opacity:1;}12%{opacity:.15;}}
+  @media (prefers-reduced-motion:no-preference){
+    .nt-sat{animation:ntSat 80s linear 6s infinite;}
+  }
+  @keyframes ntSat{
+    0%{opacity:0;transform:translate(-40px,16vh) rotate(14deg);}
+    2%,46%{opacity:.75;}
+    48%{opacity:0;transform:translate(calc(100vw + 40px),38vh) rotate(14deg);}
+    100%{opacity:0;transform:translate(calc(100vw + 40px),38vh) rotate(14deg);}
+  }
+  /* the career traceroute drawn as a constellation in the right margin — origin at the bottom, present at the top */
+  .nt-constellation{position:absolute;top:150px;right:calc(50% - 460px - 250px);width:200px;height:600px;z-index:0;pointer-events:none;display:none;}
+  @media (min-width:1360px){.nt-constellation{display:block;}}
+  .nt-constellation .edge{stroke:#A78BFA;stroke-opacity:.22;stroke-width:1;stroke-dasharray:3 5;fill:none;}
+  .nt-constellation .cstar{fill:#E4DCFF;}
+  .nt-constellation .cstar.now{fill:#F5D77A;}
+  .nt-constellation .halo{fill:url(#ntHalo);}
+  .nt-constellation .halo.now{fill:url(#ntHaloGold);}
+  .nt-constellation text{font-family:var(--mono);font-size:9px;fill:var(--text-faint);letter-spacing:.08em;}
+  @media (prefers-reduced-motion:no-preference){
+    .nt-constellation .cstar{animation:ntHop 4s ease-in-out infinite;}
+  }
+  @keyframes ntHop{0%,100%{opacity:.55;}50%{opacity:1;}}
+  /* a handful of bright stars that glint: a soft core plus a four-point diffraction cross */
+  .nt-shine{position:absolute;width:var(--s);height:var(--s);transform:translate(-50%,-50%);}
+  .nt-shine::before,.nt-shine::after{content:'';position:absolute;inset:0;border-radius:50%;}
+  .nt-shine::before{background:radial-gradient(circle,var(--c) 0 8%,color-mix(in srgb,var(--c) 35%,transparent) 18%,transparent 45%);}
+  .nt-shine::after{
+    background:
+      linear-gradient(90deg,transparent 0,color-mix(in srgb,var(--c) 70%,transparent) 50%,transparent 100%) center/100% 1px no-repeat,
+      linear-gradient(0deg,transparent 0,color-mix(in srgb,var(--c) 70%,transparent) 50%,transparent 100%) center/1px 100% no-repeat;
+    border-radius:0;opacity:.8;
+  }
+  @media (prefers-reduced-motion:no-preference){
+    .nt-shine{animation:ntTwinkle var(--d) ease-in-out var(--dl) infinite;}
+  }
+  @keyframes ntTwinkle{
+    0%,100%{opacity:.25;transform:translate(-50%,-50%) scale(.55) rotate(0deg);}
+    45%{opacity:1;transform:translate(-50%,-50%) scale(1) rotate(8deg);}
+    60%{opacity:.7;transform:translate(-50%,-50%) scale(.85) rotate(6deg);}
+  }
+  /* extra breathing room between the last few sections */
+  #education.sec,#certifications.sec,#publications.sec{padding:90px 0;}
+  #education.sec{padding-top:110px;}
+  #publications.sec{padding-bottom:120px;}
+  .nt-sky .footer{padding-top:40px;}
 </style>
 </head>
 <body>
@@ -559,7 +680,6 @@
 <nav class="nav">
   <div class="wrap">
     <div class="nav-path"><span class="prompt">faris@kaf-db</span>:~<span id="navPath">/intro</span>$</div>
-    <div class="nav-status"><span class="dot-live"></span>session active</div>
   </div>
 </nav>
 
@@ -599,7 +719,7 @@
 
     <div class="hero-meta">
       <span class="pill">📍 <b>Kuala Lumpur, Malaysia</b></span>
-      <span class="pill">🌏 Malaysia · Singapore · Hong Kong</span>
+      <span class="pill">🌏 Multi-region Azure</span>
       <span class="pill">🛡️ <b>CCNA</b> · AZ-700 due Nov 2026</span>
       <span class="pill">🏦 BNM RMiT · Islamic digital bank</span>
       <span class="pill">🧭 open to <b>senior network engineering</b> roles</span>
@@ -609,6 +729,23 @@
   </div>
 </section>
 
+<div class="nt-sky">
+<div class="nt-sky-bg" aria-hidden="true">
+  <div class="nt-nebula n1"></div><div class="nt-nebula n2"></div><div class="nt-nebula n3"></div>
+  <div class="nt-view">
+    <div class="nt-stars" id="ntStarsFar"></div>
+    <div class="nt-stars" id="ntStarsNear"></div>
+    <svg class="nt-sat" viewBox="0 0 24 12">
+      <rect x="0" y="4" width="8" height="4" fill="#8FA8FF" opacity=".7"/>
+      <rect x="16" y="4" width="8" height="4" fill="#8FA8FF" opacity=".7"/>
+      <rect x="8" y="5.5" width="8" height="1" fill="#8E89A6"/>
+      <rect x="10" y="3" width="4" height="6" rx="1" fill="#C4B5FD"/>
+      <circle class="light" cx="12" cy="1.5" r="1.3" fill="#F5D77A"/>
+    </svg>
+  </div>
+  <div id="ntShine"></div>
+</div>
+
 <section class="sec" id="about">
   <div class="wrap">
     <div class="sec-head"><span class="sec-tag">01</span><span class="sec-title">whoami <span>// about</span></span></div>
@@ -616,14 +753,14 @@
       <div class="about-label">$ cat bio.txt</div>
       <div class="about-body">
         <p class="about-p">I started in networking — a Computer Science degree in Computer Networks &amp; Security, a CCNA, and a habit of thinking in packets, routes, and failure domains. That lens followed me into the cloud.</p>
-        <p class="about-p">For 3+ years I've designed and operated multi-region Azure network infrastructure across Malaysia, Singapore and Hong Kong for a BNM RMiT-regulated Islamic digital bank. I authored the network security architecture behind the bank's licensing review, designed its Azure Virtual WAN estate connecting core banking and national payment rails, and grew from intern to team lead along the way.</p>
+        <p class="about-p">For 3+ years I've designed and operated multi-region Azure network infrastructure for a BNM RMiT-regulated Islamic digital bank. I authored the network security architecture behind the bank's licensing review, designed its Azure Virtual WAN estate connecting core banking and national payment rails, and grew from intern to team lead along the way.</p>
         <p class="about-p">I'd rather go deep on the network than manage from a distance — which is why the next step I'm looking for is a senior network engineering role.</p>
 
         <div class="kv-list">
           <div class="kv-row"><div class="k">EMPLOYER</div><div class="v">KAF Digital Bank</div></div>
           <div class="kv-row"><div class="k">ROLE</div><div class="v">Assistant Manager, Lead Cloud Engineer</div></div>
           <div class="kv-row"><div class="k">TEAM</div><div class="v">Built a 3-person cloud operations team from the ground up</div></div>
-          <div class="kv-row"><div class="k">SCOPE</div><div class="v">Azure — Malaysia West <em>(primary)</em>, Singapore, Hong Kong</div></div>
+          <div class="kv-row"><div class="k">SCOPE</div><div class="v">Azure — multi-region, <em>hub-and-spoke</em></div></div>
           <div class="kv-row"><div class="k">COMPLIANCE</div><div class="v">BNM RMiT, CIS Benchmarks, CAB change governance</div></div>
           <div class="kv-row"><div class="k">EDUCATION</div><div class="v">B.CS (Computer Networks &amp; Security), UTM — <em>3.81 CGPA</em></div></div>
           <div class="kv-row"><div class="k">SEEKING</div><div class="v">Senior network engineering role</div></div>
@@ -634,6 +771,12 @@
 </section>
 
 <section class="sec" id="experience">
+  <svg class="nt-constellation" id="ntConstellation" viewBox="0 0 200 600" aria-hidden="true">
+    <defs>
+      <radialGradient id="ntHalo"><stop offset="0" stop-color="#C4B5FD" stop-opacity=".45"/><stop offset="1" stop-color="#C4B5FD" stop-opacity="0"/></radialGradient>
+      <radialGradient id="ntHaloGold"><stop offset="0" stop-color="#F5D77A" stop-opacity=".55"/><stop offset="1" stop-color="#F5D77A" stop-opacity="0"/></radialGradient>
+    </defs>
+  </svg>
   <div class="wrap">
     <div class="sec-head"><span class="sec-tag">02</span><span class="sec-title">career path <span>// traceroute</span></span></div>
     <div class="trace-intro">$ traceroute faris.career — 7 hops, present → origin (Dec 2017)</div>
@@ -647,13 +790,13 @@
           <div class="hop-top"><div class="hop-host">kaf-digital-bank<span class="at">.internal</span></div><div class="hop-time">Mar 2025 – present</div></div>
           <div class="hop-role">Assistant Manager, Lead Cloud Engineer</div>
           <ul class="hop-list">
-            <li>Led the bank's <b>Operational Readiness Review</b> with Bank Negara Malaysia, authoring the network security architecture submission that satisfied <b>2 RMiT domains (DCRA, Network Resilience)</b> and helped secure the <b>Islamic Digital Bank license</b>.</li>
-            <li>Designed and led migration to an <b>Azure Virtual WAN</b> hub-and-spoke architecture across 2 sites, with Routing Intent and centralised Azure Firewall Policy, connecting core banking, payment services (RPP, Cards) and hybrid endpoints in Malaysia, Singapore and Hong Kong — observed through VNet Flow Logs and Traffic Analytics.</li>
-            <li>Segmented remote access with <b>vWAN Point-to-Site user groups</b>: each department gets its own address pool and firewall-enforced policy. Integrated dual Peplink SD-WAN NVAs and split-horizon DNS via Private DNS Resolver.</li>
-            <li>Authored the ADR for Malaysia West hardening — Management Group hierarchy, CIS/RMiT controls enforced through <b>Azure Policy (DINE/AINE)</b> and Machine Configuration — and built a CIS-hardened Windows Server 2025 golden image with Azure Image Builder and Compute Gallery.</li>
-            <li>Leading migration of the last Entra-joined Azure Files share to <b>Azure Blob Storage</b>, replacing an early lift-and-shift design and clearing the way to decommission Entra Domain Services.</li>
+            <li>Led the bank's <b>Operational Readiness Review</b> with Bank Negara Malaysia, authoring the network security architecture submission that satisfied <b>2 RMiT domains</b> and helped secure the <b>Islamic Digital Bank license</b>.</li>
+            <li>Designed and led migration to an <b>Azure Virtual WAN</b> hub-and-spoke architecture with Routing Intent and centralised Azure Firewall Policy, connecting core banking, national payment systems and hybrid partner endpoints — observed through VNet Flow Logs and Traffic Analytics.</li>
+            <li>Segmented remote access per department with <b>vWAN Point-to-Site user groups</b> and firewall-enforced policy. Integrated SD-WAN NVAs into the hub and centralised name resolution on Private DNS Resolver.</li>
+            <li>Authored the platform hardening ADR — Management Group hierarchy, CIS/RMiT controls enforced through <b>Azure Policy (DINE/AINE)</b> and Machine Configuration — and built a CIS-hardened golden image with Azure Image Builder and Compute Gallery.</li>
+            <li>Leading a storage modernisation onto <b>Azure Blob Storage</b>, replacing an early lift-and-shift design and simplifying the platform's identity footprint.</li>
             <li>Built a 3-person cloud operations team on a ticket-first, CAB-aligned operating model; within 6 months engineers were resolving a growing share of tickets independently and reported a <b>60% increase in operational confidence</b>.</li>
-            <li>Lead disaster recovery with third-party vendors for core banking and payments: <b>~5 live failover drills a month</b> and an annual landing-zone DR exercise hitting a <b>1-hour RTO against BNM's 2-hour mandate</b>, backed by immutable backups.</li>
+            <li>Lead disaster recovery with third-party vendors for core banking and payments: <b>regular live failover drills</b> and an annual landing-zone DR exercise hitting a <b>1-hour RTO against BNM's 2-hour mandate</b>, backed by immutable backups.</li>
           </ul>
           <div class="hop-status"><span class="d"></span>you are here — trace continues to origin</div>
         </div>
@@ -665,9 +808,9 @@
           <div class="hop-top"><div class="hop-host">kaf-digital-bank<span class="at">.internal</span></div><div class="hop-time">Mar 2024 – Mar 2025</div></div>
           <div class="hop-role">Executive, IT Systems Engineer</div>
           <ul class="hop-list">
-            <li>Remediated a <b>pre-go-live BNM ORR finding</b> on privileged access by implementing Azure PIM, Azure RBAC and SSO (SAML/OIDC) for <b>150+ privileged and non-privileged identities</b> across SaaS and IaaS applications.</li>
-            <li>Replaced self-managed Active Directory domain controllers on Azure VMs with <b>Entra Domain Services</b>, keeping LDAP working for legacy workloads and hardening its integration with Azure Files.</li>
-            <li>Designed and deployed the bank's first <b>Azure landing zone</b> connectivity stack — VPN Gateway, Azure Firewall, Peplink SD-WAN NVA, Application Gateway, API Management, VNets and routing — connecting core banking SaaS, <b>RPP, Cards and RENTAS NWI</b>. It later evolved into the Virtual WAN architecture.</li>
+            <li>Strengthened <b>privileged access ahead of go-live</b> by implementing Azure PIM, Azure RBAC and SSO (SAML/OIDC) for <b>150+ privileged and non-privileged identities</b> across SaaS and IaaS applications.</li>
+            <li>Replaced self-managed Active Directory domain controllers on Azure VMs with <b>Entra Domain Services</b>, keeping LDAP working for legacy workloads.</li>
+            <li>Designed and deployed the bank's first <b>Azure landing zone</b> connectivity stack — VPN Gateway, Azure Firewall, SD-WAN NVA, Application Gateway, API Management, VNets and routing — connecting core banking SaaS, <b>national payment systems and partner networks</b>. It later evolved into the Virtual WAN architecture.</li>
           </ul>
         </div>
       </div>
@@ -678,7 +821,7 @@
           <div class="hop-top"><div class="hop-host">kaf-digital-bank<span class="at">.internal</span></div><div class="hop-time">Aug 2023 – Feb 2024</div></div>
           <div class="hop-role">IT Systems Engineer Intern</div>
           <ul class="hop-list">
-            <li>Designed and deployed a <b>Managed File Transfer platform for 150+ users</b> using JSCAPE MFT, Azure VMs, Load Balancer and Azure Blob, for secure, compliant file exchange with strategic partners.</li>
+            <li>Designed and deployed a <b>Managed File Transfer platform for 150+ users</b> on Azure VMs, Load Balancer and Azure Blob, for secure, compliant file exchange with strategic partners.</li>
             <li>Built proofs of concept with the Cloud Engineer for VNets, VPN Gateway, Private DNS Zones, Application Gateway and API Management ahead of the bank's landing zone build.</li>
             <li>Helped establish <b>Azure Backup and Recovery Services Vaults</b> for IaaS workloads — the backup foundation later used for DR and RMiT retention.</li>
           </ul>
@@ -727,92 +870,325 @@
 <section class="sec" id="growth">
   <div class="wrap">
     <div class="sec-head"><span class="sec-tag">03</span><span class="sec-title">the buildout <span>// platform growth &amp; stack</span></span></div>
+      <div class="stat-grid" id="statGrid">
+        <div class="stat-tile"><div class="stat-num"><span data-count="150">0</span>+</div><div class="stat-lbl">identities under PIM, RBAC &amp; SSO</div></div>
+        <div class="stat-tile"><div class="stat-num">+<span data-count="60">0</span>%</div><div class="stat-lbl">operational confidence in 6 months</div></div>
+        <div class="stat-tile"><div class="stat-num"><span data-count="3">0</span></div><div class="stat-lbl">people in the cloud ops team I built from zero</div></div>
+        <div class="stat-tile gold"><div class="stat-num"><span data-count="2">0</span></div><div class="stat-lbl">RMiT domains satisfied · Islamic Digital Bank licence</div></div>
+        <div class="stat-tile wide">
+          <div class="stat-num"><span data-count="1">0</span>h <small>RTO</small></div>
+          <div class="rto-bars" aria-label="1 hour RTO against a 2 hour BNM mandate">
+            <div class="rto-row"><span>achieved</span><div class="rto-track"><i class="rto-fill me"></i></div><b>1h</b></div>
+            <div class="rto-row"><span>BNM limit</span><div class="rto-track"><i class="rto-fill cap"></i></div><b>2h</b></div>
+          </div>
+          <div class="stat-lbl">proven in regular live failover drills, immutable backups</div>
+        </div>
+      </div>
     <div class="topo-wrap">
-      <div class="topo-caption" style="margin-top:0;margin-bottom:14px;">$ log --graph platform.git — three phases, one platform</div>
-      <svg class="topo-svg growth-svg" viewBox="0 0 760 400" xmlns="http://www.w3.org/2000/svg">
+      <div class="topo-caption" style="margin-top:34px;margin-bottom:14px;">$ az network show --as-of — the same platform, rebuilt three times</div>
+      <div class="topo-stage" id="tlStage">
+      <div class="story-tabs" role="tablist" aria-label="Platform time-lapse"></div>
+      <svg class="topo-svg timelapse-svg" viewBox="0 0 900 470" xmlns="http://www.w3.org/2000/svg">
         <defs>
-          <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="5" refY="3" orient="auto">
-            <path d="M0,0 L6,3 L0,6 Z" fill="var(--violet)"></path>
-          </marker>
+          <mask id="tlSpotMask">
+            <rect x="-20" y="-20" width="940" height="510" fill="#fff"></rect>
+            <rect class="spot-hole" x="0" y="0" width="900" height="470" rx="14" fill="#000"></rect>
+          </mask>
         </defs>
-
-        <line class="topo-line" x1="60" y1="340" x2="650" y2="340"></line>
-        <path class="topo-line growth-arrow" d="M155,270 L355,200 L555,120 L610,95" marker-end="url(#arrowhead)"></path>
-
-        <rect id="growthBar1" class="topo-node body" x="90" y="340" width="130" height="0" rx="4"></rect>
-        <rect id="growthBar2" class="topo-node body" x="290" y="340" width="130" height="0" rx="4"></rect>
-        <rect id="growthBar3" class="topo-node body dmz" x="490" y="340" width="130" height="0" rx="4"></rect>
+        <rect x="-20" y="-20" width="940" height="510" fill="url(#hlBp)"></rect>
 
         <g class="topo-node">
-          <path d="M140,254 L170,254 M135,262 L175,262" stroke="var(--text-faint)" stroke-width="1.4" fill="none"></path>
-          <text x="155" y="286" style="font-size:10px;">FOUNDATION</text>
-          <text class="sub" x="155" y="362" style="font-size:9px;">AUG 2023 – FEB 2024</text>
-          <text class="sub" x="155" y="374" style="font-size:9px;">IT Systems Engineer Intern</text>
+          <rect x="20" y="20" width="180" height="310" rx="12" fill="none" stroke="var(--line)" stroke-width="1.5" stroke-dasharray="4 4"></rect>
+          <text x="188" y="322" style="text-anchor:end;font-size:9px;fill:var(--text-muted);">PARTNERS</text>
+          <rect x="230" y="20" width="420" height="310" rx="12" fill="none" stroke="var(--line)" stroke-width="1.5" stroke-dasharray="4 4"></rect>
+          <rect x="680" y="20" width="200" height="310" rx="12" fill="none" stroke="var(--line)" stroke-width="1.5" stroke-dasharray="4 4"></rect>
+          <text x="868" y="322" style="text-anchor:end;font-size:9px;fill:var(--text-muted);">WORKLOADS</text>
+          <rect x="20" y="350" width="860" height="104" rx="12" fill="none" stroke="var(--line)" stroke-width="1.5" stroke-dasharray="4 4"></rect>
+          <text x="868" y="446" style="text-anchor:end;font-size:9px;fill:var(--text-muted);">IDENTITY · GOVERNANCE · RESILIENCE</text>
+        </g>
+        <g class="tl-ph" data-from="1" data-to="1">
+          <g class="topo-node"><text x="638" y="322" style="text-anchor:end;font-size:9px;fill:var(--text-muted);">PROOFS OF CONCEPT · BEFORE THE LANDING ZONE</text></g>
+        </g>
+        <g class="tl-ph" data-from="2" data-to="2">
+          <g class="topo-node"><text x="638" y="322" style="text-anchor:end;font-size:9px;fill:var(--text-muted);">FIRST LANDING ZONE · CONNECTIVITY HUB</text></g>
+        </g>
+        <g class="tl-ph" data-from="3" data-to="3">
+          <g class="topo-node"><text x="638" y="322" style="text-anchor:end;font-size:9px;fill:var(--gold);">VIRTUAL WAN · ROUTING INTENT</text></g>
+        </g>
+        <g class="tl-ph" data-from="2" data-to="3">
+          <path class="topo-line" d="M188,64 L215,64 L215,244" style="stroke:var(--lav);stroke-width:1.8;"></path>
+          <path class="topo-line" d="M188,124 L215,124" style="stroke:var(--lav);stroke-width:1.8;"></path>
+          <path class="topo-line" d="M188,184 L215,184" style="stroke:var(--lav);stroke-width:1.8;"></path>
+          <path class="topo-line" d="M188,244 L215,244" style="stroke:var(--lav);stroke-width:1.8;"></path>
+          <path class="topo-line" d="M665,64 L665,226" style="stroke:var(--lav);stroke-width:1.8;"></path>
+          <path class="topo-line" d="M665,64 L692,64" style="stroke:var(--lav);stroke-width:1.8;"></path>
+          <path class="topo-line" d="M665,118 L692,118" style="stroke:var(--lav);stroke-width:1.8;"></path>
+          <path class="topo-line" d="M665,226 L692,226" style="stroke:var(--lav);stroke-width:1.8;"></path>
+        </g>
+        <g class="tl-ph" data-from="2" data-to="2">
+          <path class="topo-line" d="M215,154 L450,154" style="stroke:var(--violet);stroke-width:1.8;"></path>
+          <path class="topo-line" d="M630,154 L665,154" style="stroke:var(--violet);stroke-width:1.8;"></path>
+        </g>
+        <g class="tl-ph" data-from="3" data-to="3">
+          <path class="topo-line" d="M215,138 L250,138" style="stroke:var(--gold);stroke-width:1.8;"></path>
+          <path class="topo-line" d="M630,138 L665,138" style="stroke:var(--gold);stroke-width:1.8;"></path>
+          <path class="topo-line" d="M440,248 L440,156" style="stroke:var(--pink);stroke-width:1.8;"></path>
+          <path class="topo-line" d="M665,226 L665,280 L692,280" style="stroke:var(--gold);stroke-width:1.8;"></path>
+        </g>
+        <g class="tl-ph" data-from="1" data-to="3" data-dim="1">
+          <g class="topo-node">
+            <rect class="body" x="32" y="44" width="156" height="40" rx="8" style="stroke:var(--lav);fill:var(--lav);fill-opacity:.1;"></rect>
+            <text x="110" y="61" style="font-size:9.5px;">Core banking</text>
+            <text class="sub" x="110" y="74" style="font-size:8px;">SaaS</text>
+          </g>
+          <g class="topo-node">
+            <rect class="body" x="32" y="104" width="156" height="40" rx="8" style="stroke:var(--lav);fill:var(--lav);fill-opacity:.1;"></rect>
+            <text x="110" y="121" style="font-size:9.5px;">Payment systems</text>
+            <text class="sub" x="110" y="134" style="font-size:8px;">national rails</text>
+          </g>
+          <g class="topo-node">
+            <rect class="body" x="32" y="164" width="156" height="40" rx="8" style="stroke:var(--lav);fill:var(--lav);fill-opacity:.1;"></rect>
+            <text x="110" y="181" style="font-size:9.5px;">Partner SaaS</text>
+            <text class="sub" x="110" y="194" style="font-size:8px;">SaaS</text>
+          </g>
+          <g class="topo-node">
+            <rect class="body" x="32" y="224" width="156" height="40" rx="8" style="stroke:var(--lav);fill:var(--lav);fill-opacity:.1;"></rect>
+            <text x="110" y="241" style="font-size:9.5px;">Hybrid partners</text>
+            <text class="sub" x="110" y="254" style="font-size:8px;">on-prem endpoints</text>
+          </g>
+        </g>
+        <g class="tl-ph" data-from="1" data-to="1">
+          <g class="topo-node">
+            <rect class="body" x="250" y="50" width="180" height="40" rx="8" style="stroke:var(--lav);fill:var(--lav);fill-opacity:.1;stroke-dasharray:4 3;"></rect>
+            <text x="340" y="67" style="font-size:9.5px;">VNets</text>
+            <text class="sub" x="340" y="80" style="font-size:8px;">proof of concept</text>
+          </g>
+          <g class="topo-node">
+            <rect class="body" x="450" y="50" width="180" height="40" rx="8" style="stroke:var(--lav);fill:var(--lav);fill-opacity:.1;stroke-dasharray:4 3;"></rect>
+            <text x="540" y="67" style="font-size:9.5px;">VPN Gateway</text>
+            <text class="sub" x="540" y="80" style="font-size:8px;">proof of concept</text>
+          </g>
+          <g class="topo-node">
+            <rect class="body" x="250" y="110" width="180" height="40" rx="8" style="stroke:var(--lav);fill:var(--lav);fill-opacity:.1;stroke-dasharray:4 3;"></rect>
+            <text x="340" y="127" style="font-size:9.5px;">Private DNS Zones</text>
+            <text class="sub" x="340" y="140" style="font-size:8px;">proof of concept</text>
+          </g>
+          <g class="topo-node">
+            <rect class="body" x="450" y="110" width="180" height="40" rx="8" style="stroke:var(--lav);fill:var(--lav);fill-opacity:.1;stroke-dasharray:4 3;"></rect>
+            <text x="540" y="127" style="font-size:9.5px;">Application Gateway</text>
+            <text class="sub" x="540" y="140" style="font-size:8px;">proof of concept</text>
+          </g>
+          <g class="topo-node">
+            <rect class="body" x="250" y="170" width="180" height="40" rx="8" style="stroke:var(--lav);fill:var(--lav);fill-opacity:.1;stroke-dasharray:4 3;"></rect>
+            <text x="340" y="187" style="font-size:9.5px;">API Management</text>
+            <text class="sub" x="340" y="200" style="font-size:8px;">proof of concept</text>
+          </g>
+          <g class="topo-node"><text class="sub" x="540" y="196" style="font-size:8.5px;">built alongside the Cloud Engineer</text></g>
+        </g>
+        <g class="tl-ph" data-from="2" data-to="2">
+          <g class="topo-node">
+            <rect class="body" x="250" y="44" width="170" height="40" rx="8" style="stroke:var(--violet);fill:var(--violet);fill-opacity:.1;"></rect>
+            <text x="335" y="61" style="font-size:9.5px;">VPN Gateway</text>
+            <text class="sub" x="335" y="74" style="font-size:8px;">site-to-site</text>
+          </g>
+          <g class="topo-node">
+            <rect class="body" x="250" y="104" width="170" height="40" rx="8" style="stroke:var(--violet);fill:var(--violet);fill-opacity:.1;"></rect>
+            <text x="335" y="121" style="font-size:9.5px;">SD-WAN NVA</text>
+            <text class="sub" x="335" y="134" style="font-size:8px;">hybrid edge</text>
+          </g>
+          <g class="topo-node">
+            <rect class="body" x="250" y="174" width="170" height="40" rx="8" style="stroke:var(--violet);fill:var(--violet);fill-opacity:.1;"></rect>
+            <text x="335" y="191" style="font-size:9.5px;">Application Gateway</text>
+            <text class="sub" x="335" y="204" style="font-size:8px;">inbound</text>
+          </g>
+          <g class="topo-node">
+            <rect class="body" x="250" y="234" width="170" height="40" rx="8" style="stroke:var(--violet);fill:var(--violet);fill-opacity:.1;"></rect>
+            <text x="335" y="251" style="font-size:9.5px;">API Management</text>
+            <text class="sub" x="335" y="264" style="font-size:8px;">partner APIs</text>
+          </g>
+          <g class="topo-node">
+            <rect class="body" x="450" y="104" width="180" height="100" rx="8" style="stroke:var(--gold);fill:var(--gold);fill-opacity:.1;"></rect>
+            <text x="540" y="151" style="font-size:10.5px;">Azure Firewall</text>
+            <text class="sub" x="540" y="164" style="font-size:8px;">every flow inspected</text>
+          </g>
+          <g class="topo-node">
+            <rect class="body" x="450" y="234" width="180" height="40" rx="8" style="stroke:var(--violet);fill:var(--violet);fill-opacity:.1;"></rect>
+            <text x="540" y="251" style="font-size:9.5px;">VNets · routing</text>
+            <text class="sub" x="540" y="264" style="font-size:8px;">Bicep</text>
+          </g>
+        </g>
+        <g class="tl-ph" data-from="3" data-to="3">
+          <g class="topo-node">
+            <rect class="body" x="250" y="40" width="180" height="56" rx="8" style="stroke:var(--gold);fill:var(--gold);fill-opacity:.1;"></rect>
+            <text x="340" y="65" style="font-size:9.5px;">vWAN hub A</text>
+            <text class="sub" x="340" y="78" style="font-size:8px;">Routing Intent</text>
+          </g>
+          <g class="topo-node">
+            <rect class="body" x="450" y="40" width="180" height="56" rx="8" style="stroke:var(--gold);fill:var(--gold);fill-opacity:.1;"></rect>
+            <text x="540" y="65" style="font-size:9.5px;">vWAN hub B</text>
+            <text class="sub" x="540" y="78" style="font-size:8px;">Routing Intent</text>
+          </g>
+          <g class="topo-node">
+            <rect class="body" x="250" y="120" width="380" height="36" rx="8" style="stroke:var(--gold);fill:var(--gold);fill-opacity:.1;"></rect>
+            <text x="440" y="135" style="font-size:10px;">Centralised Azure Firewall Policy</text>
+            <text class="sub" x="440" y="148" style="font-size:8px;"></text>
+          </g>
+          <g class="topo-node">
+            <rect class="body" x="250" y="172" width="180" height="40" rx="8" style="stroke:var(--violet);fill:var(--violet);fill-opacity:.1;"></rect>
+            <text x="340" y="189" style="font-size:9.5px;">SD-WAN NVAs</text>
+            <text class="sub" x="340" y="202" style="font-size:8px;">NVAs in the hub</text>
+          </g>
+          <g class="topo-node">
+            <rect class="body" x="450" y="172" width="180" height="40" rx="8" style="stroke:var(--violet);fill:var(--violet);fill-opacity:.1;"></rect>
+            <text x="540" y="189" style="font-size:9.5px;">Private DNS Resolver</text>
+            <text class="sub" x="540" y="202" style="font-size:8px;">name resolution</text>
+          </g>
+          <g class="topo-node">
+            <rect class="body" x="250" y="228" width="380" height="40" rx="8" style="stroke:var(--pink);fill:var(--pink);fill-opacity:.1;"></rect>
+            <text x="440" y="245" style="font-size:9.5px;">P2S user groups</text>
+            <text class="sub" x="440" y="258" style="font-size:8px;">segmented remote access</text>
+          </g>
+          <g class="topo-node">
+            <rect class="body" x="250" y="280" width="380" height="30" rx="8" style="stroke:var(--violet);fill:var(--violet);fill-opacity:.1;"></rect>
+            <text x="440" y="292" style="font-size:9px;">App Gateway · API Management</text>
+            <text class="sub" x="440" y="305" style="font-size:8px;"></text>
+          </g>
+        </g>
+        <g class="tl-ph" data-from="1" data-to="3">
+          <g class="topo-node">
+            <rect class="body" x="692" y="44" width="176" height="40" rx="8" style="stroke:var(--lav);fill:var(--lav);fill-opacity:.1;"></rect>
+            <text x="780" y="61" style="font-size:9.5px;">File transfer platform</text>
+            <text class="sub" x="780" y="74" style="font-size:8px;">partner file exchange</text>
+          </g>
+        </g>
+        <g class="tl-ph" data-from="1" data-to="3">
+          <g class="topo-node">
+            <rect class="body" x="692" y="98" width="176" height="40" rx="8" style="stroke:var(--lav);fill:var(--lav);fill-opacity:.1;"></rect>
+            <text x="780" y="115" style="font-size:9.5px;">Recovery Services Vaults</text>
+            <text class="sub" x="780" y="128" style="font-size:8px;">backup → DR + RMiT retention</text>
+          </g>
+        </g>
+        <g class="tl-ph" data-from="1" data-to="1" data-retire="1">
+          <g class="topo-node">
+            <rect class="body" x="692" y="152" width="176" height="40" rx="8" style="stroke:var(--lav);fill:var(--lav);fill-opacity:.1;"></rect>
+            <text x="780" y="169" style="font-size:9.5px;">Domain controllers</text>
+            <text class="sub" x="780" y="182" style="font-size:8px;">self-managed</text>
+          </g>
+        </g>
+        <g class="tl-ph" data-from="2" data-to="3">
+          <g class="topo-node">
+            <rect class="body" x="692" y="206" width="176" height="40" rx="8" style="stroke:var(--violet);fill:var(--violet);fill-opacity:.1;"></rect>
+            <text x="780" y="223" style="font-size:9.5px;">Entra Domain Services</text>
+            <text class="sub" x="780" y="236" style="font-size:8px;">legacy LDAP keeps working</text>
+          </g>
+        </g>
+        <g class="tl-ph" data-from="3" data-to="3">
+          <g class="topo-node">
+            <rect class="body" x="692" y="260" width="176" height="40" rx="8" style="stroke:var(--gold);fill:var(--gold);fill-opacity:.1;"></rect>
+            <text x="780" y="277" style="font-size:9.5px;">Azure Blob</text>
+            <text class="sub" x="780" y="290" style="font-size:8px;">storage modernisation</text>
+          </g>
+        </g>
+        <g class="tl-ph" data-from="2" data-to="3">
+          <g class="topo-node">
+            <rect class="body" x="32" y="374" width="158" height="44" rx="8" style="stroke:var(--violet);fill:var(--violet);fill-opacity:.1;"></rect>
+            <text x="111" y="393" style="font-size:9.5px;">PIM · RBAC · SSO</text>
+            <text class="sub" x="111" y="406" style="font-size:8px;">150+ identities</text>
+          </g>
+        </g>
+        <g class="tl-ph" data-from="3" data-to="3">
+          <g class="topo-node">
+            <rect class="body" x="202" y="374" width="158" height="44" rx="8" style="stroke:var(--gold);fill:var(--gold);fill-opacity:.1;"></rect>
+            <text x="281" y="393" style="font-size:9.5px;">Azure Policy</text>
+            <text class="sub" x="281" y="406" style="font-size:8px;">ADR · DINE / AINE</text>
+          </g>
+        </g>
+        <g class="tl-ph" data-from="3" data-to="3">
+          <g class="topo-node">
+            <rect class="body" x="372" y="374" width="158" height="44" rx="8" style="stroke:var(--gold);fill:var(--gold);fill-opacity:.1;"></rect>
+            <text x="451" y="393" style="font-size:9.5px;">CIS golden image</text>
+            <text class="sub" x="451" y="406" style="font-size:8px;">Image Builder</text>
+          </g>
+        </g>
+        <g class="tl-ph" data-from="3" data-to="3">
+          <g class="topo-node">
+            <rect class="body" x="542" y="374" width="158" height="44" rx="8" style="stroke:var(--gold);fill:var(--gold);fill-opacity:.1;"></rect>
+            <text x="621" y="393" style="font-size:9.5px;">VNet Flow Logs</text>
+            <text class="sub" x="621" y="406" style="font-size:8px;">Traffic Analytics</text>
+          </g>
+        </g>
+        <g class="tl-ph" data-from="3" data-to="3">
+          <g class="topo-node">
+            <rect class="body" x="712" y="374" width="158" height="44" rx="8" style="stroke:var(--gold);fill:var(--gold);fill-opacity:.1;"></rect>
+            <text x="791" y="393" style="font-size:9.5px;">DR drills</text>
+            <text class="sub" x="791" y="406" style="font-size:8px;">live drills · 1h RTO</text>
+          </g>
         </g>
 
-        <g class="topo-node">
-          <path d="M355,180 L367,184.5 L367,196.5 C367,204.5 361,210.5 355,213.5 C349,210.5 343,204.5 343,196.5 L343,184.5 Z" stroke="var(--text-faint)" stroke-width="1.3" fill="none"></path>
-          <text x="355" y="228" style="font-size:10px;">HARDENING</text>
-          <text class="sub" x="355" y="362" style="font-size:9px;">MAR 2024 – MAR 2025</text>
-          <text class="sub" x="355" y="374" style="font-size:9px;">Executive, IT Systems Engineer</text>
-        </g>
-
-        <g class="topo-node">
-          <path d="M547,100 A12,12 0 1 1 545,116" stroke="var(--gold)" stroke-width="1.4" fill="none"></path>
-          <path d="M545,116 L541,113 M545,116 L549,114" stroke="var(--gold)" stroke-width="1.2" fill="none" stroke-linecap="round"></path>
-          <text x="555" y="146" style="font-size:8.5px;fill:var(--gold);">CONTINUOUS IMPROVEMENT</text>
-          <text class="sub" x="555" y="362" style="font-size:9px;">MAR 2025 – PRESENT</text>
-          <text class="sub" x="555" y="374" style="font-size:9px;fill:var(--gold);">Lead Cloud Engineer</text>
-        </g>
+        <rect class="spot-dim" data-overlay x="-20" y="-20" width="940" height="510" fill="#000" opacity="0" mask="url(#tlSpotMask)" pointer-events="none"></rect>
+        <rect class="spot-ring" x="0" y="0" width="900" height="470" rx="14" opacity="0" pointer-events="none"></rect>
       </svg>
+      <div class="story-panel">
+        <span class="story-progress"></span>
+        <div class="story-meta"><span class="story-step"></span><b class="story-title"></b></div>
+        <p class="story-text" aria-live="polite"></p>
+        <div class="story-nav">
+          <button type="button" class="story-prev" aria-label="Previous chapter">←</button>
+          <button type="button" class="story-next" aria-label="Next chapter">→</button>
+        </div>
+      </div>
+      </div>
+      <div class="flow-list" id="flowListTL" aria-label="Platform traffic"></div>
       <div class="phase-grid">
         <div class="card">
           <div class="card-tag">AUG 2023 – FEB 2024</div>
           <h3>Foundation</h3>
           <div class="sub">IT Systems Engineer Intern</div>
-          <div class="card-contribution"><span class="label">$ contribution</span>Designed and deployed a Managed File Transfer platform for 150+ users — JSCAPE MFT on Azure VMs behind a Load Balancer, backed by Azure Blob — for secure, compliant file exchange with the bank's partners.</div>
+          <div class="card-contribution"><span class="label">$ contribution</span>Designed and deployed a Managed File Transfer platform for 150+ users — Azure VMs behind a Load Balancer, backed by Azure Blob — for secure, compliant file exchange with the bank's partners.</div>
           <p>Built proofs of concept with the Cloud Engineer for VNets, VPN Gateway, Private DNS Zones, Application Gateway and API Management ahead of the landing zone build, and helped establish the Azure Backup and Recovery Services Vaults that later carried DR and RMiT retention.</p>
         </div>
         <div class="card">
           <div class="card-tag">MAR 2024 – MAR 2025</div>
           <h3>Hardening</h3>
           <div class="sub">Executive, IT Systems Engineer</div>
-          <div class="card-contribution"><span class="label">$ contribution</span>Closed a pre-go-live BNM ORR finding on privileged access — Azure PIM, RBAC and SSO (SAML/OIDC) for 150+ identities across SaaS and IaaS.</div>
-          <p>Designed the bank's first landing zone connectivity stack, linking core banking SaaS to RPP, Cards and RENTAS NWI, and replaced self-managed domain controllers with Entra Domain Services so legacy LDAP workloads kept working.</p>
+          <div class="card-contribution"><span class="label">$ contribution</span>Strengthened privileged access ahead of go-live — Azure PIM, RBAC and SSO (SAML/OIDC) for 150+ identities across SaaS and IaaS.</div>
+          <p>Designed the bank's first landing zone connectivity stack, linking core banking SaaS to national payment systems and partner networks, and replaced self-managed domain controllers with Entra Domain Services so legacy LDAP workloads kept working.</p>
         </div>
         <div class="card">
           <div class="card-tag active"><span class="d"></span>ONGOING</div>
           <h3>Continuous Improvement</h3>
           <div class="sub">Assistant Manager, Lead Cloud Engineer</div>
-          <div class="card-contribution"><span class="label">$ contribution</span>Led the Operational Readiness Review with BNM — the network security architecture he authored satisfied 2 RMiT domains (DCRA, Network Resilience) and helped secure the Islamic Digital Bank license.</div>
-          <p>Moved the estate onto Azure Virtual WAN across 2 sites with Routing Intent, segmented remote access per department with P2S user groups, codified hardening in an ADR enforced through Azure Policy, and is retiring Entra Domain Services by moving the last Azure Files share to Blob. DR now runs as ~5 live failover drills a month with a 1-hour RTO.</p>
+          <div class="card-contribution"><span class="label">$ contribution</span>Led the Operational Readiness Review with BNM — the network security architecture he authored satisfied 2 RMiT domains and helped secure the Islamic Digital Bank license.</div>
+          <p>Moved the estate onto Azure Virtual WAN with Routing Intent, segmented remote access per department with P2S user groups, codified hardening in an ADR enforced through Azure Policy, and is modernising storage onto Blob. DR is proven in regular live failover drills with a 1-hour RTO.</p>
         </div>
       </div>
-      <div class="chip-row">
-        <span class="chip interest">3-person team built</span>
-        <span class="chip interest">+60% operational confidence in 6 months</span>
-        <span class="chip interest">150+ identities under PIM, RBAC &amp; SSO</span>
-        <span class="chip interest">1h RTO vs BNM's 2h mandate</span>
-        <span class="chip progress">2 RMiT domains · Islamic Digital Bank license</span>
+      <div class="topo-caption" style="margin-top:34px;margin-bottom:14px;">$ git log --graph --all platform.git — three roles, four threads</div>
+      <div class="topo-stage graph-stage">
+      <svg class="topo-svg commit-graph" id="commitGraph" viewBox="0 0 900 270" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Commit graph of platform milestones across the three roles">
+        <rect x="-20" y="-20" width="940" height="310" fill="url(#hlBp)"></rect>
+        <g class="cg-phases">
+          <text x="40" y="22">INTERN · 2023–24</text><text x="310" y="22">EXECUTIVE · 2024–25</text><text x="610" y="22">LEAD · 2025–NOW</text>
+          <path d="M300,10 L300,262 M600,10 L600,262"></path>
+        </g>
+      </svg>
       </div>
 
       <div class="refine-wrap">
         <div class="topo-caption">$ diff --stat skillset.log — same platform, widening scope</div>
-        <div class="refine-table" id="refineTable"></div>
-        <div class="refine-legend">I = Intern (2023) · E = Executive (2024) · L = Lead (2025–present) · — = not yet part of the job</div>
-        <div class="card story-card">
-          <div class="card-tag">$ log --follow platform.story</div>
-          <h3>The Story</h3>
+        <div class="diffstat" id="refineTable" role="table" aria-label="Skill depth by role"></div>
+        <div class="refine-legend"><span class="ds-key i">+</span> Intern (2023) · <span class="ds-key e">+</span> Executive (2024) · <span class="ds-key l">+</span> Lead (2025–present) · each + is one step deeper</div>
+        <details class="card story-card">
+          <summary><span class="card-tag">$ log --follow platform.story</span><span class="story-sum">read the full story <i>↓</i></span></summary>
           <p>The depth grew first, then the breadth followed. As an intern, the platform meant proofs of concept — VNets, VPN Gateway, Private DNS Zones, Application Gateway and API Management — built alongside the Cloud Engineer before the landing zone existed, on top of a networking foundation he already carried in from his CCNA. Two threads started there and never stopped: the managed file transfer platform that moves files between the bank and its partners, and the Backup and Recovery Services Vaults that later became the base for DR and RMiT retention.</p>
-          <p>As Executive, those proofs of concept became the real thing: the bank's first landing zone connectivity stack, linking core banking SaaS to RPP, Cards and RENTAS NWI. Identity grew up too — a pre-go-live ORR finding on privileged access turned into Azure PIM, RBAC and SSO across 150+ identities, and self-managed domain controllers gave way to Entra Domain Services.</p>
-          <p>As Lead, the platform he built is being rebuilt properly. The first landing zone evolved into a Virtual WAN estate across two sites with Routing Intent and centralised firewall policy; remote access is segmented per department through P2S user groups; hardening is written down as an ADR and enforced through Azure Policy and a CIS-hardened golden image. Some of his own early decisions are being retired on purpose — the last Entra-joined Azure Files share is moving to Blob so Entra Domain Services can be decommissioned. And the oldest thread is still being pulled tighter: the DR he helped build as an intern now runs as roughly five live failover drills a month, with a 1-hour RTO against BNM's 2-hour mandate.</p>
-        </div>
+          <p>As Executive, those proofs of concept became the real thing: the bank's first landing zone connectivity stack, linking core banking SaaS to national payment systems and partner networks. Identity grew up too — privileged access was strengthened ahead of go-live with Azure PIM, RBAC and SSO across 150+ identities, and self-managed domain controllers gave way to Entra Domain Services.</p>
+          <p>As Lead, the platform he built is being rebuilt properly. The first landing zone evolved into a Virtual WAN estate with Routing Intent and centralised firewall policy; remote access is segmented per department through P2S user groups; hardening is written down as an ADR and enforced through Azure Policy and a CIS-hardened golden image. Some of his own early decisions are being revisited on purpose, with file storage being modernised onto Blob. And the oldest thread is still being pulled tighter: the DR he helped build as an intern is now proven in regular live failover drills, with a 1-hour RTO against BNM's 2-hour mandate.</p>
+        </details>
         <div class="card featured-project">
           <div class="card-tag active"><span class="d"></span>FEATURED PROJECT</div>
           <h3>Azure Landing Zone — Inter-SaaS Connectivity</h3>
           <div class="sub">Bicep · Azure</div>
-          <p>Designed the landing zone connecting external SaaS platforms (core banking, RPP, Cards) and hybrid endpoints (RENTAS NWI). The initial stack — VPN Gateway, Azure Firewall, Peplink SD-WAN NVA, Application Gateway, API Management, and VNets/routing — is the foundation that later evolved into the bank's Virtual WAN architecture.</p>
-          <div class="proj-tags"><span class="proj-tag">Bicep</span><span class="proj-tag">VPN Gateway</span><span class="proj-tag">Azure Firewall</span><span class="proj-tag">Peplink SD-WAN</span><span class="proj-tag">App Gateway</span><span class="proj-tag">APIM</span></div>
+          <p>Designed the landing zone connecting external SaaS platforms (core banking, payments) and hybrid partner endpoints. The initial stack — VPN Gateway, Azure Firewall, SD-WAN NVA, Application Gateway, API Management, and VNets/routing — is the foundation that later evolved into the bank's Virtual WAN architecture.</p>
+          <div class="proj-tags"><span class="proj-tag">Bicep</span><span class="proj-tag">VPN Gateway</span><span class="proj-tag">Azure Firewall</span><span class="proj-tag">SD-WAN</span><span class="proj-tag">App Gateway</span><span class="proj-tag">APIM</span></div>
         </div>
         <div class="work-grid">
           <div class="card featured-project">
@@ -821,8 +1197,8 @@
             <div class="sub">Python · Azure Functions · Azure Storage · Azure PIM · Azure Monitor</div>
             <ul class="hop-list">
               <li><b>SaaS log retention:</b> extended a SaaS application's 1-year in-app log retention to the <b>7 years BNM RMiT requires</b> by pulling logs through the vendor API into bank-owned storage.</li>
-              <li><b>eKYC data sovereignty:</b> moved Onfido identity verification records (IC documents, verification videos) out of SaaS into bank-owned storage to meet <b>PDPA</b>, retained 7 years under RMiT, with admin access gated through Azure PIM.</li>
-              <li><b>Certificate transparency monitor:</b> hourly crt.sh polling for new certificates on the bank's domains, alerting on-call via Azure Monitor, egressing only through the vWAN firewall.</li>
+              <li><b>eKYC data sovereignty:</b> moved eKYC identity verification records out of a SaaS provider into bank-owned storage to meet <b>PDPA</b>, retained 7 years under RMiT, with admin access gated through Azure PIM.</li>
+              <li><b>Certificate transparency monitor:</b> hourly crt.sh polling for new certificates on the bank's domains, alerting on-call via Azure Monitor.</li>
             </ul>
           </div>
           <div class="card featured-project">
@@ -870,23 +1246,25 @@
 
     <div class="topo-wrap" style="margin-top:34px;">
       <div class="topo-caption" style="margin-top:0;margin-bottom:14px;">$ cat homelab-topology.yaml — every cable: gateway → core → aggregation → host</div>
+      <div class="topo-stage" id="hlStage">
+      <div class="story-tabs" role="tablist" aria-label="Homelab tour"></div>
       <svg class="topo-svg homelab-svg" viewBox="0 0 900 748" xmlns="http://www.w3.org/2000/svg">
-        <!-- blueprint grid behind the diagram: minor 20, major 100, fading out at the edges -->
         <defs>
-          <pattern id="hlGridMinor" width="20" height="20" patternUnits="userSpaceOnUse">
-            <path d="M20,0 L0,0 0,20" fill="none" stroke="var(--violet)" stroke-opacity=".02" stroke-width="1"></path>
+          <!-- blueprint grid, shared by both story diagrams: white lines on black, minor 20, major 100 -->
+          <pattern id="hlBpMinor" width="20" height="20" patternUnits="userSpaceOnUse">
+            <path d="M20,0 L0,0 0,20" fill="none" stroke="#fff" stroke-opacity=".06" stroke-width="1"></path>
           </pattern>
-          <pattern id="hlGrid" width="100" height="100" patternUnits="userSpaceOnUse">
-            <rect width="100" height="100" fill="url(#hlGridMinor)"></rect>
-            <path d="M100,0 L0,0 0,100" fill="none" stroke="var(--violet)" stroke-opacity=".05" stroke-width="1"></path>
+          <pattern id="hlBp" width="100" height="100" patternUnits="userSpaceOnUse">
+            <rect width="100" height="100" fill="url(#hlBpMinor)"></rect>
+            <path d="M100,0 L0,0 0,100" fill="none" stroke="#fff" stroke-opacity=".14" stroke-width="1"></path>
           </pattern>
-          <radialGradient id="hlGridFade" cx="50%" cy="50%" r="62%">
-            <stop offset="55%" stop-color="#fff"></stop>
-            <stop offset="100%" stop-color="#fff" stop-opacity="0"></stop>
-          </radialGradient>
-          <mask id="hlGridMask"><rect width="900" height="748" fill="url(#hlGridFade)"></rect></mask>
+          <!-- story spotlight: everything outside the hole gets dimmed -->
+          <mask id="hlSpotMask">
+            <rect x="-20" y="-20" width="940" height="788" fill="#fff"></rect>
+            <rect class="spot-hole" x="0" y="0" width="900" height="748" rx="14" fill="#000"></rect>
+          </mask>
         </defs>
-        <rect class="topo-node" width="900" height="748" fill="url(#hlGrid)" mask="url(#hlGridMask)"></rect>
+        <rect x="-20" y="-20" width="940" height="788" fill="url(#hlBp)"></rect>
 
         <!-- purpose groups, drawn first so cables sit on top -->
         <g class="topo-node">
@@ -1099,7 +1477,19 @@
           <text class="sub" x="746" y="694" style="text-anchor:start;font-size:8px;">egress → Proton SG</text>
         </g>
 
+        <rect class="spot-dim" data-overlay x="-20" y="-20" width="940" height="788" fill="#000" opacity="0" mask="url(#hlSpotMask)" pointer-events="none"></rect>
+        <rect class="spot-ring" x="0" y="0" width="900" height="748" rx="14" opacity="0" pointer-events="none"></rect>
       </svg>
+      <div class="story-panel">
+        <span class="story-progress"></span>
+        <div class="story-meta"><span class="story-step"></span><b class="story-title"></b></div>
+        <p class="story-text" aria-live="polite"></p>
+        <div class="story-nav">
+          <button type="button" class="story-prev" aria-label="Previous chapter">←</button>
+          <button type="button" class="story-next" aria-label="Next chapter">→</button>
+        </div>
+      </div>
+      </div>
       <div class="topo-legend">
         <span><svg width="22" height="14" viewBox="0 0 44 30"><path d="M2,15 L42,15" stroke="var(--gold)" stroke-width="3"></path></svg> WAN / VPN</span>
         <span><svg width="22" height="14" viewBox="0 0 44 30"><path d="M2,15 L42,15" stroke="var(--blue)" stroke-width="3"></path></svg> 10G</span>
@@ -1127,6 +1517,467 @@
         <span class="topo-chip">OpenBao secrets · Prometheus, 37 targets</span>
       </div>
     </div>
+    <div class="topo-wrap" style="margin-top:46px;">
+      <div class="topo-caption" style="margin-top:0;margin-bottom:14px;">$ cat openclaw-team.yaml — how a request becomes a pull request</div>
+      <div class="topo-stage" id="ocStage">
+      <div class="story-tabs" role="tablist" aria-label="AIOps tour"></div>
+      <svg class="topo-svg openclaw-svg" viewBox="0 0 900 540" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <mask id="ocSpotMask">
+            <rect x="-20" y="-20" width="940" height="580" fill="#fff"></rect>
+            <rect class="spot-hole" x="0" y="0" width="900" height="540" rx="14" fill="#000"></rect>
+          </mask>
+        </defs>
+        <rect x="-20" y="-20" width="940" height="580" fill="url(#hlBp)"></rect>
+
+        <g class="topo-node">
+          <rect x="20" y="20" width="190" height="290" rx="12" fill="none" stroke="var(--line)" stroke-width="1.5" stroke-dasharray="4 4"></rect>
+          <text x="198" y="302" style="text-anchor:end;font-size:9px;fill:var(--text-muted);">TRIGGERS</text>
+          <rect x="230" y="20" width="180" height="290" rx="12" fill="none" stroke="var(--line)" stroke-width="1.5" stroke-dasharray="4 4"></rect>
+          <text x="398" y="302" style="text-anchor:end;font-size:9px;fill:var(--text-muted);">ONE RUN AT A TIME</text>
+          <rect x="430" y="20" width="270" height="280" rx="12" fill="none" stroke="var(--line)" stroke-width="1.5" stroke-dasharray="4 4"></rect>
+          <text x="688" y="292" style="text-anchor:end;font-size:9px;fill:var(--text-muted);">AGENT TEAM</text>
+          <rect x="720" y="20" width="160" height="280" rx="12" fill="none" stroke="var(--line)" stroke-width="1.5" stroke-dasharray="4 4"></rect>
+          <text x="868" y="292" style="text-anchor:end;font-size:9px;fill:var(--text-muted);">RESULTS</text>
+          <rect x="230" y="320" width="470" height="74" rx="12" fill="none" stroke="var(--line)" stroke-width="1.5" stroke-dasharray="4 4"></rect>
+          <text x="688" y="386" style="text-anchor:end;font-size:9px;fill:var(--text-muted);">MCP TOOLS</text>
+          <rect x="20" y="414" width="860" height="110" rx="12" fill="#000" stroke="var(--line)" stroke-width="1.5" stroke-dasharray="4 4"></rect>
+          <text x="868" y="516" style="text-anchor:end;font-size:9px;fill:var(--gold);">GUARDRAILS</text>
+        </g>
+
+        <!-- request paths -->
+        <path class="topo-line" d="M196,54 L220,54" style="stroke:var(--gold);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M196,104 L220,104" style="stroke:var(--gold);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M196,154 L220,154" style="stroke:var(--gold);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M196,204 L220,204" style="stroke:var(--gold);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M196,254 L220,254" style="stroke:var(--gold);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M220,54 L220,254" style="stroke:var(--gold);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M220,154 L245,154" style="stroke:var(--gold);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M320,172 L320,206" style="stroke:var(--lav);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M395,224 L412,224 Q416,224 416,220 L416,64 Q416,60 420,60 L485,60" style="stroke:var(--lav);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M570,80 L570,314" style="stroke:var(--violet);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M565,130 L575,130" style="stroke:var(--pink);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M565,180 L575,180" style="stroke:var(--pink);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M565,230 L570,230" style="stroke:var(--pink);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M635,60 L708,60" style="stroke:var(--violet);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M570,262 L708,262" style="stroke:var(--violet);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M708,60 L708,262" style="stroke:var(--violet);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M708,78 L732,78" style="stroke:var(--violet);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M708,148 L732,148" style="stroke:var(--violet);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M708,218 L732,218" style="stroke:var(--violet);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M285,314 L645,314" style="stroke:var(--blue);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M285,314 L285,338" style="stroke:var(--blue);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M375,314 L375,338" style="stroke:var(--blue);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M465,314 L465,338" style="stroke:var(--blue);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M555,314 L555,338" style="stroke:var(--blue);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M645,314 L645,338" style="stroke:var(--blue);stroke-width:1.8;"></path>
+
+        <!-- runtime note -->
+        <g class="topo-node">
+          <text x="245" y="58" style="text-anchor:start;font-size:9px;fill:var(--text-muted);font-weight:600;">Claude Code, headless</text>
+          <text class="sub" x="245" y="72" style="text-anchor:start;font-size:8px;">Haiku · Sonnet · Opus</text>
+          <text class="sub" x="320" y="262" style="font-size:8px;">question · learn · change</text>
+          <text class="sub" x="320" y="274" style="font-size:8px;">build · incident</text>
+          <text class="sub" x="582" y="226" style="text-anchor:start;font-size:8px;">specialists never</text>
+          <text class="sub" x="582" y="238" style="text-anchor:start;font-size:8px;">talk to each other</text>
+          <text class="sub" x="800" y="258" style="font-size:8px;">every tool call audited</text>
+          <text class="sub" x="800" y="270" style="font-size:8px;">≈ $0.5–5 per run</text>
+        </g>
+
+        <g class="topo-node">
+          <rect class="body" x="32" y="36" width="164" height="36" rx="8" style="stroke:var(--gold);fill:var(--gold);fill-opacity:.1;"></rect>
+          <text x="114" y="52" style="font-size:9.5px;">Chat</text>
+          <text class="sub" x="114" y="65" style="font-size:8px;">me, over SSH</text>
+        </g>
+        <g class="topo-node">
+          <rect class="body" x="32" y="86" width="164" height="36" rx="8" style="stroke:var(--gold);fill:var(--gold);fill-opacity:.1;"></rect>
+          <text x="114" y="102" style="font-size:9.5px;">Gitea comment</text>
+          <text class="sub" x="114" y="115" style="font-size:8px;">polled every 2 min</text>
+        </g>
+        <g class="topo-node">
+          <rect class="body" x="32" y="136" width="164" height="36" rx="8" style="stroke:var(--gold);fill:var(--gold);fill-opacity:.1;"></rect>
+          <text x="114" y="152" style="font-size:9.5px;">Pipeline event</text>
+          <text class="sub" x="114" y="165" style="font-size:8px;">drift · failed run</text>
+        </g>
+        <g class="topo-node">
+          <rect class="body" x="32" y="186" width="164" height="36" rx="8" style="stroke:var(--gold);fill:var(--gold);fill-opacity:.1;"></rect>
+          <text x="114" y="202" style="font-size:9.5px;">Alertmanager</text>
+          <text class="sub" x="114" y="215" style="font-size:8px;">incidents, deduped</text>
+        </g>
+        <g class="topo-node">
+          <rect class="body" x="32" y="236" width="164" height="36" rx="8" style="stroke:var(--gold);fill:var(--gold);fill-opacity:.1;"></rect>
+          <text x="114" y="252" style="font-size:9.5px;">Briefs</text>
+          <text class="sub" x="114" y="265" style="font-size:8px;">daily · weekly</text>
+        </g>
+        <g class="topo-node">
+          <rect class="body" x="245" y="136" width="150" height="36" rx="8" style="stroke:var(--lav);fill:var(--lav);fill-opacity:.1;"></rect>
+          <text x="320" y="152" style="font-size:9.5px;">Run queue</text>
+          <text class="sub" x="320" y="165" style="font-size:8px;">one at a time, ≤ 25 min</text>
+        </g>
+        <g class="topo-node">
+          <rect class="body" x="245" y="206" width="150" height="36" rx="8" style="stroke:var(--lav);fill:var(--lav);fill-opacity:.1;"></rect>
+          <text x="320" y="222" style="font-size:9.5px;">Router</text>
+          <text class="sub" x="320" y="235" style="font-size:8px;">Haiku · 1 turn · no tools</text>
+        </g>
+        <g class="topo-node">
+          <rect class="body" x="485" y="40" width="150" height="40" rx="8" style="stroke:var(--violet);fill:var(--violet);fill-opacity:.1;"></rect>
+          <text x="560" y="58" style="font-size:10px;">PM agent</text>
+          <text class="sub" x="560" y="71" style="font-size:8px;">plans · sequences · issues</text>
+        </g>
+        <g class="topo-node">
+          <rect class="body" x="445" y="112" width="120" height="36" rx="8" style="stroke:var(--pink);fill:var(--pink);fill-opacity:.1;"></rect>
+          <text x="505" y="128" style="font-size:9.5px;">Infrastructure</text>
+          <text class="sub" x="505" y="141" style="font-size:8px;">Terraform</text>
+        </g>
+        <g class="topo-node">
+          <rect class="body" x="575" y="112" width="120" height="36" rx="8" style="stroke:var(--pink);fill:var(--pink);fill-opacity:.1;"></rect>
+          <text x="635" y="128" style="font-size:9.5px;">Configuration</text>
+          <text class="sub" x="635" y="141" style="font-size:8px;">Ansible · apps</text>
+        </g>
+        <g class="topo-node">
+          <rect class="body" x="445" y="162" width="120" height="36" rx="8" style="stroke:var(--pink);fill:var(--pink);fill-opacity:.1;"></rect>
+          <text x="505" y="178" style="font-size:9.5px;">Network</text>
+          <text class="sub" x="505" y="191" style="font-size:8px;">zones · flows</text>
+        </g>
+        <g class="topo-node">
+          <rect class="body" x="575" y="162" width="120" height="36" rx="8" style="stroke:var(--pink);fill:var(--pink);fill-opacity:.1;"></rect>
+          <text x="635" y="178" style="font-size:9.5px;">Reviewer</text>
+          <text class="sub" x="635" y="191" style="font-size:8px;">approve only</text>
+        </g>
+        <g class="topo-node">
+          <rect class="body" x="445" y="212" width="120" height="36" rx="8" style="stroke:var(--pink);fill:var(--pink);fill-opacity:.1;"></rect>
+          <text x="505" y="228" style="font-size:9.5px;">SRE</text>
+          <text class="sub" x="505" y="241" style="font-size:8px;">incidents · ssh</text>
+        </g>
+        <g class="topo-node">
+          <rect class="body" x="732" y="60" width="136" height="36" rx="8" style="stroke:var(--violet);fill:var(--violet);fill-opacity:.1;"></rect>
+          <text x="800" y="76" style="font-size:9.5px;">Pull request</text>
+          <text class="sub" x="800" y="89" style="font-size:8px;">→ GitOps pipeline</text>
+        </g>
+        <g class="topo-node">
+          <rect class="body" x="732" y="130" width="136" height="36" rx="8" style="stroke:var(--gold);fill:var(--gold);fill-opacity:.1;"></rect>
+          <text x="800" y="146" style="font-size:9.5px;">Report · issue</text>
+          <text class="sub" x="800" y="159" style="font-size:8px;">chat or Gitea</text>
+        </g>
+        <g class="topo-node">
+          <rect class="body" x="732" y="200" width="136" height="36" rx="8" style="stroke:var(--blue);fill:var(--blue);fill-opacity:.1;"></rect>
+          <text x="800" y="216" style="font-size:9.5px;">Guest action</text>
+          <text class="sub" x="800" y="229" style="font-size:8px;">Proxmox · ssh</text>
+        </g>
+        <g class="topo-node">
+          <rect class="body" x="245" y="338" width="80" height="28" rx="8" style="stroke:var(--blue);fill:var(--blue);fill-opacity:.1;"></rect>
+          <text x="285" y="350" style="font-size:9px;">devops</text>
+          <text class="sub" x="285" y="363" style="font-size:8px;">PRs · issues</text>
+        </g>
+        <g class="topo-node">
+          <rect class="body" x="335" y="338" width="80" height="28" rx="8" style="stroke:var(--blue);fill:var(--blue);fill-opacity:.1;"></rect>
+          <text x="375" y="350" style="font-size:9px;">proxmox</text>
+          <text class="sub" x="375" y="363" style="font-size:8px;">guests</text>
+        </g>
+        <g class="topo-node">
+          <rect class="body" x="425" y="338" width="80" height="28" rx="8" style="stroke:var(--blue);fill:var(--blue);fill-opacity:.1;"></rect>
+          <text x="465" y="350" style="font-size:9px;">ssh</text>
+          <text class="sub" x="465" y="363" style="font-size:8px;">guests</text>
+        </g>
+        <g class="topo-node">
+          <rect class="body" x="515" y="338" width="80" height="28" rx="8" style="stroke:var(--blue);fill:var(--blue);fill-opacity:.1;"></rect>
+          <text x="555" y="350" style="font-size:9px;">prometheus</text>
+          <text class="sub" x="555" y="363" style="font-size:8px;">metrics</text>
+        </g>
+        <g class="topo-node">
+          <rect class="body" x="605" y="338" width="80" height="28" rx="8" style="stroke:var(--blue);fill:var(--blue);fill-opacity:.1;"></rect>
+          <text x="645" y="350" style="font-size:9px;">unifi</text>
+          <text class="sub" x="645" y="363" style="font-size:8px;">network reads</text>
+        </g>
+        <g class="topo-node">
+          <circle cx="40" cy="445" r="3" fill="var(--gold)"></circle>
+          <text x="50" y="448" style="text-anchor:start;font-size:9.5px;font-weight:500;fill:var(--text-muted);">Protected guests are read-only to agents</text>
+          <circle cx="325" cy="445" r="3" fill="var(--gold)"></circle>
+          <text x="335" y="448" style="text-anchor:start;font-size:9.5px;font-weight:500;fill:var(--text-muted);">Every change is a pull request</text>
+          <circle cx="610" cy="445" r="3" fill="var(--gold)"></circle>
+          <text x="620" y="448" style="text-anchor:start;font-size:9.5px;font-weight:500;fill:var(--text-muted);">Risk class is computed, not declared</text>
+          <circle cx="40" cy="477" r="3" fill="var(--gold)"></circle>
+          <text x="50" y="480" style="text-anchor:start;font-size:9.5px;font-weight:500;fill:var(--text-muted);">Author ≠ approver; the reviewer only approves</text>
+          <circle cx="325" cy="477" r="3" fill="var(--gold)"></circle>
+          <text x="335" y="480" style="text-anchor:start;font-size:9.5px;font-weight:500;fill:var(--text-muted);">No apply credentials or decrypted secrets</text>
+          <circle cx="610" cy="477" r="3" fill="var(--gold)"></circle>
+          <text x="620" y="480" style="text-anchor:start;font-size:9.5px;font-weight:500;fill:var(--text-muted);">Network changes always need me</text>
+        </g>
+
+        <rect class="spot-dim" data-overlay x="-20" y="-20" width="940" height="580" fill="#000" opacity="0" mask="url(#ocSpotMask)" pointer-events="none"></rect>
+        <rect class="spot-ring" x="0" y="0" width="900" height="540" rx="14" opacity="0" pointer-events="none"></rect>
+      </svg>
+      <div class="story-panel">
+        <span class="story-progress"></span>
+        <div class="story-meta"><span class="story-step"></span><b class="story-title"></b></div>
+        <p class="story-text" aria-live="polite"></p>
+        <div class="story-nav">
+          <button type="button" class="story-prev" aria-label="Previous chapter">←</button>
+          <button type="button" class="story-next" aria-label="Next chapter">→</button>
+        </div>
+      </div>
+      </div>
+      <div class="flow-list" id="flowListOC" aria-label="OpenClaw run patterns"></div>
+    </div>
+    <div class="topo-wrap" style="margin-top:46px;">
+      <div class="topo-caption" style="margin-top:0;margin-bottom:14px;">$ cat homelab-devops.yaml — how a pull request becomes a running lab</div>
+      <div class="topo-stage" id="dvStage">
+      <div class="story-tabs" role="tablist" aria-label="GitOps pipeline tour"></div>
+      <svg class="topo-svg devops-svg" viewBox="0 0 900 700" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <mask id="dvSpotMask">
+            <rect x="-20" y="-20" width="940" height="740" fill="#fff"></rect>
+            <rect class="spot-hole" x="0" y="0" width="900" height="700" rx="14" fill="#000"></rect>
+          </mask>
+        </defs>
+        <rect x="-20" y="-20" width="940" height="740" fill="url(#hlBp)"></rect>
+
+        <g class="topo-node">
+          <rect x="20" y="16" width="440" height="96" rx="12" fill="none" stroke="var(--line)" stroke-width="1.5" stroke-dasharray="4 4"></rect>
+          <text x="448" y="104" style="text-anchor:end;font-size:9px;fill:var(--text-muted);">AUTHORS</text>
+          <rect x="470" y="16" width="410" height="96" rx="12" fill="none" stroke="var(--line)" stroke-width="1.5" stroke-dasharray="4 4"></rect>
+          <text x="868" y="104" style="text-anchor:end;font-size:9px;fill:var(--text-muted);">REPOS</text>
+          <rect x="20" y="140" width="860" height="92" rx="12" fill="none" stroke="var(--line)" stroke-width="1.5" stroke-dasharray="4 4"></rect>
+          <text x="32" y="224" style="text-anchor:start;font-size:9px;fill:var(--text-muted);">PLAN · PR JOB · READ-ONLY TOKEN</text>
+          <rect x="20" y="244" width="860" height="104" rx="12" fill="none" stroke="var(--line)" stroke-width="1.5" stroke-dasharray="4 4"></rect>
+          <text x="868" y="340" style="text-anchor:end;font-size:9px;fill:var(--text-muted);">GATE · THE CLASS DECIDES WHO MERGES</text>
+          <rect x="20" y="360" width="860" height="96" rx="12" fill="none" stroke="var(--line)" stroke-width="1.5" stroke-dasharray="4 4"></rect>
+          <text x="868" y="448" style="text-anchor:end;font-size:9px;fill:var(--text-muted);">APPLY · MERGE TO MAIN · APPLY TOKEN</text>
+          <rect x="20" y="468" width="860" height="92" rx="12" fill="none" stroke="var(--line)" stroke-width="1.5" stroke-dasharray="4 4"></rect>
+          <text x="32" y="552" style="text-anchor:start;font-size:9px;fill:var(--text-muted);">APPS DEPLOY · DISPATCHED AFTER APPLY</text>
+          <rect x="20" y="578" width="860" height="106" rx="12" fill="none" stroke="var(--line)" stroke-width="1.5" stroke-dasharray="4 4"></rect>
+          <text x="868" y="676" style="text-anchor:end;font-size:9px;fill:var(--gold);">NIGHTLY WATCH · ISSUES FEED THE AGENTS</text>
+        </g>
+
+        <!-- authors → plan -->
+        <path class="topo-line" d="M142,78 L142,126 L96,126 L96,160" style="stroke:var(--gold);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M362,78 L362,126 L142,126" style="stroke:var(--gold);stroke-width:1.8;"></path>
+        <!-- plan steps -->
+        <path class="topo-line" d="M160,182 L172,182" style="stroke:var(--lav);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M300,182 L312,182" style="stroke:var(--lav);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M440,182 L452,182" style="stroke:var(--lav);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M580,182 L592,182" style="stroke:var(--lav);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M720,182 L732,182" style="stroke:var(--lav);stroke-width:1.8;"></path>
+        <!-- classify → class -->
+        <path class="topo-line" d="M796,204 L796,252 L116,252 L116,266" style="stroke:var(--violet);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M296,252 L296,266" style="stroke:var(--violet);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M476,252 L476,266" style="stroke:var(--violet);stroke-width:1.8;"></path>
+        <!-- class → merge broker → apply -->
+        <path class="topo-line" d="M116,318 L116,334 L640,334 L640,318" style="stroke:var(--violet);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M296,318 L296,334" style="stroke:var(--violet);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M476,318 L476,334" style="stroke:var(--violet);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M796,318 L796,384" style="stroke:var(--violet);stroke-width:1.8;"></path>
+        <!-- apply steps, right to left -->
+        <path class="topo-line" d="M732,406 L720,406" style="stroke:var(--violet);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M592,406 L580,406" style="stroke:var(--violet);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M452,406 L440,406" style="stroke:var(--violet);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M312,406 L300,406" style="stroke:var(--violet);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M172,406 L160,406" style="stroke:var(--violet);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M96,428 L96,488" style="stroke:var(--blue);stroke-width:1.8;"></path>
+        <!-- apps deploy steps -->
+        <path class="topo-line" d="M160,510 L172,510" style="stroke:var(--blue);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M300,510 L312,510" style="stroke:var(--blue);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M440,510 L452,510" style="stroke:var(--blue);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M580,510 L592,510" style="stroke:var(--blue);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M720,510 L732,510" style="stroke:var(--blue);stroke-width:1.8;"></path>
+        <!-- failures and nightly issues → OpenClaw -->
+        <path class="topo-line" d="M796,532 L796,600" style="stroke:var(--pink);stroke-width:1.8;stroke-dasharray:2 5;"></path>
+        <path class="topo-line" d="M96,644 L96,660" style="stroke:var(--gold);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M236,644 L236,660" style="stroke:var(--gold);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M376,644 L376,660" style="stroke:var(--gold);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M516,644 L516,660" style="stroke:var(--gold);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M96,660 L730,660 L730,644" style="stroke:var(--gold);stroke-width:1.8;"></path>
+
+        <!-- link labels -->
+        <g class="topo-node">
+          <text class="sub" x="404" y="122" style="fill:var(--gold);text-anchor:start;font-size:8.5px;">every change is a PR</text>
+          <text class="sub" x="804" y="247" style="fill:var(--violet);text-anchor:start;font-size:8.5px;">A / B / C</text>
+          <text class="sub" x="804" y="360" style="fill:var(--violet);text-anchor:start;font-size:8.5px;">merge → main</text>
+          <text class="sub" x="104" y="466" style="fill:var(--blue);text-anchor:start;font-size:8.5px;">dispatch</text>
+          <text class="sub" x="804" y="574" style="fill:var(--pink);text-anchor:start;font-size:8.5px;">on failure</text>
+        </g>
+
+        <g class="topo-node">
+          <rect class="body" x="32" y="34" width="220" height="44" rx="8" style="stroke:var(--gold);fill:var(--gold);fill-opacity:.1;"></rect>
+          <text x="142" y="53" style="font-size:9.5px;">Agent writers</text>
+          <text class="sub" x="142" y="66" style="font-size:8px;">infra · config · network agents</text>
+        </g>
+        <g class="topo-node">
+          <rect class="body" x="272" y="34" width="180" height="44" rx="8" style="stroke:var(--gold);fill:var(--gold);fill-opacity:.1;"></rect>
+          <text x="362" y="53" style="font-size:9.5px;">Me</text>
+          <text class="sub" x="362" y="66" style="font-size:8px;">my own branches</text>
+        </g>
+        <g class="topo-node">
+          <rect class="body" x="482" y="34" width="90" height="44" rx="8" style="stroke:var(--lav);fill:var(--lav);fill-opacity:.1;"></rect>
+          <text x="527" y="53" style="font-size:8.5px;">homelab-infra</text>
+          <text class="sub" x="527" y="66" style="font-size:8px;">guests · OS</text>
+        </g>
+        <g class="topo-node">
+          <rect class="body" x="580" y="34" width="90" height="44" rx="8" style="stroke:var(--lav);fill:var(--lav);fill-opacity:.1;"></rect>
+          <text x="625" y="53" style="font-size:8.5px;">homelab-apps</text>
+          <text class="sub" x="625" y="66" style="font-size:8px;">catalogue</text>
+        </g>
+        <g class="topo-node">
+          <rect class="body" x="678" y="34" width="90" height="44" rx="8" style="stroke:var(--lav);fill:var(--lav);fill-opacity:.1;"></rect>
+          <text x="723" y="53" style="font-size:8.5px;">standards</text>
+          <text class="sub" x="723" y="66" style="font-size:8px;">rules · classes</text>
+        </g>
+        <g class="topo-node">
+          <rect class="body" x="776" y="34" width="90" height="44" rx="8" style="stroke:var(--lav);fill:var(--lav);fill-opacity:.1;"></rect>
+          <text x="821" y="53" style="font-size:8.5px;">openclaw</text>
+          <text class="sub" x="821" y="66" style="font-size:8px;">mine · no CI</text>
+        </g>
+        <g class="topo-node">
+          <rect class="body" x="32" y="160" width="128" height="44" rx="8" style="stroke:var(--lav);fill:var(--lav);fill-opacity:.1;"></rect>
+          <text x="96" y="179" style="font-size:9.5px;">main's scripts</text>
+          <text class="sub" x="96" y="192" style="font-size:8px;">PR code: lint + plan</text>
+        </g>
+        <g class="topo-node">
+          <rect class="body" x="172" y="160" width="128" height="44" rx="8" style="stroke:var(--lav);fill:var(--lav);fill-opacity:.1;"></rect>
+          <text x="236" y="179" style="font-size:9.5px;">Behind main?</text>
+          <text class="sub" x="236" y="192" style="font-size:8px;">update · stop · re-run</text>
+        </g>
+        <g class="topo-node">
+          <rect class="body" x="312" y="160" width="128" height="44" rx="8" style="stroke:var(--lav);fill:var(--lav);fill-opacity:.1;"></rect>
+          <text x="376" y="179" style="font-size:9.5px;">Lint</text>
+          <text class="sub" x="376" y="192" style="font-size:8px;">fmt · safety · gitleaks</text>
+        </g>
+        <g class="topo-node">
+          <rect class="body" x="452" y="160" width="128" height="44" rx="8" style="stroke:var(--lav);fill:var(--lav);fill-opacity:.1;"></rect>
+          <text x="516" y="179" style="font-size:9.5px;">Plan</text>
+          <text class="sub" x="516" y="192" style="font-size:8px;">changed stacks only</text>
+        </g>
+        <g class="topo-node">
+          <rect class="body" x="592" y="160" width="128" height="44" rx="8" style="stroke:var(--lav);fill:var(--lav);fill-opacity:.1;"></rect>
+          <text x="656" y="179" style="font-size:9.5px;">Save plan</text>
+          <text class="sub" x="656" y="192" style="font-size:8px;">plan · lock · standards</text>
+        </g>
+        <g class="topo-node">
+          <rect class="body" x="732" y="160" width="128" height="44" rx="8" style="stroke:var(--lav);fill:var(--lav);fill-opacity:.1;"></rect>
+          <text x="796" y="179" style="font-size:9.5px;">Classify</text>
+          <text class="sub" x="796" y="192" style="font-size:8px;">class · review request</text>
+        </g>
+        <g class="topo-node">
+          <rect class="body" x="32" y="266" width="168" height="52" rx="8" style="stroke:var(--blue);fill:var(--blue);fill-opacity:.1;"></rect>
+          <text x="116" y="289" style="font-size:9.5px;">Class A · routine</text>
+          <text class="sub" x="116" y="302" style="font-size:8px;">auto-merge on green</text>
+        </g>
+        <g class="topo-node">
+          <rect class="body" x="212" y="266" width="168" height="52" rx="8" style="stroke:var(--pink);fill:var(--pink);fill-opacity:.1;"></rect>
+          <text x="296" y="289" style="font-size:9.5px;">Class B · shared</text>
+          <text class="sub" x="296" y="302" style="font-size:8px;">reviewer agent approves</text>
+        </g>
+        <g class="topo-node">
+          <rect class="body" x="392" y="266" width="168" height="52" rx="8" style="stroke:var(--gold);fill:var(--gold);fill-opacity:.1;"></rect>
+          <text x="476" y="289" style="font-size:9.5px;">Class C · foundational</text>
+          <text class="sub" x="476" y="302" style="font-size:8px;">I approve</text>
+        </g>
+        <g class="topo-node">
+          <rect class="body" x="600" y="266" width="260" height="52" rx="8" style="stroke:var(--violet);fill:var(--violet);fill-opacity:.1;"></rect>
+          <text x="730" y="289" style="font-size:10px;">Merge broker</text>
+          <text class="sub" x="730" y="302" style="font-size:8px;">every 2 min · the only auto-merger</text>
+        </g>
+        <g class="topo-node">
+          <rect class="body" x="732" y="384" width="128" height="44" rx="8" style="stroke:var(--violet);fill:var(--violet);fill-opacity:.1;"></rect>
+          <text x="796" y="403" style="font-size:9.5px;">Find merged PR</text>
+          <text class="sub" x="796" y="416" style="font-size:8px;">push to main</text>
+        </g>
+        <g class="topo-node">
+          <rect class="body" x="592" y="384" width="128" height="44" rx="8" style="stroke:var(--violet);fill:var(--violet);fill-opacity:.1;"></rect>
+          <text x="656" y="403" style="font-size:9.5px;">Template guard</text>
+          <text class="sub" x="656" y="416" style="font-size:8px;">templates: clone only</text>
+        </g>
+        <g class="topo-node">
+          <rect class="body" x="452" y="384" width="128" height="44" rx="8" style="stroke:var(--violet);fill:var(--violet);fill-opacity:.1;"></rect>
+          <text x="516" y="403" style="font-size:9.5px;">Snapshot</text>
+          <text class="sub" x="516" y="416" style="font-size:8px;">pre-apply, per guest</text>
+        </g>
+        <g class="topo-node">
+          <rect class="body" x="312" y="384" width="128" height="44" rx="8" style="stroke:var(--violet);fill:var(--violet);fill-opacity:.1;"></rect>
+          <text x="376" y="403" style="font-size:9.5px;">Apply saved plan</text>
+          <text class="sub" x="376" y="416" style="font-size:8px;">fails if state moved</text>
+        </g>
+        <g class="topo-node">
+          <rect class="body" x="172" y="384" width="128" height="44" rx="8" style="stroke:var(--violet);fill:var(--violet);fill-opacity:.1;"></rect>
+          <text x="236" y="403" style="font-size:9.5px;">Ansible</text>
+          <text class="sub" x="236" y="416" style="font-size:8px;">changed hosts only</text>
+        </g>
+        <g class="topo-node">
+          <rect class="body" x="32" y="384" width="128" height="44" rx="8" style="stroke:var(--violet);fill:var(--violet);fill-opacity:.1;"></rect>
+          <text x="96" y="403" style="font-size:9.5px;">Verify L1–L3</text>
+          <text class="sub" x="96" y="416" style="font-size:8px;">+ stg auto-rollback</text>
+        </g>
+        <g class="topo-node">
+          <rect class="body" x="32" y="488" width="128" height="44" rx="8" style="stroke:var(--blue);fill:var(--blue);fill-opacity:.1;"></rect>
+          <text x="96" y="507" style="font-size:9.5px;">Host locks</text>
+          <text class="sub" x="96" y="520" style="font-size:8px;">selected hosts only</text>
+        </g>
+        <g class="topo-node">
+          <rect class="body" x="172" y="488" width="128" height="44" rx="8" style="stroke:var(--blue);fill:var(--blue);fill-opacity:.1;"></rect>
+          <text x="236" y="507" style="font-size:9.5px;">Snapshot</text>
+          <text class="sub" x="236" y="520" style="font-size:8px;">pre-deploy · 7 d</text>
+        </g>
+        <g class="topo-node">
+          <rect class="body" x="312" y="488" width="128" height="44" rx="8" style="stroke:var(--blue);fill:var(--blue);fill-opacity:.1;"></rect>
+          <text x="376" y="507" style="font-size:9.5px;">OpenBao</text>
+          <text class="sub" x="376" y="520" style="font-size:8px;">child token per app</text>
+        </g>
+        <g class="topo-node">
+          <rect class="body" x="452" y="488" width="128" height="44" rx="8" style="stroke:var(--blue);fill:var(--blue);fill-opacity:.1;"></rect>
+          <text x="516" y="507" style="font-size:9.5px;">deploy.yml</text>
+          <text class="sub" x="516" y="520" style="font-size:8px;">guarded play</text>
+        </g>
+        <g class="topo-node">
+          <rect class="body" x="592" y="488" width="128" height="44" rx="8" style="stroke:var(--blue);fill:var(--blue);fill-opacity:.1;"></rect>
+          <text x="656" y="507" style="font-size:9.5px;">Waves</text>
+          <text class="sub" x="656" y="520" style="font-size:8px;">DNS + k3s → 1 h → iot</text>
+        </g>
+        <g class="topo-node">
+          <rect class="body" x="732" y="488" width="128" height="44" rx="8" style="stroke:var(--blue);fill:var(--blue);fill-opacity:.1;"></rect>
+          <text x="796" y="507" style="font-size:9.5px;">L4 Goss</text>
+          <text class="sub" x="796" y="520" style="font-size:8px;">checked per wave</text>
+        </g>
+        <g class="topo-node">
+          <rect class="body" x="32" y="600" width="128" height="44" rx="8" style="stroke:var(--gold);fill:var(--gold);fill-opacity:.1;"></rect>
+          <text x="96" y="619" style="font-size:9.5px;">drift · 02:30</text>
+          <text class="sub" x="96" y="632" style="font-size:8px;">plan every stack</text>
+        </g>
+        <g class="topo-node">
+          <rect class="body" x="172" y="600" width="128" height="44" rx="8" style="stroke:var(--gold);fill:var(--gold);fill-opacity:.1;"></rect>
+          <text x="236" y="619" style="font-size:9.5px;">verify · 03:00</text>
+          <text class="sub" x="236" y="632" style="font-size:8px;">L1–L3, every guest</text>
+        </g>
+        <g class="topo-node">
+          <rect class="body" x="312" y="600" width="128" height="44" rx="8" style="stroke:var(--gold);fill:var(--gold);fill-opacity:.1;"></rect>
+          <text x="376" y="619" style="font-size:9.5px;">apps verify · 03:15</text>
+          <text class="sub" x="376" y="632" style="font-size:8px;">health + L4</text>
+        </g>
+        <g class="topo-node">
+          <rect class="body" x="452" y="600" width="128" height="44" rx="8" style="stroke:var(--gold);fill:var(--gold);fill-opacity:.1;"></rect>
+          <text x="516" y="619" style="font-size:9.5px;">patch scan · 6 h</text>
+          <text class="sub" x="516" y="632" style="font-size:8px;">Sev1/2 auto-patch</text>
+        </g>
+        <g class="topo-node">
+          <rect class="body" x="600" y="600" width="260" height="44" rx="8" style="stroke:var(--pink);fill:var(--pink);fill-opacity:.1;"></rect>
+          <text x="730" y="619" style="font-size:10px;">OpenClaw poller</text>
+          <text class="sub" x="730" y="632" style="font-size:8px;">drift → SRE · failure → PM</text>
+        </g>
+
+        <rect class="spot-dim" data-overlay x="-20" y="-20" width="940" height="740" fill="#000" opacity="0" mask="url(#dvSpotMask)" pointer-events="none"></rect>
+        <rect class="spot-ring" x="0" y="0" width="900" height="700" rx="14" opacity="0" pointer-events="none"></rect>
+      </svg>
+      <div class="story-panel">
+        <span class="story-progress"></span>
+        <div class="story-meta"><span class="story-step"></span><b class="story-title"></b></div>
+        <p class="story-text" aria-live="polite"></p>
+        <div class="story-nav">
+          <button type="button" class="story-prev" aria-label="Previous chapter">←</button>
+          <button type="button" class="story-next" aria-label="Next chapter">→</button>
+        </div>
+      </div>
+      </div>
+      <div class="flow-list" id="flowListDV" aria-label="GitOps pipeline paths"></div>
+    </div>
   </div>
 </section>
 
@@ -1145,7 +1996,8 @@
         <div class="card-tag">JUNE 2018 – FEB 2021</div>
         <h3>Diploma of Computer Science</h3>
         <div class="sub">Information Technology · Universiti Teknologi Malaysia, Kuala Lumpur</div>
-        <p>Graduated with a 3.83 CGPA.</p>
+        <p>Graduated with a 3.83 CGPA, including a 4.00 GPA in four semesters. Joined community programmes such as PERSIS, then helped organise an anti-drug awareness programme and an Arduino workshop for young children. As academic tutorship president, taught C and assembly to struggling students.</p>
+        <div class="meta">4.00 GPA × 4 · PERSIS · Tutorship president</div>
       </div>
     </div>
   </div>
@@ -1194,18 +2046,18 @@
       <div class="footer-links">
         <a href="mailto:af.aiman5578@gmail.com">af.aiman5578@gmail.com</a>
         <a href="https://linkedin.com/in/loximity" target="_blank" rel="noopener">linkedin.com/in/loximity</a>
-        <a href="https://resume.loximity.dev" target="_blank" rel="noopener">resume.loximity.dev</a>
       </div>
       <div class="footer-stats">
         <div><b>150</b>+ identities under PIM</div>
         <div><b>2</b>RMiT domains for the license</div>
         <div><b>1</b>h RTO vs 2h mandate</div>
-        <div><b>5</b>DR drills a month</div>
+        <div><b>3</b>person ops team built</div>
       </div>
     </div>
-    <div class="footer-note">// Ahmad Faris Aiman bin Arizal · +6012-5153385</div>
+    <div class="footer-note">// Ahmad Faris Aiman bin Arizal</div>
   </div>
 </section>
+</div><!-- /nt-sky -->
 
 <script>
 // ---- quick-jump droplet rail: hidden on the hero, shown from the first section on; tracks the active section ----
@@ -1250,7 +2102,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Fail-safe: if anime.js didn't load for any reason, reveal everything that
   // starts hidden (opacity:0 / transformed) so content is never stuck invisible.
   if (typeof anime === 'undefined') {
-    document.querySelectorAll('.hero-kicker, .hero-name, .hero-role, .hero-meta, .scroll-cue, .term, .term-line, .sec-head, .about-p, .kv-row, .card, .badge, .pub, .honor-chip, .footer-panel, .proj-card, .chip, .topo-chip, .refine-row, .refine-dot, .card-contribution, .hop, .topo-node, .topo-line, .growth-arrow, [id^="growthBar"]').forEach(el => {
+    document.querySelectorAll('.hero-kicker, .hero-name, .hero-role, .hero-meta, .scroll-cue, .term, .term-line, .sec-head, .about-p, .kv-row, .card, .badge, .pub, .honor-chip, .footer-panel, .proj-card, .chip, .topo-chip, .stat-tile, .ds-row, .ds-bar i, .ds-sum, .card-contribution, .hop, .topo-node, .topo-line').forEach(el => {
       el.style.opacity = '1';
       el.style.transform = 'none';
     });
@@ -1329,55 +2181,40 @@ document.addEventListener('DOMContentLoaded', () => {
   const refineTable = document.getElementById('refineTable');
   if (refineTable) {
     const refineData = [
-      {tech:'Cloud Networking', tags:'Virtual WAN (Routing Intent) · S2S/P2S VPN · VPN Gateway · Peplink SD-WAN · NSG/UDR · routing, switching &amp; VLANs', levels:[3,4,5]},
+      {tech:'Cloud Networking', tags:'Virtual WAN (Routing Intent) · S2S/P2S VPN · VPN Gateway · SD-WAN NVAs · NSG/UDR · routing, switching &amp; VLANs', levels:[3,4,5]},
       {tech:'Security &amp; Perimeter', tags:'Azure Firewall · Private Link · DDoS Protection · Bastion · P2S user-group segmentation', levels:[1,3,5]},
       {tech:'Load Balancing &amp; Delivery', tags:'Application Gateway (WAFv2) · API Management · Front Door · Traffic Manager', levels:[1,2,5]},
-      {tech:'DNS &amp; Storage', tags:'Private DNS Resolver (split-horizon) · Private DNS Zones · Azure Files → Blob migration', levels:[1,2,4]},
+      {tech:'DNS &amp; Storage', tags:'Private DNS Resolver · Private DNS Zones · Azure Files · Azure Blob', levels:[1,2,4]},
       {tech:'Identity &amp; Governance', tags:'Entra ID · Azure PIM · Azure RBAC · Entra RBAC · Entra Domain Services · SSO (SAML/OIDC) · Azure Policy (DINE/AINE)', levels:[2,4,5]},
-      {tech:'Hardening &amp; Observability', tags:'CIS Benchmarks · Machine Configuration · Image Builder · VNet Flow Logs · Traffic Analytics · Azure Monitor · LogicMonitor', levels:[1,2,4]},
-      {tech:'Backup &amp; Disaster Recovery', tags:'Recovery Services Vaults · ~5 failover drills/month · 1h RTO · immutable backups', levels:[2,3,5]},
-      {tech:'Automation &amp; IaC', tags:'Python · PowerShell · Bicep · Azure Functions · JSCAPE MFT', levels:[2,2,4]}
+      {tech:'Hardening &amp; Observability', tags:'CIS Benchmarks · Machine Configuration · Image Builder · VNet Flow Logs · Traffic Analytics · Azure Monitor', levels:[1,2,4]},
+      {tech:'Backup &amp; Disaster Recovery', tags:'Recovery Services Vaults · live failover drills · 1h RTO · immutable backups', levels:[2,3,5]},
+      {tech:'Automation &amp; IaC', tags:'Python · PowerShell · Bicep · Azure Functions · managed file transfer', levels:[2,2,4]}
     ];
-    const phaseLabels = ['INTERN','EXECUTIVE','LEAD'];
-    const prefixes = ['I','E','L'];
+    // rendered as `git diff --stat`: each + is one step deeper, coloured by the role that added it
+    let total = 0;
+    refineTable.innerHTML = refineData.map(row => {
+      const [i, e, l] = row.levels, steps = [['i', i], ['e', e - i], ['l', l - e]];
+      total += l;
+      const bar = steps.map(([k, n]) => `<i class="${k}">+</i>`.repeat(Math.max(0, n))).join('');
+      return `<div class="ds-row" role="row"><span class="ds-name" role="cell">${row.tech}</span><span class="ds-sep">|</span><span class="ds-n" role="cell">${l}</span><span class="ds-bar" role="cell">${bar}</span><div class="ds-tags"># ${row.tags}</div></div>`;
+    }).join('') + `<div class="ds-sum">${refineData.length} categories changed, <b>${total} insertions(+)</b>, <s>0 deletions(-)</s></div>`;
 
-    function dotsHTML(count, prefix){
-      if (count === 0) {
-        return `<div class="refine-cell"><span>${prefix}</span><span class="refine-dash">—</span></div>`;
-      }
-      let dots = '';
-      for (let i=0; i<5; i++){
-        dots += `<span class="refine-dot${i<count?' on':''}"></span>`;
-      }
-      return `<div class="refine-cell"><span>${prefix}</span><div class="refine-dots">${dots}</div></div>`;
-    }
-
-    let html = `<div class="refine-head"><div>CATEGORY</div><div>${phaseLabels[0]}</div><div>${phaseLabels[1]}</div><div>${phaseLabels[2]}</div></div>`;
-    refineData.forEach(row => {
-      html += `<div class="refine-row"><div class="refine-tech">${row.tech}<div class="refine-sub">${row.tags}</div></div>${row.levels.map((lv,i) => dotsHTML(lv, prefixes[i])).join('')}</div>`;
-    });
-    refineTable.innerHTML = html;
-
-    const refineIO = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          anime({
-            targets: entry.target.querySelectorAll('.refine-dot.on'),
-            scale: [0,1],
-            opacity: [0,1],
-            duration: reduce?1:400,
-            delay: anime.stagger(reduce?0:30),
-            easing: 'easeOutBack'
-          });
-          refineIO.unobserve(entry.target);
-        }
+    // type it out: each line appears, then its plus signs fill in left to right
+    new IntersectionObserver(([entry], obs) => {
+      if (!entry.isIntersecting) return;
+      obs.disconnect();
+      const rows = [...refineTable.querySelectorAll('.ds-row')];
+      const tl = anime.timeline({easing: 'easeOutQuad'});
+      rows.forEach((r, k) => {
+        tl.add({targets: r, opacity: [0, 1], translateX: reduce ? 0 : [-6, 0], duration: reduce ? 1 : 260}, k ? (reduce ? 0 : '-=140') : 0)
+          .add({targets: r.querySelectorAll('.ds-bar i'), opacity: [0, 1], duration: reduce ? 1 : 90, delay: anime.stagger(reduce ? 0 : 55)}, reduce ? 0 : '-=120');
       });
-    }, {threshold:0.2});
-    refineTable.querySelectorAll('.refine-row').forEach(row => refineIO.observe(row));
+      tl.add({targets: refineTable.querySelector('.ds-sum'), opacity: [0, 1], duration: reduce ? 1 : 400});
+    }, {threshold: .2}).observe(refineTable);
   }
 
   // ---- generic reveal-on-scroll ----
-  const revealTargets = document.querySelectorAll('.kv-row, .card, .badge, .pub, .honor-chip, .footer-panel, .proj-card, .chip, .topo-chip, .refine-row, .sec-head, .about-p');
+  const revealTargets = document.querySelectorAll('.kv-row, .card, .badge, .pub, .honor-chip, .footer-panel, .proj-card, .chip, .topo-chip, .sec-head, .about-p');
   const io = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -1500,69 +2337,87 @@ document.addEventListener('DOMContentLoaded', () => {
   window.addEventListener('resize', updateSpine);
   updateSpine();
 
-  // ---- growth diagram reveal (bars grow, arrow draws, icons fade in) ----
-  const topo = document.querySelector('.growth-svg');
-  if (topo) {
-    const topoIO = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const bars = [
-            {id:'#growthBar1', y:270, h:70},
-            {id:'#growthBar2', y:200, h:140},
-            {id:'#growthBar3', y:120, h:220}
-          ];
-          const tl = anime.timeline({easing:'easeOutCubic'});
-          bars.forEach((b, i) => {
-            tl.add({
-              targets: b.id,
-              y: reduce ? b.y : [340, b.y],
-              height: reduce ? b.h : [0, b.h],
-              opacity: [0,1],
-              duration: reduce?1:650
-            }, i === 0 ? 0 : '-=420');
-          });
-          tl.add({targets: topo.querySelectorAll('.topo-node:not([id^="growthBar"])'), opacity:[0,1], translateY: reduce?0:[8,0], duration: reduce?1:450, delay: anime.stagger(reduce?0:150)}, '-=200')
-            .add({targets: topo.querySelectorAll('.topo-line'), opacity:[0,.9], duration: reduce?1:500}, '-=150');
-          topoIO.unobserve(entry.target);
-        }
+  // ---- buildout stat tiles: count up, and draw the RTO against BNM's limit ----
+  const statGrid = document.getElementById('statGrid');
+  if (statGrid) {
+    new IntersectionObserver(([entry], obs) => {
+      if (!entry.isIntersecting) return;
+      obs.disconnect();
+      anime({targets: statGrid.querySelectorAll('.stat-tile'), opacity: [0, 1], translateY: reduce ? 0 : [12, 0], duration: reduce ? 1 : 500, delay: anime.stagger(reduce ? 0 : 90), easing: 'easeOutCubic'});
+      statGrid.querySelectorAll('[data-count]').forEach(el => {
+        const o = {v: 0}, to = +el.dataset.count;
+        anime({targets: o, v: to, round: 1, duration: reduce ? 1 : 1400, delay: reduce ? 0 : 250, easing: 'easeOutExpo', update: () => { el.textContent = o.v; }});
       });
-    }, {threshold:0.3});
-    topoIO.observe(topo);
+      anime({targets: statGrid.querySelector('.rto-fill.cap'), width: ['0%', '100%'], duration: reduce ? 1 : 1100, delay: reduce ? 0 : 400, easing: 'easeOutCubic'});
+      anime({targets: statGrid.querySelector('.rto-fill.me'), width: ['0%', '50%'], duration: reduce ? 1 : 1100, delay: reduce ? 0 : 700, easing: 'easeOutCubic'});
+    }, {threshold: .3}).observe(statGrid);
   }
 
-  // ---- homelab topology: node/line reveal, then live traffic over the real cabling ----
-  const homelabSvg = document.querySelector('.homelab-svg');
-  if (homelabSvg) {
-    const SVGNS = 'http://www.w3.org/2000/svg';
-    // appliances: where packets enter/leave, and the colour a packet takes once it passes through
-    const N = {
-      inet:{x:262,y:82,c:'gold'},  udm:{x:470,y:82,c:'gold'},   vpn:{x:600,y:82,c:'gold'},
-      core:{x:470,y:215,c:'violet'},
-      apC:{x:90,y:335,c:'pink'},   apL:{x:200,y:335,c:'pink'},  apM:{x:310,y:335,c:'pink'},
-      unas:{x:510,y:325,c:'lav'},  agg:{x:680,y:325,c:'blue'},  tr:{x:825,y:325,c:'gold'}, ws:{x:825,y:392,c:'gold'},
-      vmbr0:{x:86,y:521,c:'violet'}, vmbr1:{x:640,y:521,c:'blue'},
-      k3s:{x:313,y:572,c:'violet'}, mgt:{x:86,y:598,c:'lav'}, wifi:{x:845,y:572,c:'gold'}
+  // ---- commit graph: one lane per thread, merges into main at the bank's milestones ----
+  const cg = document.getElementById('commitGraph');
+  if (cg) {
+    const NS = 'http://www.w3.org/2000/svg';
+    const mk = (tag, attrs, parent = cg) => { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); parent.appendChild(e); return e; };
+    const LANES = {
+      main:       {y: 58,  c: '#ECEAF6', name: 'main', from: 40},
+      network:    {y: 118, c: '#8FA8FF', name: 'network', from: 190},
+      identity:   {y: 178, c: '#F0A6CA', name: 'identity', from: 420},
+      resilience: {y: 238, c: '#F5D77A', name: 'resilience', from: 76}
     };
-    // cable bends between appliances, matching the drawn runs (reversed automatically)
-    const cubic = (p0,p1,p2,p3,t) => p0*(1-t)**3 + 3*p1*t*(1-t)**2 + 3*p2*t*t*(1-t) + p3*t**3;
-    const mesh = [];
-    for (let t = 0; t <= 1.001; t += 0.1) mesh.push([cubic(100,140,260,300,t), cubic(323,290,290,323,t)]);
-    const E = {
-      'inet|udm':[], 'udm|vpn':[], 'udm|core':[],
-      'core|apC':[[400,215],[90,215]], 'apC|apL':[], 'apC|apM':mesh,
-      'core|unas':[[480,215],[480,325]], 'core|agg':[[470,227],[680,227]], 'core|tr':[[470,207],[825,207]],
-      'core|vmbr0':[[420,215],[420,462],[86,462]],
-      'agg|unas':[], 'agg|ws':[[760,325],[760,392]], 'agg|vmbr1':[[640,325]],
-      'vmbr1|k3s':[[640,546],[313,546]], 'vmbr0|mgt':[], 'vmbr1|wifi':[[640,546],[845,546]]
-    };
-    const PATTERNS = [
-      {label:'Wi-Fi client ⇄ Proton VPN',            seq:['apM','apC','core','udm','vpn']},
-      {label:'Workstation ⇄ UNAS · routed on UDM',    seq:['ws','agg','core','udm','core','agg','unas']},
-      {label:'Wi-Fi DNS ⇄ AdGuard · L2',              seq:['apL','apC','core','agg','vmbr1','wifi']},
-      {label:'shared services ⇄ Internet',                        seq:['k3s','vmbr1','agg','core','udm','inet']},
-      {label:'TR3000 ⇄ Proxmox UI · routed on UDM',   seq:['tr','core','udm','core','vmbr0','mgt']}
+    // [lane, x, label, merges into main?]
+    const COMMITS = [
+      ['resilience', 92,  'MFT · 150+ users'],
+      ['resilience', 196, 'Recovery vaults'],
+      ['network',    232, 'PoCs: VNet · VPN · APIM'],
+      ['network',    350, 'first landing zone'],
+      ['identity',   452, 'PIM · RBAC · SSO'],
+      ['main',       510, 'go-live', 'identity'],
+      ['identity',   560, 'Entra DS'],
+      ['network',    650, 'Virtual WAN'],
+      ['identity',   665, 'ADR → Azure Policy'],
+      ['main',       720, 'licence', 'network'],
+      ['network',    745, 'P2S per dept'],
+      ['network',    845, 'storage → Blob'],
+      ['resilience', 800, 'DR drills · 1h RTO']
     ];
+    const g = mk('g', {});
+    const paths = [];
+    for (const k in LANES) {
+      const L = LANES[k], d = k === 'main'
+        ? `M${L.from},${L.y} L880,${L.y}`
+        : `M${L.from - 34},${LANES.main.y} C${L.from - 10},${LANES.main.y} ${L.from - 24},${L.y} ${L.from},${L.y} L880,${L.y}`;
+      paths.push(mk('path', {class: 'cg-lane', d, stroke: L.c, 'stroke-opacity': k === 'main' ? .5 : .75}, g));
+      mk('text', {class: 'cg-name', x: L.from + 4, y: L.y - 8, fill: L.c}, g).textContent = L.name;
+    }
+    const dots = [];
+    COMMITS.forEach(([lane, x, label, from]) => {
+      const L = LANES[lane];
+      if (from) {   // merge: a curve up from the branch into main
+        const F = LANES[from];
+        paths.push(mk('path', {class: 'cg-lane', d: `M${x - 40},${F.y} C${x - 16},${F.y} ${x - 20},${L.y} ${x},${L.y}`, stroke: F.c, 'stroke-opacity': .75}, g));
+      }
+      const big = lane === 'main';
+      dots.push(mk('circle', {class: 'cg-dot', cx: x, cy: L.y, r: big ? 6 : 4.5, fill: big ? '#F5D77A' : L.c}, g));
+      dots.push(mk('text', {class: 'cg-lbl' + (big ? ' big' : ''), x, y: L.y + (big ? -12 : 18)}, g));
+      dots[dots.length - 1].textContent = label;
+    });
+    // draw the lanes in, then pop the commits in time order
+    paths.forEach(p => { const len = p.getTotalLength(); p.style.strokeDasharray = len; p.style.strokeDashoffset = reduce ? 0 : len; });
+    if (!reduce) dots.forEach(d => d.style.opacity = 0);
+    new IntersectionObserver(([entry], obs) => {
+      if (!entry.isIntersecting || reduce) return;
+      obs.disconnect();
+      anime({targets: paths, strokeDashoffset: [anime.setDashoffset, 0], duration: 1600, easing: 'easeInOutSine', delay: anime.stagger(80)});
+      const order = dots.map((d, i) => i).sort((a, b) => (+dots[a].getAttribute('cx') || +dots[a].getAttribute('x')) - (+dots[b].getAttribute('cx') || +dots[b].getAttribute('x')));
+      order.forEach((i, k) => anime({targets: dots[i], opacity: [0, 1], duration: 350, delay: 500 + k * 70, easing: 'easeOutQuad'}));
+    }, {threshold: .3}).observe(cg);
+  }
 
+  // ---- traffic diagrams: reveal nodes + cables, then animate flows along the drawn routes.
+  // N = nodes {x, y, c: colour a packet takes after passing through}, E = bends between nodes,
+  // PATTERNS = node sequences; flows may run either way and optionally get a reply.
+  function trafficDiagram(svg, N, E, PATTERNS, list, opts) {
+    const SVGNS = 'http://www.w3.org/2000/svg';
     function buildRoute(seq) {
       const pts = [[N[seq[0]].x, N[seq[0]].y]], cum = [0], stops = [{d:0, c:N[seq[0]].c}];
       const push = (p) => {
@@ -1594,7 +2449,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // legend of the five patterns; the ones in flight light up
-    const list = document.getElementById('flowList');
     PATTERNS.forEach(p => {
       const span = document.createElement('span');
       span.innerHTML = `<i style="color:var(--${N[p.seq[0]].c})"></i>${p.label}`;
@@ -1602,9 +2456,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     const listItems = [...list.children];
 
-    const MAX = 5, SPEED = 0.14, GAP = 16;
+    const MAX = opts.max, SPEED = opts.speed, GAP = 16;
     const layer = document.createElementNS(SVGNS, 'g');
-    homelabSvg.appendChild(layer);
+    svg.insertBefore(layer, svg.querySelector('[data-overlay]'));   // under any overlay, e.g. the story spotlight
     const flows = [], active = new Set();
     let running = false, raf = null, spawner = null;
 
@@ -1626,8 +2480,9 @@ document.addEventListener('DOMContentLoaded', () => {
       markList();
       if (!raf) raf = requestAnimationFrame(tick);
     }
+    let allowed = null;   // null = every pattern; otherwise only these indexes spawn
     function spawnRandom() {
-      const idle = PATTERNS.map((_, i) => i).filter(i => !active.has(i));
+      const idle = PATTERNS.map((_, i) => i).filter(i => !active.has(i) && (!allowed || allowed.includes(i)));
       if (idle.length) spawn(idle[Math.floor(Math.random()*idle.length)], Math.random() < .5);
     }
 
@@ -1649,38 +2504,296 @@ document.addEventListener('DOMContentLoaded', () => {
           active.delete(f.pi);
           markList();
           // most requests get a reply: the same conversation, flowing back
-          if (Math.random() < .6) setTimeout(() => spawn(f.pi, !f.rev), 250 + Math.random()*500);
+          if (Math.random() < opts.reply) setTimeout(() => spawn(f.pi, !f.rev), 250 + Math.random()*500);
         }
       }
       raf = (running || flows.length) ? requestAnimationFrame(tick) : null;
     }
 
-    const homelabIO = new IntersectionObserver((entries) => {
+    const revealIO = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           anime.timeline({easing:'easeOutCubic', complete: () => { revealed = true; startTraffic(); }})
-            .add({targets: homelabSvg.querySelectorAll('.topo-node'), opacity:[0,1], translateY: reduce?0:[8,0], duration: reduce?1:400, delay: anime.stagger(reduce?0:45)})
-            .add({targets: homelabSvg.querySelectorAll('.topo-line'), opacity:[0,.9], duration: reduce?1:450}, '-=250');
-          homelabIO.unobserve(entry.target);
+            .add({targets: svg.querySelectorAll('.topo-node'), opacity:[0,1], translateY: reduce?0:[8,0], duration: reduce?1:400, delay: anime.stagger(reduce?0:45)})
+            .add({targets: svg.querySelectorAll('.topo-line'), opacity:[0,.9], duration: reduce?1:450}, '-=250');
+          revealIO.unobserve(entry.target);
         }
       });
     }, {threshold:0.25});
-    homelabIO.observe(homelabSvg);
+    revealIO.observe(svg);
 
     // traffic starts once every appliance and cable has rendered, and only runs while the diagram is on screen
     let revealed = false, inView = false;
     function startTraffic() {
       running = !reduce && revealed && inView;
       if (running && !spawner) {
-        setTimeout(spawnRandom, 300); setTimeout(spawnRandom, 1000); setTimeout(spawnRandom, 1700);
-        spawner = setInterval(spawnRandom, 1100);
+        for (let k = 0; k < Math.min(3, MAX); k++) setTimeout(spawnRandom, 300 + k*700);
+        spawner = setInterval(spawnRandom, opts.every);
       } else if (!running && spawner) {
         clearInterval(spawner); spawner = null;
       }
     }
     new IntersectionObserver((entries) => {
       entries.forEach(e => { inView = e.isIntersecting; startTraffic(); });
-    }, {threshold:0.1}).observe(homelabSvg);
+    }, {threshold:0.1}).observe(svg);
+
+    return {
+      // restrict traffic to some patterns and kick one off straight away so the change is visible
+      focus(list) {
+        allowed = list;
+        listItems.forEach((el, i) => el.style.display = !list || list.includes(i) ? '' : 'none');
+        if (running) spawnRandom();
+      }
+    };
+  }
+
+  // ---- diagram stories: tabs + narration; each chapter moves a spotlight over part of the diagram
+  // and narrows the live traffic to the flows it talks about. Auto-advances until the reader takes over.
+  function diagramTour(stage, traffic, CHAPTERS, FULL, onShow) {
+    const q = sel => stage.querySelector(sel);
+    const tabs = q('.story-tabs'), hole = q('.spot-hole'), dim = q('.spot-dim'), ring = q('.spot-ring');
+    const stepEl = q('.story-step'), titleEl = q('.story-title'), textEl = q('.story-text'), bar = q('.story-progress');
+    const pad = n => String(n).padStart(2, '0');
+    const tabEls = CHAPTERS.map((c, i) => {
+      const b = document.createElement('button');
+      b.type = 'button'; b.className = 'story-tab'; b.setAttribute('role', 'tab');
+      b.innerHTML = `<b>${pad(i)}</b>${c.tab}`;
+      b.addEventListener('click', () => { stopTour(); show(i); });
+      tabs.appendChild(b);
+      return b;
+    });
+    let cur = -1;
+    function show(i) {
+      cur = (i + CHAPTERS.length) % CHAPTERS.length;
+      const c = CHAPTERS[cur], [x, y, w, h] = c.spot || FULL;
+      tabEls.forEach((t, k) => t.setAttribute('aria-selected', k === cur));
+      stepEl.textContent = `${pad(cur)} / ${pad(CHAPTERS.length - 1)}`;
+      titleEl.textContent = c.title;
+      textEl.innerHTML = c.text;
+      const d = reduce ? 0 : 700;
+      anime.remove([hole, ring, dim]);
+      anime({targets: [hole, ring], x, y, width: w, height: h, duration: d, easing: 'easeInOutCubic'});
+      anime({targets: dim, opacity: c.spot ? .72 : 0, duration: d, easing: 'easeInOutCubic'});
+      anime({targets: ring, opacity: c.spot ? 1 : 0, duration: d, easing: 'easeInOutCubic'});
+      traffic.focus(c.flows);
+      if (onShow) onShow(c);
+    }
+    q('.story-prev').addEventListener('click', () => { stopTour(); show(cur - 1); });
+    q('.story-next').addEventListener('click', () => { stopTour(); show(cur + 1); });
+
+    const STEP_MS = 9000;
+    let touring = !reduce, tourAnim = null, visible = false;
+    function stopTour() { touring = false; if (tourAnim) tourAnim.pause(); bar.style.width = '0'; }
+    function runTour() {
+      if (tourAnim) tourAnim.pause();
+      if (!touring || !visible) return;
+      tourAnim = anime({targets: bar, width: ['0%', '100%'], duration: STEP_MS, easing: 'linear',
+        complete: () => { if (touring) { show(cur + 1); runTour(); } }});
+    }
+    show(0);
+    new IntersectionObserver(([e]) => { visible = e.isIntersecting; runTour(); }, {threshold: .35}).observe(stage);
+  }
+
+  // ---- homelab topology: live traffic over the real cabling ----
+  const homelabSvg = document.querySelector('.homelab-svg');
+  if (homelabSvg) {
+    // appliances: where packets enter/leave, and the colour a packet takes once it passes through
+    const N = {
+      inet:{x:262,y:82,c:'gold'},  udm:{x:470,y:82,c:'gold'},   vpn:{x:600,y:82,c:'gold'},
+      core:{x:470,y:215,c:'violet'},
+      apC:{x:90,y:335,c:'pink'},   apL:{x:200,y:335,c:'pink'},  apM:{x:310,y:335,c:'pink'},
+      unas:{x:510,y:325,c:'lav'},  agg:{x:680,y:325,c:'blue'},  tr:{x:825,y:325,c:'gold'}, ws:{x:825,y:392,c:'gold'},
+      vmbr0:{x:86,y:521,c:'violet'}, vmbr1:{x:640,y:521,c:'blue'},
+      k3s:{x:313,y:572,c:'violet'}, mgt:{x:86,y:598,c:'lav'}, wifi:{x:845,y:572,c:'gold'}
+    };
+    // cable bends between appliances, matching the drawn runs (reversed automatically)
+    const cubic = (p0,p1,p2,p3,t) => p0*(1-t)**3 + 3*p1*t*(1-t)**2 + 3*p2*t*t*(1-t) + p3*t**3;
+    const mesh = [];
+    for (let t = 0; t <= 1.001; t += 0.1) mesh.push([cubic(100,140,260,300,t), cubic(323,290,290,323,t)]);
+    const E = {
+      'inet|udm':[], 'udm|vpn':[], 'udm|core':[],
+      'core|apC':[[400,215],[90,215]], 'apC|apL':[], 'apC|apM':mesh,
+      'core|unas':[[480,215],[480,325]], 'core|agg':[[470,227],[680,227]], 'core|tr':[[470,207],[825,207]],
+      'core|vmbr0':[[420,215],[420,462],[86,462]],
+      'agg|unas':[], 'agg|ws':[[760,325],[760,392]], 'agg|vmbr1':[[640,325]],
+      'vmbr1|k3s':[[640,546],[313,546]], 'vmbr0|mgt':[], 'vmbr1|wifi':[[640,546],[845,546]]
+    };
+    const PATTERNS = [
+      {label:'Wi-Fi client ⇄ Proton VPN',            seq:['apM','apC','core','udm','vpn']},
+      {label:'Workstation ⇄ UNAS · routed on UDM',    seq:['ws','agg','core','udm','core','agg','unas']},
+      {label:'Wi-Fi DNS ⇄ AdGuard · L2',              seq:['apL','apC','core','agg','vmbr1','wifi']},
+      {label:'shared services ⇄ Internet',                        seq:['k3s','vmbr1','agg','core','udm','inet']},
+      {label:'TR3000 ⇄ Proxmox UI · routed on UDM',   seq:['tr','core','udm','core','vmbr0','mgt']}
+    ];
+    const traffic = trafficDiagram(homelabSvg, N, E, PATTERNS, document.getElementById('flowList'), {max:5, reply:.6, speed:.14, every:1100});
+
+    // ---- the tour: each chapter spotlights one tier and only runs the traffic it talks about ----
+    const CHAPTERS = [
+      {tab:'overview', title:'One gateway, one core, one host', spot:null, flows:null,
+       text:'The whole lab on one page: a gateway that owns every zone, an L3 core, a 10G aggregation tier and one Proxmox host. <em>11 VLANs, 9 firewall zones</em> — and every packet below is following a cable that actually exists.'},
+      {tab:'front door', title:'Everything enters through one box', spot:[192, 8, 576, 150], flows:[0, 3],
+       text:'The <em>UDM Pro Max</em> is the only way in or out — PPPoE primary with DHCP failover, and the zone firewall in front of every network. Outbound traffic can leave through <em>Proton VPN in SG, MY or JP</em>, and three WireGuard site-to-site tunnels end here too.'},
+      {tab:'spine', title:'A 10G spine, and a deliberate hairpin', spot:[392, 30, 210, 218], flows:[1, 4],
+       text:'A <em>10G SFP+ transit VLAN</em> joins the gateway to the <em>USW Pro Max 24</em> core. The core could route on its own, but traffic between zones climbs back up to the UDM instead — so the firewall sees every cross-zone hop.'},
+      {tab:'wireless', title:'Three access points, three ways to connect', spot:[12, 190, 420, 258], flows:[0, 2],
+       text:'Three <em>UX7</em>s: the Centre Hallway AP is wired to the core, the Living Room AP is daisy-chained off it, and the Main Hallway AP joins over mesh. Wi-Fi DNS stays on layer 2 all the way to AdGuard; Wi-Fi traffic heading out can leave through Proton.'},
+      {tab:'10G access', title:'Same switch, still firewalled', spot:[432, 190, 456, 258], flows:[1],
+       text:'The <em>USW Aggregation</em> carries 8× SFP+ at 10G for the <em>UNAS Pro</em>, the TR3000 and my workstation. The workstation and the NAS share that switch, yet their traffic still routes through the UDM — being one hop apart doesn\'t make them the same zone.'},
+      {tab:'compute', title:'One host, split into zones', spot:[12, 472, 876, 274], flows:[2, 3, 4],
+       text:'<em>Proxmox VE 9.2</em> on two Xeon E5-2640 v4s. Guests ride a <em>2×10G LACP VLAN-aware trunk</em>; host management gets its own 1G LAG. Shared services (Gitea, OpenClaw, OpenBao, a 3+2 <em>k3s HA</em> cluster), a DMZ, golden-image templates, and AdGuard pairs that send Wi-Fi and IoT out through Proton MY and SG.'},
+      {tab:'management', title:'The way in for admins', spot:null, flows:[4],
+       text:'Reaching the Proxmox UI from the trusted TR3000 is the longest trip in the lab: access switch, core, up to the UDM for the zone check, back down to the 1G management bridge. The <em>mgt</em> zone allows no guests at all.'}
+    ];
+    diagramTour(document.getElementById('hlStage'), traffic, CHAPTERS, [0, 0, 900, 748]);
+  }
+
+  // ---- OpenClaw: how a request moves through the agent team (one run at a time, like the real lock) ----
+  const ocSvg = document.querySelector('.openclaw-svg');
+  if (ocSvg) {
+    const N = {
+      t_chat:{x:114,y:54,c:'gold'}, t_gitea:{x:114,y:104,c:'gold'}, t_pipe:{x:114,y:154,c:'gold'},
+      t_alert:{x:114,y:204,c:'gold'}, t_brief:{x:114,y:254,c:'gold'},
+      queue:{x:320,y:154,c:'lav'}, router:{x:320,y:224,c:'lav'}, pm:{x:560,y:60,c:'violet'},
+      s_infra:{x:505,y:130,c:'pink'}, s_cfg:{x:635,y:130,c:'pink'}, s_net:{x:505,y:180,c:'pink'},
+      s_rev:{x:635,y:180,c:'pink'}, s_sre:{x:505,y:230,c:'pink'},
+      r_pr:{x:800,y:78,c:'violet'}, r_report:{x:800,y:148,c:'gold'}, r_action:{x:800,y:218,c:'blue'}
+    };
+    const E = {
+      't_chat|queue':[[220,54],[220,154]], 't_gitea|queue':[[220,104],[220,154]], 't_pipe|queue':[[220,154]],
+      't_alert|queue':[[220,204],[220,154]], 't_brief|queue':[[220,254],[220,154]],
+      'queue|router':[], 'router|pm':[[416,224],[416,60]],
+      'pm|s_infra':[[570,60],[570,130]], 'pm|s_cfg':[[570,60],[570,130]], 'pm|s_net':[[570,60],[570,180]],
+      'pm|s_rev':[[570,60],[570,180]], 'pm|s_sre':[[570,60],[570,230]],
+      'pm|r_report':[[708,60],[708,148]],
+      's_infra|r_pr':[[570,130],[570,262],[708,262],[708,78]], 's_rev|r_pr':[[570,180],[570,262],[708,262],[708,78]],
+      's_sre|r_action':[[570,230],[570,262],[708,262],[708,218]]
+    };
+    const PATTERNS = [
+      {label:'Chat question → answer',                    seq:['t_chat','queue','router','pm','r_report']},
+      {label:'Gitea request → network change, reviewed',  seq:['t_gitea','queue','router','pm','s_net','pm','s_rev','r_pr']},
+      {label:'Drift detected → infrastructure PR',        seq:['t_pipe','queue','router','pm','s_infra','r_pr']},
+      {label:'Alert → SRE incident',                      seq:['t_alert','queue','router','pm','s_sre','r_action']},
+      {label:'Daily brief → report',                      seq:['t_brief','queue','router','pm','r_report']}
+    ];
+    // runs only go forward (trigger → result) and never overlap
+    const traffic = trafficDiagram(ocSvg, N, E, PATTERNS, document.getElementById('flowListOC'), {max:1, reply:0, speed:.2, every:700});
+
+    const CHAPTERS = [
+      {tab:'overview', title:'A team that can only open pull requests', spot:null, flows:null,
+       text:'The agents run the lab through the same pipeline I do. Work comes in, waits its turn, gets triaged, and leaves as a <em>pull request, a report or one audited guest action</em> — never as a change applied straight to the lab.'},
+      {tab:'triggers', title:'Five ways work arrives', spot:[12, 12, 206, 306], flows:null,
+       text:'Me in <em>chat over SSH</em>; a <em>Gitea comment</em>, polled every two minutes; a <em>pipeline event</em> such as drift or a failed run; an <em>Alertmanager</em> incident, deduplicated first; and the daily and weekly <em>briefs</em>.'},
+      {tab:'queue & router', title:'One run at a time, sorted by the cheapest model', spot:[222, 12, 196, 306], flows:[0, 4],
+       text:'Everything runs as <em>Claude Code, headless</em>. The queue lets one run through at a time, capped at 25 minutes. A <em>Haiku router</em> — one turn, no tools — decides whether it\'s a question, something to learn, a change, a build or an incident, and hands it on.'},
+      {tab:'agent team', title:'A planner and five specialists', spot:[422, 12, 286, 296], flows:[1, 2],
+       text:'The <em>PM agent</em> plans, sequences and files issues. The specialists own one lane each — <em>Terraform, Ansible, network zones and flows, incidents</em> — plus a reviewer that can only approve. They never talk to each other; everything goes back through the PM.'},
+      {tab:'results', title:'Three ways out, all on the record', spot:[712, 12, 176, 296], flows:[2, 3, 4],
+       text:'A run ends as a <em>pull request</em> into the GitOps pipeline, a <em>report or issue</em> in chat or Gitea, or a <em>guest action</em> through Proxmox or SSH. Every tool call is audited, and a run costs roughly <em>$0.5–5</em>.'},
+      {tab:'MCP tools', title:'Hands, not keys', spot:[222, 312, 486, 90], flows:[3],
+       text:'Agents act only through <em>MCP servers</em>: DevOps for pull requests and issues, Proxmox and SSH for guests, <em>Prometheus</em> for metrics across 37 probed targets, and UniFi for read-only network state.'},
+      {tab:'guardrails', title:'What they can never do', spot:[12, 406, 876, 126], flows:[1],
+       text:'Protected guests — the host, CI, secrets, the agents themselves — are <em>read-only</em>. Every change is a pull request, its risk class is computed rather than declared, and the author is never the approver. Agents hold <em>no apply credentials or decrypted secrets</em>, and network changes always need me.'}
+    ];
+    diagramTour(document.getElementById('ocStage'), traffic, CHAPTERS, [0, 0, 900, 540]);
+  }
+
+  // ---- GitOps pipeline: a pull request's trip from author to running lab ----
+  const dvSvg = document.querySelector('.devops-svg');
+  if (dvSvg) {
+    const col = i => 96 + 140 * i;
+    const N = {
+      agents:{x:142,y:56,c:'gold'}, me:{x:362,y:56,c:'gold'},
+      cA:{x:116,y:292,c:'blue'}, cB:{x:296,y:292,c:'pink'}, cC:{x:476,y:292,c:'gold'}, broker:{x:640,y:292,c:'violet'},
+      poller:{x:730,y:622,c:'pink'}
+    };
+    for (let i = 0; i < 6; i++) {
+      N['p' + i] = {x:col(i), y:182, c:'lav'};
+      N['a' + i] = {x:col(5 - i), y:406, c:'violet'};
+      N['d' + i] = {x:col(i), y:510, c:'blue'};
+    }
+    ['drift', 'verify', 'appverify', 'patch'].forEach((k, i) => N[k] = {x:col(i), y:622, c:'gold'});
+    const E = {
+      'agents|p0':[[142,126],[96,126]], 'me|p0':[[362,126],[96,126]],
+      'p5|cA':[[796,252],[116,252]], 'p5|cB':[[796,252],[296,252]], 'p5|cC':[[796,252],[476,252]],
+      'cA|broker':[[116,334],[640,334]], 'cB|broker':[[296,334],[640,334]], 'cC|broker':[[476,334],[640,334]],
+      'broker|a0':[[796,292]], 'd5|poller':[[796,622]],
+      'drift|poller':[[96,660],[730,660]], 'appverify|poller':[[376,660],[730,660]]
+    };
+    const P = n => Array.from({length:6}, (_, i) => n + i);
+    const PATTERNS = [
+      {label:'Agent PR → Class A → auto-merged → applied',  seq:['agents', ...P('p'), 'cA', 'broker', ...P('a')]},
+      {label:'Shared change → reviewer agent approves',     seq:['agents', ...P('p'), 'cB', 'broker', ...P('a')]},
+      {label:'Foundational change → I approve',             seq:['me', ...P('p'), 'cC', 'broker', ...P('a')]},
+      {label:'Apply → apps deploy in waves',                seq:['a5', ...P('d')]},
+      {label:'Failed deploy → OpenClaw PM',                 seq:['d4', 'd5', 'poller']},
+      {label:'Nightly drift → OpenClaw SRE',                seq:['drift', 'poller']}
+    ];
+    const traffic = trafficDiagram(dvSvg, N, E, PATTERNS, document.getElementById('flowListDV'), {max:3, reply:0, speed:.3, every:1500});
+
+    const CHAPTERS = [
+      {tab:'overview', title:'Every change is a pull request', spot:null, flows:null,
+       text:'Infrastructure, apps and standards all take the same road: a pull request is planned, given a risk class, merged by a broker, applied, then verified. The only exception is <em>OpenClaw itself</em> — I\'m its only writer and it has no pipeline.'},
+      {tab:'authors', title:'Two kinds of author, four repos', spot:[12, 8, 876, 112], flows:[0, 2],
+       text:'The <em>infra, config and network agents</em> open pull requests through their tools — a <em>WIP:</em> title means plan only. I open branches myself. The repos split the lab into <em>infra</em> (guests, base OS, the pipeline), <em>apps</em> (catalogue, deployments), <em>standards</em> (the rules and classes) and <em>openclaw</em>.'},
+      {tab:'plan', title:'The PR\'s code is planned, never trusted', spot:[12, 132, 876, 108], flows:[0, 1, 2],
+       text:'The scripts and workflow come from <em>main</em>; the PR\'s own code is only linted and planned. A branch behind main gets updated and the run stops. Lint covers naming, Terraform safety, formatting, YAML and <em>leaked secrets</em>; the plan runs with a <em>read-only token</em> and is saved alongside a lock and a standards snapshot.'},
+      {tab:'gate', title:'The class decides who merges', spot:[12, 236, 876, 120], flows:[0, 1, 2],
+       text:'<em>Class A</em> — creating or resizing a guest, Ansible on one non-shared guest — merges itself on green checks. <em>Class B</em> touches shared services or modules and needs the reviewer agent\'s approval, pinned to the commit. <em>Class C</em> — destroys, host-level resources, UniFi, protected guests, the pipeline\'s own policy — needs me. A merge broker, every two minutes, is the only thing that merges automatically.'},
+      {tab:'apply', title:'Snapshot first, then apply exactly what was reviewed', spot:[12, 352, 876, 112], flows:[0, 2],
+       text:'A merge to main starts the apply runner — the only one that can read the <em>apply credentials</em>, so a PR job never sees them. Templates are clone-only, every guest it touches is <em>snapshotted</em>, and the <em>saved plan</em> is applied; if state moved since review, it fails. Ansible runs on changed hosts, then checks at three layers: platform, reachability and OS baseline. Staging rolls itself back.'},
+      {tab:'apps', title:'Deploy in waves, never both DNS servers at once', spot:[12, 460, 876, 108], flows:[3, 4],
+       text:'Apps deploy after apply. The runner locks only the hosts it needs, snapshots each guest, and mints a <em>short-lived OpenBao token per app</em>. The play is guarded against protected guests. <em>Wave 2</em> covers Wi-Fi DNS and the k3s cluster; an hour later, <em>wave 3</em> covers IoT DNS. Each wave gets its own L4 checks.'},
+      {tab:'nightly', title:'The lab checks itself overnight', spot:[12, 570, 876, 122], flows:[4, 5],
+       text:'<em>02:30</em> plans every stack for drift, <em>03:00</em> verifies every guest, <em>03:15</em> checks app health, and a patch scan runs every six hours — Sev1/2 fixes patch themselves behind a snapshot, the rest wait for a monthly bundle I approve. Each finding becomes an issue; the <em>OpenClaw poller</em> sends drift to the SRE agent and failures to the PM.'}
+    ];
+    diagramTour(document.getElementById('dvStage'), traffic, CHAPTERS, [0, 0, 900, 700]);
+  }
+
+  // ---- buildout time-lapse: one platform drawn as it stood in each role; chapters move between phases ----
+  const tlSvg = document.querySelector('.timelapse-svg');
+  if (tlSvg) {
+    const N = {
+      core:{x:110,y:64,c:'lav'}, rpp:{x:110,y:124,c:'lav'}, cards:{x:110,y:184,c:'lav'}, rentas:{x:110,y:244,c:'lav'},
+      fw:{x:540,y:154,c:'gold'}, fp:{x:440,y:138,c:'gold'}, p2s:{x:440,y:248,c:'pink'},
+      mft:{x:780,y:64,c:'lav'}, rsv:{x:780,y:118,c:'lav'}, blob:{x:780,y:280,c:'gold'}
+    };
+    const E = {
+      'core|fw':[[215,64],[215,154]], 'rpp|fw':[[215,124],[215,154]], 'cards|fw':[[215,184],[215,154]],
+      'fw|mft':[[665,154],[665,64]], 'fw|rsv':[[665,154],[665,118]],
+      'core|fp':[[215,64],[215,138]], 'rentas|fp':[[215,244],[215,138]], 'p2s|fp':[[440,156]],
+      'fp|mft':[[665,138],[665,64]], 'fp|blob':[[665,138],[665,280]], 'fp|rsv':[[665,138],[665,118]]
+    };
+    const PATTERNS = [
+      {label:'Core banking → firewall → file transfer',  seq:['core', 'fw', 'mft']},
+      {label:'Payments → firewall → workloads',          seq:['rpp', 'fw', 'rsv']},
+      {label:'Core banking → vWAN policy → file transfer', seq:['core', 'fp', 'mft']},
+      {label:'Hybrid partners → vWAN policy → storage',  seq:['rentas', 'fp', 'blob']},
+      {label:'Staff P2S → per-department access',        seq:['p2s', 'fp', 'rsv']}
+    ];
+    const traffic = trafficDiagram(tlSvg, N, E, PATTERNS, document.getElementById('flowListTL'), {max:3, reply:.5, speed:.16, every:1300});
+
+    // a phase group is shown while the chapter's phase is in its range; partners sit dimmed before
+    // they were connected, and retired pieces stay on the map struck through
+    const groups = [...tlSvg.querySelectorAll('.tl-ph')];
+    const setPhase = n => groups.forEach(g => {
+      const from = +g.dataset.from, to = +g.dataset.to;
+      const retired = g.dataset.retire && n > to;
+      g.classList.toggle('retired', !!retired);
+      g.style.opacity = retired ? .3 : (n < from || n > to) ? 0 : (g.dataset.dim && n === 1) ? .3 : 1;
+    });
+    const CHAPTERS = [
+      {tab:'intern · foundation', title:'Foundation — before the landing zone existed', phase:1, spot:null, flows:[],
+       text:'As an intern the platform was <em>proofs of concept</em> — VNets, VPN Gateway, Private DNS Zones, Application Gateway, API Management — built with the Cloud Engineer while the partners were still unconnected. Two real things shipped: a <em>file transfer platform for 150+ users</em>, and the <em>Recovery Services Vaults</em> that later carried DR and RMiT retention.'},
+      {tab:'executive · hardening', title:'Hardening — the first landing zone', phase:2, spot:null, flows:[0, 1],
+       text:'The proofs of concept became the bank\'s <em>first landing zone</em>: one hub with VPN Gateway, SD-WAN, Azure Firewall, App Gateway and APIM, linking core banking to <em>payment systems and partner networks</em>. Self-managed domain controllers gave way to Entra Domain Services, and <em>privileged access</em> was strengthened ahead of go-live with PIM, RBAC and SSO.'},
+      {tab:'lead · rebuild', title:'Continuous improvement — rebuilt as Virtual WAN', phase:3, spot:[222, 12, 436, 326], flows:[2, 3, 4],
+       text:'The first hub became a <em>Virtual WAN estate</em> with Routing Intent and one centralised firewall policy, SD-WAN in the hub and central name resolution. Remote access is segmented <em>per department</em> through P2S user groups. That architecture satisfied <em>2 RMiT domains</em> in the ORR and helped secure the licence.'},
+      {tab:'revisited on purpose', title:'Early decisions get revisited', phase:3, spot:[672, 12, 216, 326], flows:[3],
+       text:'The platform keeps simplifying. <em>Self-managed domain controllers</em> made way for a managed directory, and file storage is being <em>modernised onto Blob</em> — including undoing some of my own early lift-and-shift choices.'},
+      {tab:'guardrails & DR', title:'Hardening written down, DR proven monthly', phase:3, spot:[12, 342, 876, 120], flows:[2, 4],
+       text:'Hardening lives in an <em>ADR enforced through Azure Policy</em> and a CIS-hardened golden image; VNet Flow Logs and Traffic Analytics show what actually moves. The vaults from the intern days now back <em>regular live failover drills</em> with a <em>1-hour RTO</em> — half BNM\'s 2-hour mandate.'}
+    ];
+    diagramTour(document.getElementById('tlStage'), traffic, CHAPTERS, [0, 0, 900, 470], c => setPhase(c.phase));
   }
 
   // ---- nav breadcrumb ----
@@ -1695,6 +2808,67 @@ document.addEventListener('DOMContentLoaded', () => {
   }, {threshold:0, rootMargin:'-45% 0px -50% 0px'});
   sections.forEach(s => navIO.observe(s));
 });
+
+// ---- purple space sky: sparse starfield and glinting stars ----
+(() => {
+  const rnd = (a => () => (a = (a * 1664525 + 1013904223) >>> 0) / 4294967296)(4011996); // seeded so it's identical every load
+
+  // starfield: two 512px tiles — far: faint pinpricks, near: fewer, slightly larger and brighter
+  const tints = ['255,255,255','255,255,255','255,255,255','255,255,255','196,181,253','245,215,122'];
+  const tile = (count, size, alpha) => {
+    const st = document.createElement('canvas'); st.width = st.height = 512;
+    const sx = st.getContext('2d');
+    for (let i = 0; i < count; i++) {
+      const x = rnd() * 512, y = rnd() * 512;
+      sx.fillStyle = `rgba(${tints[(rnd() * tints.length) | 0]},${(alpha + rnd() * .4).toFixed(2)})`;
+      sx.beginPath(); sx.arc(x, y, size * (rnd() > .85 ? 1.6 : 1), 0, Math.PI * 2); sx.fill();
+    }
+    return `url(${st.toDataURL()})`;
+  };
+  const far = document.getElementById('ntStarsFar'), near = document.getElementById('ntStarsNear');
+  far.style.backgroundImage = tile(24, .5, .18);
+  near.style.backgroundImage = tile(10, .8, .35);
+
+  // parallax: slide each tile layer by its share of how far the sky has scrolled, wrapped to the tile size
+  const sky = document.querySelector('.nt-sky');
+  const still = matchMedia('(prefers-reduced-motion: reduce)');
+  let ticking = false;
+  const drift = () => {
+    ticking = false;
+    const off = still.matches ? 0 : Math.max(0, -sky.getBoundingClientRect().top);
+    far.style.transform = `translate3d(0,${-(off * .18 % 512)}px,0)`;
+    near.style.transform = `translate3d(0,${-(off * .45 % 512)}px,0)`;
+  };
+  addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(drift); } }, {passive: true});
+  drift();
+
+  // career constellation: one star per traceroute hop, origin at the bottom winding up to the present
+  const con = document.getElementById('ntConstellation'), NS = 'http://www.w3.org/2000/svg';
+  const hops = [[40, 560], [118, 488], [62, 404], [146, 326], [92, 240], [158, 150], [96, 56]];
+  const mk = (tag, attrs) => { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); con.appendChild(e); return e; };
+  mk('polyline', {class: 'edge', points: hops.map(p => p.join(',')).join(' ')});
+  hops.forEach(([x, y], i) => {
+    const now = i === hops.length - 1;
+    mk('circle', {class: now ? 'halo now' : 'halo', cx: x, cy: y, r: now ? 16 : 10});
+    mk('circle', {class: now ? 'cstar now' : 'cstar', cx: x, cy: y, r: now ? 2.8 : 1.9, style: `animation-delay:${(-i * .6).toFixed(1)}s`});
+    mk('text', {x: x + (x > 100 ? -26 : 10), y: y + 3}).textContent = String(hops.length - i).padStart(2, '0');
+  });
+  mk('text', {x: 22, y: 590}).textContent = 'origin';
+  mk('text', {x: 112, y: 30}).textContent = 'present';
+
+  // glinting stars, scattered down the whole sky
+  const shine = document.getElementById('ntShine');
+  const glints = ['#FFFFFF', '#FFFFFF', '#E4DCFF', '#F5D77A', '#C4B5FD'];
+  for (let i = 0; i < 26; i++) {
+    const el = document.createElement('span');
+    el.className = 'nt-shine';
+    el.style.cssText = `left:${(rnd() * 100).toFixed(2)}%;top:${(rnd() * 98).toFixed(2)}%;` +
+      `--s:${(14 + rnd() * 18).toFixed(0)}px;--c:${glints[(rnd() * glints.length) | 0]};` +
+      `--d:${(3 + rnd() * 4).toFixed(1)}s;--dl:${(-rnd() * 6).toFixed(1)}s;`;
+    shine.appendChild(el);
+  }
+
+})();
 </script>
 </body>
 </html>
