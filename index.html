@@ -20,18 +20,21 @@
 </script>
 <style>
   :root{
-    --bg-deep:#0A0E12;
-    --bg-panel:#10161C;
-    --bg-panel-2:#141B22;
-    --line:#1E262E;
-    --line-soft:#171E25;
-    --text:#E8EDF2;
-    --text-muted:#7C8A96;
-    --text-faint:#4B5762;
-    --cyan:#4FD1C5;
-    --cyan-dim:#4FD1C533;
-    --amber:#F4A93E;
-    --amber-dim:#F4A93E33;
+    --bg-deep:#030308;
+    --bg-panel:#0B0A13;
+    --bg-panel-2:#110F1B;
+    --line:#221F33;
+    --line-soft:#171522;
+    --text:#ECEAF6;
+    --text-muted:#8E89A6;
+    --text-faint:#585370;
+    --violet:#A78BFA;
+    --violet-dim:#A78BFA33;
+    --gold:#F5D77A;
+    --gold-dim:#F5D77A33;
+    --blue:#8FA8FF;
+    --pink:#F0A6CA;
+    --lav:#C4B5FD;
     --mono:'JetBrains Mono', ui-monospace, monospace;
     --body:'Inter', system-ui, sans-serif;
   }
@@ -50,32 +53,33 @@
     position:fixed;inset:0;
     z-index:-1;pointer-events:none;
     background:linear-gradient(180deg,
-      #0A0E12 0%,
-      #0A1015 12%,
-      #0F0E13 26%,
-      #0A0F15 39%,
-      #0A1210 52%,
-      #100E0B 65%,
-      #0A0E15 78%,
-      #0E0A13 90%,
-      #0A0E12 100%);
+      #030308 0%,
+      #06050E 18%,
+      #0A0716 36%,
+      #050510 52%,
+      #08061A 68%,
+      #050409 84%,
+      #030308 100%);
     background-attachment:fixed;
   }
+  /* sparse starfield, echoing the hero video's sky */
   body::before{
     content:'';
     position:fixed;inset:0;
     background-image:
-      radial-gradient(circle at 1px 1px, #ffffff08 1px, transparent 0);
-    background-size:28px 28px;
+      radial-gradient(circle at 13px 21px, #C9BCFF22 1px, transparent 1.5px),
+      radial-gradient(circle at 71px 9px, #ffffff14 1px, transparent 1.5px),
+      radial-gradient(circle at 44px 83px, #F5D77A18 1px, transparent 1.5px);
+    background-size:97px 113px, 131px 89px, 173px 151px;
     pointer-events:none;
     z-index:0;
   }
   a{color:inherit;}
-  ::selection{background:var(--cyan-dim);color:var(--text);}
+  ::selection{background:var(--violet-dim);color:var(--text);}
 
   /* focus visibility */
   a:focus-visible, button:focus-visible{
-    outline:2px solid var(--cyan);
+    outline:2px solid var(--violet);
     outline-offset:3px;
   }
 
@@ -84,7 +88,7 @@
   /* ---------- nav ---------- */
   .nav{
     position:fixed;top:0;left:0;right:0;z-index:50;
-    background:#0A0E12CC;
+    background:#030308CC;
     backdrop-filter:blur(8px);
     border-bottom:1px solid var(--line-soft);
     font-family:var(--mono);
@@ -95,9 +99,9 @@
     height:44px;max-width:920px;
   }
   .nav-path{color:var(--text-muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-  .nav-path .prompt{color:var(--cyan);}
+  .nav-path .prompt{color:var(--violet);}
   .nav-status{display:flex;align-items:center;gap:6px;color:var(--text-faint);}
-  .dot-live{width:6px;height:6px;border-radius:50%;background:var(--cyan);box-shadow:0 0 8px var(--cyan);animation:pulse 2s ease-in-out infinite;}
+  .dot-live{width:6px;height:6px;border-radius:50%;background:var(--violet);box-shadow:0 0 8px var(--violet);animation:pulse 2s ease-in-out infinite;}
   @keyframes pulse{0%,100%{opacity:1;}50%{opacity:.35;}}
 
   section{position:relative;z-index:1;}
@@ -111,29 +115,20 @@
     overflow:hidden;
   }
 
-  /* ---------- per-section XMB backgrounds ---------- */
+  /* ---------- hero particle-ocean video background ---------- */
   section{overflow:hidden;}
   .wrap{position:relative;z-index:2;}
-  .sec-xmb{
-    position:absolute;inset:0;width:100%;height:100%;
-    z-index:0;pointer-events:none;opacity:0;
+  .hero-bg{position:absolute;inset:0;z-index:0;pointer-events:none;background:#000 url('assets/hero-poster.jpg') center bottom/cover no-repeat;}
+  .hero-bg video{width:100%;height:100%;object-fit:cover;object-position:center bottom;display:block;}
+  /* darken behind the copy, and melt the bottom edge into the page */
+  .hero-bg::after{
+    content:'';position:absolute;inset:0;
+    background:
+      radial-gradient(90% 60% at 30% 42%, #000000B3 0%, transparent 70%),
+      linear-gradient(180deg, #00000066 0%, transparent 30%, transparent 70%, var(--bg-deep) 100%);
   }
-  .sec-glow{
-    position:absolute;inset:0;z-index:0;pointer-events:none;
-  }
-  .sec-wave{fill:none;stroke-width:1.2;animation-play-state:paused;will-change:transform;}
-  .sec-xmb.in-view .sec-wave{animation-play-state:running;}
-  .xmb-bubble{opacity:0;}
-  @keyframes waveDriftA{
-    0%{transform:translate(0,0);}
-    50%{transform:translate(34px,-22px);}
-    100%{transform:translate(0,0);}
-  }
-  @keyframes waveDriftB{
-    0%{transform:translate(0,0);}
-    50%{transform:translate(-28px,18px);}
-    100%{transform:translate(0,0);}
-  }
+  .hero .term{background:#0B0A13CC;backdrop-filter:blur(6px);}
+  .hero .pill{background:#0B0A13B3;backdrop-filter:blur(6px);}
   .term{
     background:var(--bg-panel);
     border:1px solid var(--line);
@@ -147,12 +142,12 @@
     background:var(--bg-panel-2);
     border-bottom:1px solid var(--line);
   }
-  .term-bar span{width:10px;height:10px;border-radius:50%;display:inline-block;}
-  .term-bar .r{background:#F2555580;} .term-bar .y{background:#F4A93E80;} .term-bar .g{background:#4FD1C580;}
+  .term-bar span:not(.term-title){width:10px;height:10px;border-radius:50%;display:inline-block;}
+  .term-bar .r{background:#F2555580;} .term-bar .y{background:#F5D77A80;} .term-bar .g{background:#A78BFA80;}
   .term-title{margin-left:8px;font-family:var(--mono);font-size:12px;color:var(--text-faint);}
   .term-body{padding:22px 24px 26px;font-family:var(--mono);font-size:13.5px;color:var(--text-muted);}
   .term-line{opacity:0;white-space:pre-wrap;}
-  .term-line .prompt{color:var(--cyan);}
+  .term-line .prompt{color:var(--violet);}
   .term-line b{color:var(--text);font-weight:600;}
 
   .hero-kicker{
@@ -160,7 +155,7 @@
     color:var(--text-faint);text-transform:uppercase;
     margin-top:34px;opacity:0;
   }
-  .hero-kicker::before{content:'// ';color:var(--cyan);}
+  .hero-kicker::before{content:'// ';color:var(--violet);}
   .hero-name{
     font-family:var(--mono);
     font-weight:800;
@@ -175,15 +170,15 @@
     background-size:100% 100%;
     -webkit-background-clip:text;background-clip:text;
     -webkit-text-fill-color:transparent;color:transparent;
-    filter:drop-shadow(0 4px 24px #4FD1C522);
+    filter:drop-shadow(0 4px 24px #A78BFA22);
   }
   .hn-a{
     font-family:var(--mono);font-weight:800;letter-spacing:-0.03em;
-    background-image:linear-gradient(120deg,#4FD1C5 0%,#8AF0E6 55%,#4FD1C5 100%);
+    background-image:linear-gradient(120deg,#A78BFA 0%,#E4DCFF 55%,#A78BFA 100%);
   }
   .hn-b{
     font-family:'Space Grotesk', var(--body);font-weight:700;letter-spacing:-0.02em;
-    background-image:linear-gradient(120deg,#F4A93E 0%,#FBD182 55%,#F4A93E 100%);
+    background-image:linear-gradient(120deg,#F5D77A 0%,#FFF0C2 55%,#F5D77A 100%);
   }
   .hn-to{
     font-family:var(--body);
@@ -196,7 +191,7 @@
     max-width:640px;
     opacity:0;
   }
-  .hero-role b{color:var(--cyan);font-weight:600;}
+  .hero-role b{color:var(--violet);font-weight:600;}
   .hero-meta{
     display:flex;flex-wrap:wrap;gap:10px;
     margin-top:20px;
@@ -208,7 +203,7 @@
     background:var(--bg-panel);
     color:var(--text-muted);
     padding:6px 12px;border-radius:20px;
-    display:flex;align-items:center;gap:7px;
+    display:inline-block;
   }
   .pill b{color:var(--text);font-weight:500;}
 
@@ -218,7 +213,7 @@
     display:flex;align-items:center;gap:8px;
     opacity:0;
   }
-  .scroll-cue .bar{width:1px;height:26px;background:linear-gradient(var(--cyan),transparent);animation:drop 1.6s ease-in-out infinite;}
+  .scroll-cue .bar{width:1px;height:26px;background:linear-gradient(var(--violet),transparent);animation:drop 1.6s ease-in-out infinite;}
   @keyframes drop{0%{transform:translateY(-6px);opacity:0;}50%{opacity:1;}100%{transform:translateY(6px);opacity:0;}}
 
   /* ---------- section shell ---------- */
@@ -226,7 +221,7 @@
   .sec-head{display:flex;align-items:baseline;gap:14px;margin-bottom:40px;}
   .sec-head{opacity:0;transform:translateY(14px);}
   .sec-tag{
-    font-family:var(--mono);font-size:12px;color:var(--amber);
+    font-family:var(--mono);font-size:12px;color:var(--gold);
     letter-spacing:.06em;
   }
   .sec-title{
@@ -248,7 +243,7 @@
   }
   .kv-row .k{font-family:var(--mono);color:var(--text-faint);font-size:12.5px;padding-top:2px;}
   .kv-row .v{color:var(--text);}
-  .kv-row .v em{color:var(--cyan);font-style:normal;}
+  .kv-row .v em{color:var(--violet);font-style:normal;}
 
   /* ---------- experience / traceroute ---------- */
   .trace-intro{
@@ -262,7 +257,7 @@
   }
   .trace-spine-fill{
     position:absolute;left:0;top:0;width:100%;height:0%;
-    background:linear-gradient(var(--cyan), var(--cyan-dim));
+    background:linear-gradient(var(--violet), var(--violet-dim));
   }
   .hop{position:relative;padding-bottom:44px;opacity:0;transform:translateY(18px);}
   .hop:last-child{padding-bottom:0;}
@@ -274,12 +269,12 @@
     font-family:var(--mono);font-size:11.5px;color:var(--text-muted);
     z-index:2;
   }
-  .hop.current .hop-num{border-color:var(--amber);color:var(--amber);box-shadow:0 0 0 4px var(--amber-dim);}
+  .hop.current .hop-num{border-color:var(--gold);color:var(--gold);box-shadow:0 0 0 4px var(--gold-dim);}
   .hop-card{
     background:var(--bg-panel);border:1px solid var(--line);border-radius:10px;
     padding:20px 22px;
   }
-  .hop.current .hop-card{border-color:#F4A93E44;}
+  .hop.current .hop-card{border-color:#F5D77A44;}
   .hop-top{display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px;margin-bottom:10px;}
   .hop-host{font-family:var(--mono);font-weight:600;font-size:14.5px;color:var(--text);}
   .hop-host .at{color:var(--text-faint);font-weight:400;}
@@ -287,29 +282,29 @@
     font-family:var(--mono);font-size:11px;color:var(--text-faint);
     border:1px solid var(--line);padding:3px 9px;border-radius:20px;
   }
-  .hop.current .hop-time{color:var(--amber);border-color:#F4A93E44;}
+  .hop.current .hop-time{color:var(--gold);border-color:#F5D77A44;}
   .hop-role{font-weight:600;font-size:15.5px;margin-bottom:8px;}
   .hop-desc{color:var(--text-muted);font-size:14.5px;max-width:64ch;}
   .hop-desc + .hop-desc{margin-top:8px;}
   .hop-status{
     display:inline-flex;align-items:center;gap:6px;margin-top:12px;
-    font-family:var(--mono);font-size:11px;color:var(--cyan);
+    font-family:var(--mono);font-size:11px;color:var(--violet);
   }
-  .hop-status .d{width:5px;height:5px;border-radius:50%;background:var(--cyan);}
+  .hop-status .d{width:5px;height:5px;border-radius:50%;background:var(--violet);}
 
   /* ---------- education / certs ---------- */
   .ed-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
   .phase-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:22px;}
   .phase-grid p{text-align:justify;text-justify:inter-word;}
-  .card-contribution{margin:12px 0;padding:10px 12px;border-left:2px solid var(--cyan);background:var(--cyan-dim);border-radius:0 6px 6px 0;font-size:13px;line-height:1.5;color:var(--text);opacity:0;transform:scaleX(0);transform-origin:left center;}
-  .card-contribution .label{display:block;font-family:var(--mono);font-size:10px;color:var(--cyan);margin-bottom:4px;letter-spacing:.04em;}
-  .phase-grid .card:last-child .card-contribution{border-left-color:var(--amber);background:var(--amber-dim);}
-  .phase-grid .card:last-child .card-contribution .label{color:var(--amber);}
+  .card-contribution{margin:12px 0;padding:10px 12px;border-left:2px solid var(--violet);background:var(--violet-dim);border-radius:0 6px 6px 0;font-size:13px;line-height:1.5;color:var(--text);opacity:0;transform:scaleX(0);transform-origin:left center;}
+  .card-contribution .label{display:block;font-family:var(--mono);font-size:10px;color:var(--violet);margin-bottom:4px;letter-spacing:.04em;}
+  .phase-grid .card:last-child .card-contribution{border-left-color:var(--gold);background:var(--gold-dim);}
+  .phase-grid .card:last-child .card-contribution .label{color:var(--gold);}
   .story-card{margin-top:24px;}
   .story-card h3{margin-bottom:14px;}
   .story-card p{text-align:justify;text-justify:inter-word;}
   .story-card p + p{margin-top:12px;}
-  .featured-project{margin-top:18px;border-color:#4FD1C544;}
+  .featured-project{margin-top:18px;border-color:#A78BFA44;}
   .featured-project .proj-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px;}
   .featured-project .proj-tag{font-family:var(--mono);font-size:10.5px;color:var(--text-muted);border:1px solid var(--line);padding:3px 8px;border-radius:12px;}
   .card{
@@ -317,10 +312,10 @@
     padding:22px;opacity:0;transform:translateY(16px);
   }
   .card-tag{
-    font-family:var(--mono);font-size:11px;color:var(--amber);
+    font-family:var(--mono);font-size:11px;color:var(--gold);
     display:inline-flex;align-items:center;gap:6px;margin-bottom:10px;
   }
-  .card-tag.active{color:var(--cyan);}
+  .card-tag.active{color:var(--violet);}
   .card-tag .d{width:5px;height:5px;border-radius:50%;background:currentColor;animation:pulse 2s ease-in-out infinite;}
   .card h3{font-size:16.5px;margin-bottom:4px;}
   .card .sub{font-family:var(--mono);font-size:12.5px;color:var(--text-muted);margin-bottom:12px;}
@@ -335,7 +330,7 @@
   }
   .badge-icon{
     width:30px;height:30px;border-radius:6px;
-    background:var(--cyan-dim);color:var(--cyan);
+    background:var(--violet-dim);color:var(--violet);
     display:flex;align-items:center;justify-content:center;
     font-family:var(--mono);font-weight:700;font-size:12px;
     flex-shrink:0;
@@ -351,8 +346,8 @@
   .pub-meta{font-family:var(--mono);font-size:12px;color:var(--text-faint);}
   .honors-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px;}
   .honor-chip{
-    font-family:var(--mono);font-size:12px;color:var(--amber);
-    border:1px solid #F4A93E33;background:var(--amber-dim);
+    font-family:var(--mono);font-size:12px;color:var(--gold);
+    border:1px solid #F5D77A33;background:var(--gold-dim);
     padding:7px 13px;border-radius:20px;opacity:0;
   }
 
@@ -367,14 +362,14 @@
   .cta{
     display:inline-flex;align-items:center;gap:8px;
     font-family:var(--mono);font-size:13px;font-weight:500;
-    background:var(--cyan);color:#0A0E12;
+    background:var(--violet);color:#030308;
     padding:12px 22px;border-radius:8px;text-decoration:none;
     transition:transform .15s ease, box-shadow .15s ease;
     border:none;cursor:pointer;
   }
-  .cta:hover{transform:translateY(-2px);box-shadow:0 10px 30px -10px var(--cyan-dim);}
+  .cta:hover{transform:translateY(-2px);box-shadow:0 10px 30px -10px var(--violet-dim);}
   .footer-links{display:flex;justify-content:center;flex-wrap:wrap;gap:8px 20px;margin-top:22px;font-family:var(--mono);font-size:12.5px;}
-  .footer-links a{color:var(--cyan);text-decoration:none;}
+  .footer-links a{color:var(--violet);text-decoration:none;}
   .footer-links a:hover{text-decoration:underline;}
   .footer-stats{
     display:flex;justify-content:center;gap:32px;margin-top:32px;
@@ -391,16 +386,16 @@
   @keyframes flow{to{stroke-dashoffset:-24;}}
   .topo-node{opacity:0;}
   .topo-node .body{fill:var(--bg-panel);stroke:var(--line);stroke-width:1.5;}
-  .topo-node.hub .body{stroke:var(--cyan);fill:var(--cyan-dim);}
-  .topo-node .body.core{stroke:var(--cyan);}
+  .topo-node.hub .body{stroke:var(--violet);fill:var(--violet-dim);}
+  .topo-node .body.core{stroke:var(--violet);}
   .topo-node .body.l2{stroke-dasharray:3 3;}
-  .topo-node .body.dmz{stroke:var(--amber);}
-  .vpn-line{stroke:var(--amber);}
+  .topo-node .body.dmz{stroke:var(--gold);}
+  .vpn-line{stroke:var(--gold);}
   .dmz-line{stroke-dasharray:5 5;}
-  .packet.vpn{fill:var(--amber);filter:drop-shadow(0 0 4px var(--amber));}
+  .packet.vpn{fill:var(--gold);filter:drop-shadow(0 0 4px var(--gold));}
   .topo-legend{display:flex;gap:18px;flex-wrap:wrap;margin-top:16px;font-family:var(--mono);font-size:10.5px;color:var(--text-faint);}
   .topo-legend span{display:flex;align-items:center;gap:6px;}
-  .growth-arrow{stroke:var(--cyan);stroke-width:2;stroke-dasharray:none;animation:none;}
+  .growth-arrow{stroke:var(--violet);stroke-width:2;stroke-dasharray:none;animation:none;}
 
   /* ---------- refinement table ---------- */
   .refine-wrap{margin-top:36px;}
@@ -415,7 +410,7 @@
   .refine-cell{display:flex;align-items:center;gap:6px;font-family:var(--mono);font-size:10px;color:var(--text-faint);}
   .refine-dots{display:flex;gap:4px;}
   .refine-dot{width:7px;height:7px;border-radius:50%;background:var(--line);flex-shrink:0;}
-  .refine-dot.on{background:var(--cyan);transform:scale(0);opacity:0;}
+  .refine-dot.on{background:var(--violet);transform:scale(0);opacity:0;}
   .refine-legend{font-family:var(--mono);font-size:11px;color:var(--text-faint);margin-top:10px;}
   @media (max-width:760px){
     .refine-head{display:none;}
@@ -423,9 +418,9 @@
   }
   .topo-node text{font-family:var(--mono);font-size:11px;fill:var(--text);text-anchor:middle;font-weight:600;}
   .topo-node text.sub{fill:var(--text-faint);font-size:9px;font-weight:400;}
-  .hub-ping{fill:none;stroke:var(--cyan);stroke-width:1.4;opacity:.55;transform-box:fill-box;transform-origin:center;animation:ping 2.4s ease-out infinite;}
+  .hub-ping{fill:none;stroke:var(--hub, var(--violet));stroke-width:1.4;opacity:.55;transform-box:fill-box;transform-origin:center;animation:ping 2.4s ease-out infinite;}
   @keyframes ping{0%{transform:scale(1);opacity:.5;}100%{transform:scale(1.7);opacity:0;}}
-  .packet{fill:var(--cyan);filter:drop-shadow(0 0 4px var(--cyan));opacity:0;}
+  .packet{fill:var(--violet);filter:drop-shadow(0 0 4px var(--violet));opacity:0;}
   .topo-caption{font-family:var(--mono);font-size:12px;color:var(--text-faint);margin-top:18px;}
   .topo-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;}
   .topo-chip{font-family:var(--mono);font-size:11px;color:var(--text-muted);border:1px solid var(--line);background:var(--bg-panel);padding:6px 11px;border-radius:16px;opacity:0;}
@@ -433,7 +428,7 @@
   /* ---------- side projects ---------- */
   .proj-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
   .proj-card{background:var(--bg-panel);border:1px solid var(--line);border-radius:10px;padding:22px;opacity:0;transform:translateY(16px);}
-  .proj-icon{width:38px;height:38px;color:var(--cyan);margin-bottom:14px;}
+  .proj-icon{width:38px;height:38px;color:var(--violet);margin-bottom:14px;}
   .proj-card h3{font-size:15.5px;margin-bottom:5px;}
   .proj-card .sub{font-family:var(--mono);font-size:11.5px;color:var(--text-faint);margin-bottom:10px;}
   .proj-card p{font-size:13.5px;color:var(--text-muted);}
@@ -443,7 +438,7 @@
   /* ---------- progress chips ---------- */
   .chip-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px;}
   .chip{font-family:var(--mono);font-size:12px;padding:7px 13px;border-radius:20px;opacity:0;}
-  .chip.progress{color:var(--cyan);border:1px solid #4FD1C533;background:var(--cyan-dim);}
+  .chip.progress{color:var(--violet);border:1px solid #A78BFA33;background:var(--violet-dim);}
   .chip.interest{color:var(--text-muted);border:1px solid var(--line);background:var(--bg-panel);}
 
   @media (max-width:760px){
@@ -460,7 +455,7 @@
   .hop-list{margin:0;padding-left:18px;color:var(--text-muted);font-size:14.5px;max-width:68ch;}
   .hop-list li{padding-left:2px;}
   .hop-list li + li{margin-top:7px;}
-  .hop-list li::marker{color:var(--cyan);}
+  .hop-list li::marker{color:var(--violet);}
   .hop-list b{color:var(--text);font-weight:600;}
   .work-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px;}
   .work-grid .featured-project{margin-top:0;border-color:var(--line);}
@@ -468,8 +463,8 @@
   .featured-project .sub{font-family:var(--mono);font-size:11.5px;color:var(--text-faint);margin-bottom:6px;}
 
   /* growth-chart bars carry both classes on one element, so style them directly */
-  rect.topo-node.body{fill:var(--bg-panel);stroke:#4FD1C566;stroke-width:1.5;}
-  rect.topo-node.body.dmz{fill:#F4A93E14;stroke:var(--amber);}
+  rect.topo-node.body{fill:var(--bg-panel);stroke:#A78BFA66;stroke-width:1.5;}
+  rect.topo-node.body.dmz{fill:#F5D77A14;stroke:var(--gold);}
   /* ---------- quick-jump droplet rail (left edge, appears after the hero) ---------- */
   section[id]{scroll-margin-top:60px;}
   .droprail{
@@ -482,7 +477,7 @@
   /* the thread the droplets hang on */
   .droprail::before{
     content:'';position:absolute;left:5px;top:6px;bottom:6px;width:1px;
-    background:linear-gradient(var(--line), #4FD1C544, var(--line));
+    background:linear-gradient(var(--line), #A78BFA44, var(--line));
   }
   .droprail a{
     position:relative;display:flex;align-items:center;gap:12px;
@@ -498,13 +493,13 @@
   .droprail a:hover .drop,
   .droprail a:focus-visible .drop{border-color:var(--text-muted);transform:rotate(45deg) scale(1);}
   .droprail a.active .drop{
-    background:var(--cyan);border-color:var(--cyan);
+    background:var(--violet);border-color:var(--violet);
     transform:rotate(45deg) scale(1.25);
-    box-shadow:0 0 12px #4FD1C599;
+    box-shadow:0 0 12px #A78BFA99;
   }
   .droprail .lbl{
     font-family:var(--mono);font-size:11.5px;color:var(--text-muted);white-space:nowrap;
-    padding:3px 9px;border-radius:12px;background:#0A0E12E6;border:1px solid var(--line);
+    padding:3px 9px;border-radius:12px;background:#030308E6;border:1px solid var(--line);
     opacity:0;transform:translateX(-6px);pointer-events:none;
     transition:opacity .25s ease, transform .25s ease, color .2s;
   }
@@ -512,10 +507,10 @@
   /* labels unfurl when the rail is hovered or keyboard-focused */
   .droprail:hover .lbl,
   .droprail:focus-within .lbl{opacity:1;transform:none;pointer-events:auto;}
-  .droprail a.active .lbl{color:var(--cyan);border-color:#4FD1C555;}
-  .droprail a.active .lbl .n{color:var(--cyan);}
+  .droprail a.active .lbl{color:var(--violet);border-color:#A78BFA55;}
+  .droprail a.active .lbl .n{color:var(--violet);}
   .droprail a:focus-visible{outline:none;}
-  .droprail a:focus-visible .lbl{border-color:var(--cyan);}
+  .droprail a:focus-visible .lbl{border-color:var(--violet);}
   /* on wide screens there's room to keep the current section's label showing */
   @media (min-width:1260px){
     .droprail a.active .lbl{opacity:1;transform:none;}
@@ -555,6 +550,11 @@
 </nav>
 
 <section class="hero" id="intro">
+  <div class="hero-bg" aria-hidden="true">
+    <video id="heroVideo" autoplay muted loop playsinline preload="auto" poster="assets/hero-poster.jpg">
+      <source src="assets/hero.mp4" type="video/mp4">
+    </video>
+  </div>
   <div class="wrap">
     <div class="term">
       <div class="term-bar">
@@ -707,7 +707,7 @@
       <svg class="topo-svg growth-svg" viewBox="0 0 760 400" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="5" refY="3" orient="auto">
-            <path d="M0,0 L6,3 L0,6 Z" fill="var(--cyan)"></path>
+            <path d="M0,0 L6,3 L0,6 Z" fill="var(--violet)"></path>
           </marker>
         </defs>
 
@@ -733,11 +733,11 @@
         </g>
 
         <g class="topo-node">
-          <path d="M547,100 A12,12 0 1 1 545,116" stroke="var(--amber)" stroke-width="1.4" fill="none"></path>
-          <path d="M545,116 L541,113 M545,116 L549,114" stroke="var(--amber)" stroke-width="1.2" fill="none" stroke-linecap="round"></path>
-          <text x="555" y="146" style="font-size:8.5px;fill:var(--amber);">CONTINUOUS IMPROVEMENT</text>
+          <path d="M547,100 A12,12 0 1 1 545,116" stroke="var(--gold)" stroke-width="1.4" fill="none"></path>
+          <path d="M545,116 L541,113 M545,116 L549,114" stroke="var(--gold)" stroke-width="1.2" fill="none" stroke-linecap="round"></path>
+          <text x="555" y="146" style="font-size:8.5px;fill:var(--gold);">CONTINUOUS IMPROVEMENT</text>
           <text class="sub" x="555" y="362" style="font-size:9px;">MAR 2025 – PRESENT</text>
-          <text class="sub" x="555" y="374" style="font-size:9px;fill:var(--amber);">Lead Cloud Engineer</text>
+          <text class="sub" x="555" y="374" style="font-size:9px;fill:var(--gold);">Lead Cloud Engineer</text>
         </g>
       </svg>
       <div class="phase-grid">
@@ -821,127 +821,244 @@
     <div class="sec-head"><span class="sec-tag">04</span><span class="sec-title">off the clock <span>// side builds</span></span></div>
     <div class="proj-grid">
       <div class="proj-card">
+        <svg class="proj-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10" cy="10" r="3.2"></circle><circle cx="10" cy="30" r="3.2"></circle><circle cx="30" cy="20" r="3.2"></circle><path d="M10 13.2 L10 26.8 M10 18 C10 21 18 20 26.8 20" stroke-linecap="round"></path></svg>
+        <h3>Homelab GitOps Pipeline</h3>
+        <div class="sub">Gitea · Terraform · Ansible · OpenBao</div>
+        <p>Every change to the lab is a pull request. A plan job runs Terraform, lints, and classes the change by risk: low-risk merges itself, medium-risk needs an agent reviewer, high-risk needs me. Each apply snapshots the guests first, then runs Terraform and Ansible and verifies the result layer by layer. Nightly jobs catch drift and pending patches, and every runner signs in to OpenBao with its own AppRole.</p>
+        <div class="proj-tags"><span class="proj-tag">Terraform</span><span class="proj-tag">Ansible</span><span class="proj-tag">Gitea</span><span class="proj-tag">OpenBao</span><span class="proj-tag">drift detection</span></div>
+      </div>
+      <div class="proj-card">
         <svg class="proj-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="6" y="8" width="28" height="18" rx="4"></rect><path d="M14 26 L14 32 L20 26" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="14" cy="17" r="1.3" fill="currentColor" stroke="none"></circle><circle cx="20" cy="17" r="1.3" fill="currentColor" stroke="none"></circle><circle cx="26" cy="17" r="1.3" fill="currentColor" stroke="none"></circle></svg>
-        <h3>AIOps Lab Agents</h3>
-        <div class="sub">self-hosted multi-agent system</div>
-        <p>An orchestrator coordinating network, hypervisor and monitoring agents over MCP, operating the lab through chat. Every infrastructure change goes through a GitOps pipeline, and destructive actions wait for approval.</p>
-        <div class="proj-tags"><span class="proj-tag">MCP</span><span class="proj-tag">Python</span><span class="proj-tag">GitOps</span><span class="proj-tag">UniFi</span><span class="proj-tag">Proxmox</span></div>
+        <h3>AIOps Agent Team</h3>
+        <div class="sub">OpenClaw · MCP · Python · Prometheus</div>
+        <p>A team of agents runs the lab through the same pipeline I do: a router that triages work, infra, config and network agents that can only open pull requests, a reviewer agent, and an SRE agent for incidents. They act through MCP servers for DevOps, Proxmox, SSH, UniFi and Prometheus. Anything marked protected (the host, CI, secrets, the agents themselves) is read-only to them. Prometheus and blackbox probes watch 37 targets.</p>
+        <div class="proj-tags"><span class="proj-tag">MCP</span><span class="proj-tag">Python</span><span class="proj-tag">OpenClaw</span><span class="proj-tag">UniFi</span><span class="proj-tag">Prometheus</span></div>
       </div>
       <div class="proj-card">
         <svg class="proj-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="7" y="6" width="26" height="8" rx="1.5"></rect><rect x="7" y="16" width="26" height="8" rx="1.5"></rect><rect x="7" y="26" width="26" height="8" rx="1.5"></rect><circle cx="12" cy="10" r="1.1" fill="currentColor" stroke="none"></circle><circle cx="12" cy="20" r="1.1" fill="currentColor" stroke="none"></circle><circle cx="12" cy="30" r="1.1" fill="currentColor" stroke="none"></circle></svg>
-        <h3>Home Lab</h3>
-        <div class="sub">Ubiquiti + Proxmox</div>
-        <p>A segmented Ubiquiti network — UDM Pro Max at the edge, an L3 core switch, VLANs with inter-VLAN routing, ACLs and WireGuard remote access. The Proxmox host is split into management, DMZ and shared-services networks, with an Apache Guacamole jumpbox for admin access.</p>
-        <div class="proj-tags"><span class="proj-tag">VLAN segmentation</span><span class="proj-tag">WireGuard</span><span class="proj-tag">Proxmox</span><span class="proj-tag">Guacamole</span></div>
-      </div>
-      <div class="proj-card">
-        <svg class="proj-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="9" cy="10" r="3.2"></circle><circle cx="31" cy="10" r="3.2"></circle><circle cx="20" cy="30" r="3.2"></circle><path d="M12 12.5 L17.5 26.5 M28 12.5 L22.5 26.5" stroke-linecap="round"></path></svg>
-        <h3>K3s &amp; Shared Services</h3>
-        <div class="sub">in progress</div>
-        <p>Laying the foundation for a low-power K3s cluster, alongside self-hosted shared services — Gitea for the lab's IaC and GitOps repos, and Keycloak for identity.</p>
-        <div class="proj-tags"><span class="proj-tag">K3s</span><span class="proj-tag">Gitea</span><span class="proj-tag">Keycloak</span><span class="proj-tag">IPSec</span></div>
+        <h3>Segmented Network &amp; k3s</h3>
+        <div class="sub">UniFi · Proxmox VE · k3s · AdGuard</div>
+        <p>A UDM Pro Max runs the zone firewall, WAN failover and per-network Proton VPN egress, and links at 10G to a USW Pro Max 24 doing L3 for the server zones. A USW Aggregation below the core carries 10G to the Proxmox host's 2×10G LACP guest trunk, the UNAS Pro and my workstation. Three UX7 access points hang off the core: one wired, one daisy-chained, one on mesh. Shared services runs an HA k3s cluster (three etcd servers behind a keepalived VIP, plus two workers), and Wi-Fi and IoT each get a pair of AdGuard resolvers.</p>
+        <div class="proj-tags"><span class="proj-tag">VLAN segmentation</span><span class="proj-tag">10G SFP+</span><span class="proj-tag">LACP</span><span class="proj-tag">Proton VPN</span><span class="proj-tag">k3s</span><span class="proj-tag">AdGuard</span></div>
       </div>
     </div>
 
     <div class="topo-wrap" style="margin-top:34px;">
-      <div class="topo-caption" style="margin-top:0;margin-bottom:14px;">$ cat homelab-topology.yaml — full stack, Internet → edge → core → leaves</div>
-      <svg class="topo-svg homelab-svg" viewBox="0 0 900 420" xmlns="http://www.w3.org/2000/svg">
-        <path id="homelabFlowPath" d="M260,44 L260,225 C260,255 680,255 680,278 L680,302" fill="none" stroke="none"></path>
-        <path id="vpnFlowPath" d="M680,82 C580,60 380,58 290,103" fill="none" stroke="none"></path>
+      <div class="topo-caption" style="margin-top:0;margin-bottom:14px;">$ cat homelab-topology.yaml — every cable: gateway → core → aggregation → host</div>
+      <svg class="topo-svg homelab-svg" viewBox="0 0 900 710" xmlns="http://www.w3.org/2000/svg">
+        <path id="homelabFlowPath" d="M200,60 L200,240 C170,270 105,270 105,300 L105,320 L170,320 C370,320 370,400 370,500" fill="none" stroke="none"></path>
+        <path id="vpnFlowPath" d="M244,120 L330,120" fill="none" stroke="none"></path>
 
-        <!-- DMZ zone -->
-        <rect class="topo-node" x="628" y="256" width="104" height="96" rx="10" fill="none" stroke="var(--amber)" stroke-dasharray="4 4" opacity="0"></rect>
-        <text class="topo-node" x="636" y="270" style="font-family:var(--mono);font-size:9px;fill:var(--amber);opacity:0;">DMZ</text>
+        <!-- cabling -->
+        <path class="topo-line" d="M200,60 L200,82" style="stroke:var(--gold);stroke-width:1.8;"></path>
+        <path class="topo-line vpn-line" d="M244,120 L330,120" style="stroke-width:1.8;"></path>
+        <path class="topo-line" d="M200,158 L200,200" style="stroke:var(--blue);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M170,240 C170,270 105,270 105,300" style="stroke:var(--blue);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M260,220 C320,220 360,256 360,298" style="stroke:var(--pink);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M382,320 L438,320" style="stroke:var(--pink);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M372,300 C420,262 520,262 548,300" style="stroke:var(--pink);stroke-dasharray:2 5;stroke-width:1.8;"></path>
+        <path class="topo-line" d="M260,228 C450,232 685,250 685,300" style="stroke:var(--violet);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M60,340 L60,400" style="stroke:var(--blue);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M150,340 C150,370 165,370 165,400" style="stroke:var(--blue);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M225,240 L225,400" style="stroke:var(--violet);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M250,240 L250,500" style="stroke:var(--violet);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M170,320 C370,320 370,400 370,500" style="stroke:var(--blue);stroke-width:1.8;"></path>
 
-        <!-- lines -->
-        <path class="topo-line" d="M260,44 L260,84"></path>
-        <path class="topo-line" d="M260,146 L260,185"></path>
-        <path class="topo-line" d="M260,226 C260,255 100,255 100,278"></path>
-        <path class="topo-line" d="M260,226 C260,250 290,250 290,272"></path>
-        <path class="topo-line" d="M260,226 C260,255 475,255 475,278"></path>
-        <path class="topo-line vpn-line" d="M680,82 C580,60 380,58 290,103"></path>
-        <path class="topo-line dmz-line" d="M260,226 C260,255 680,255 680,278"></path>
+        <!-- link labels -->
+        <g class="topo-node">
+          <text class="sub" x="210" y="184" style="fill:var(--blue);text-anchor:start;font-size:8.5px;">10G SFP+ · transit VLAN</text>
+          <text class="sub" x="100" y="268" style="fill:var(--blue);text-anchor:end;font-size:8.5px;">10G</text>
+          <text class="sub" x="692" y="290" style="fill:var(--violet);text-anchor:start;font-size:8.5px;">2.5G</text>
+          <text class="sub" x="66" y="374" style="fill:var(--blue);text-anchor:start;font-size:8.5px;">10G</text>
+          <text class="sub" x="146" y="374" style="fill:var(--blue);text-anchor:end;font-size:8.5px;">10G</text>
+          <text class="sub" x="231" y="374" style="fill:var(--violet);text-anchor:start;font-size:8.5px;">1G</text>
+          <text class="sub" x="244" y="462" style="fill:var(--violet);text-anchor:end;font-size:8.5px;">1G LAG · mgmt</text>
+          <text class="sub" x="376" y="462" style="fill:var(--blue);text-anchor:start;font-size:8.5px;">2×10G LACP · guest trunk</text>
+        </g>
+
+        <!-- Proxmox host -->
+        <g class="topo-node">
+          <rect x="20" y="470" width="860" height="226" rx="12" fill="none" stroke="var(--line)" stroke-width="1.5" stroke-dasharray="4 4"></rect>
+          <text x="36" y="490" style="text-anchor:start;font-size:9.5px;fill:var(--text-muted);">PROXMOX VE 9.2 · 2× XEON E5-2640 v4 · 40 THREADS</text>
+          <rect x="200" y="500" width="100" height="22" rx="4" fill="var(--violet)" fill-opacity=".12" stroke="var(--violet)"></rect>
+          <text x="250" y="515" style="font-size:8.5px;">vmbr0 · mgt</text>
+          <rect x="320" y="500" width="170" height="22" rx="4" fill="var(--blue)" fill-opacity=".12" stroke="var(--blue)"></rect>
+          <text x="405" y="515" style="font-size:8.5px;">vmbr1 · VLAN-aware trunk</text>
+        </g>
 
         <!-- Internet -->
         <g class="topo-node">
-          <path d="M232,20 a10,10 0 0 1 6,-18.6 a13,13 0 0 1 24.6,-3 a11,11 0 0 1 -1.6,21.6 Z" transform="translate(0,10)" fill="none" stroke="var(--text-faint)" stroke-width="1.4"></path>
-          <text x="260" y="42" class="sub" style="font-size:9.5px;">INTERNET</text>
+          <path d="M180,46 a10,10 0 0 1 6,-18.6 a13,13 0 0 1 24.6,-3 a11,11 0 0 1 -1.6,21.6 Z" fill="var(--gold)" fill-opacity=".08" stroke="var(--gold)" stroke-width="1.4"></path>
+          <text x="200" y="60" class="sub" style="font-size:9px;">INTERNET</text>
+          <text x="260" y="40" class="sub" style="text-anchor:start;font-size:8.5px;">PPPoE primary · DHCP failover</text>
         </g>
 
-        <!-- Cudy WR6000 (portable, hex) -->
+        <!-- UDM Pro Max -->
+        <g class="topo-node hub" style="--hub:var(--gold);">
+          <circle class="hub-ping" cx="200" cy="120" r="44"></circle>
+          <polygon class="body" points="244,120 222,81.9 178,81.9 156,120 178,158.1 222,158.1" style="stroke:var(--gold);fill:var(--gold);fill-opacity:.1;"></polygon>
+          <text x="200" y="117">UDM PRO MAX</text>
+          <text class="sub" x="200" y="131">gateway · fw</text>
+        </g>
+
+        <!-- VPN on the UDM -->
         <g class="topo-node">
-          <polygon class="body" points="702,60 691,40.95 669,40.95 658,60 669,79.05 691,79.05"></polygon>
-          <text x="680" y="63" style="font-size:8.5px;">CUDY WR6000</text>
-          <text class="sub" x="680" y="93" style="font-size:8px;">portable · WireGuard</text>
+          <rect class="body dmz" x="330" y="98" width="200" height="44" rx="8" style="stroke:var(--gold);fill:var(--gold);fill-opacity:.1;"></rect>
+          <text x="430" y="116" style="font-size:10px;fill:var(--gold);">PROTON VPN · SG / MY / JP</text>
+          <text class="sub" x="430" y="130">+ 3 WireGuard site-to-site</text>
         </g>
 
-        <!-- UDM Pro Max (hex, hub) -->
-        <g class="topo-node hub">
-          <circle class="hub-ping" cx="260" cy="115" r="34"></circle>
-          <polygon class="body" points="290,115 275,89.02 245,89.02 230,115 245,140.98 275,140.98"></polygon>
-          <text x="260" y="112">UDM PRO MAX</text>
-          <text class="sub" x="260" y="126">gateway · firewall</text>
-        </g>
-
-        <!-- USW Pro Max 24 (core, rect) -->
+        <!-- core switch -->
         <g class="topo-node">
-          <rect class="body core" x="200" y="185" width="120" height="40" rx="8"></rect>
-          <text x="260" y="201">USW PRO MAX 24</text>
-          <text class="sub" x="260" y="214">core switch · L3</text>
+          <rect class="body core" x="140" y="200" width="120" height="40" rx="8" style="stroke:var(--violet);fill:var(--violet);fill-opacity:.1;"></rect>
+          <text x="200" y="216">USW PRO MAX 24</text>
+          <text class="sub" x="200" y="229">core switch · L3</text>
         </g>
 
-        <!-- SFP Agg switch (demoted, L2, rect) -->
+        <!-- USW Aggregation -->
         <g class="topo-node">
-          <rect class="body l2" x="50" y="278" width="100" height="40" rx="8"></rect>
-          <text x="100" y="294" style="font-size:9.5px;">SFP AGG SWITCH</text>
-          <text class="sub" x="100" y="307" style="font-size:8.5px;">pure L2 (demoted)</text>
+          <rect class="body" x="40" y="300" width="130" height="40" rx="8" style="stroke:var(--blue);fill:var(--blue);fill-opacity:.1;"></rect>
+          <text x="105" y="316" style="font-size:9.5px;">USW AGGREGATION</text>
+          <text class="sub" x="105" y="329" style="font-size:8px;">8× SFP+ · L2</text>
         </g>
 
-        <!-- U7 Pro XGS APs (diamond) -->
+        <!-- UX7 access points -->
         <g class="topo-node">
-          <path d="M278,248 a12,10 0 0 1 24,0" fill="none" stroke="var(--text-faint)" stroke-width="1.2"></path>
-          <path d="M283,254 a7,6 0 0 1 14,0" fill="none" stroke="var(--text-faint)" stroke-width="1.2"></path>
-          <polygon class="body" points="290,272 316,300 290,328 264,300"></polygon>
-          <text x="290" y="296" style="font-size:8px;">U7 PRO</text>
-          <text x="290" y="305" style="font-size:8px;">XGS</text>
-          <text class="sub" x="290" y="342" style="font-size:8.5px;">wired throughout home</text>
+          <polygon class="body" points="360,298 382,320 360,342 338,320" style="stroke:var(--pink);fill:var(--pink);fill-opacity:.1;"></polygon>
+          <text x="360" y="323" style="font-size:9px;">UX7</text>
+          <text class="sub" x="360" y="358" style="font-size:8px;">Centre Hallway</text>
+          <text class="sub" x="360" y="369" style="font-size:7.5px;">wired · core</text>
         </g>
-
-        <!-- UNAS Pro 7 (storage bays, rect) -->
         <g class="topo-node">
-          <rect class="body" x="440" y="278" width="70" height="44" rx="6"></rect>
-          <line x1="440" y1="291" x2="510" y2="291" stroke="var(--line)" stroke-width="1"></line>
-          <line x1="440" y1="304" x2="510" y2="304" stroke="var(--line)" stroke-width="1"></line>
-          <text x="475" y="337" class="sub" style="font-size:8.5px;">UNAS PRO 7 · storage</text>
+          <polygon class="body" points="460,298 482,320 460,342 438,320" style="stroke:var(--pink);fill:var(--pink);fill-opacity:.1;"></polygon>
+          <text x="460" y="323" style="font-size:9px;">UX7</text>
+          <text class="sub" x="460" y="358" style="font-size:8px;">Living Room</text>
+          <text class="sub" x="460" y="369" style="font-size:7.5px;">daisy-chained</text>
         </g>
-
-        <!-- Proxmox DMZ (chip rect) -->
         <g class="topo-node">
-          <rect class="body dmz" x="654" y="278" width="52" height="48" rx="6"></rect>
-          <rect x="666" y="290" width="28" height="24" rx="2" fill="none" stroke="var(--text-faint)" stroke-width="1"></rect>
-          <line x1="680" y1="278" x2="680" y2="286" stroke="var(--text-faint)" stroke-width="1"></line>
-          <line x1="680" y1="318" x2="680" y2="326" stroke="var(--text-faint)" stroke-width="1"></line>
-          <line x1="654" y1="302" x2="646" y2="302" stroke="var(--text-faint)" stroke-width="1"></line>
-          <line x1="706" y1="302" x2="714" y2="302" stroke="var(--text-faint)" stroke-width="1"></line>
-          <text x="680" y="357" class="sub" style="font-size:8px;">PROXMOX · 32c/64t · 128GB</text>
-          <text x="680" y="368" class="sub" style="font-size:8px;fill:var(--amber);">AdGuard now → AIOps next</text>
+          <polygon class="body" points="560,298 582,320 560,342 538,320" style="stroke:var(--pink);fill:var(--pink);fill-opacity:.1;"></polygon>
+          <text x="560" y="323" style="font-size:9px;">UX7</text>
+          <text class="sub" x="560" y="358" style="font-size:8px;">Main Hallway</text>
+          <text class="sub" x="560" y="369" style="font-size:7.5px;">mesh uplink</text>
         </g>
 
-        <circle id="homelabPacket" class="packet" r="4" cx="0" cy="0"></circle>
+        <!-- TR3000 -->
+        <g class="topo-node">
+          <rect class="body" x="630" y="300" width="110" height="40" rx="8" style="stroke:var(--gold);fill:var(--gold);fill-opacity:.1;"></rect>
+          <text x="685" y="316" style="font-size:9.5px;">TR3000</text>
+          <text class="sub" x="685" y="329" style="font-size:8px;">trusted</text>
+        </g>
+
+        <!-- endpoints off the aggregation -->
+        <g class="topo-node">
+          <rect class="body" x="20" y="400" width="80" height="40" rx="8" style="stroke:var(--gold);fill:var(--gold);fill-opacity:.1;"></rect>
+          <text x="60" y="416" style="font-size:9px;">WORKSTATION</text>
+          <text class="sub" x="60" y="429" style="font-size:8px;">trusted</text>
+        </g>
+        <g class="topo-node">
+          <rect class="body" x="110" y="400" width="125" height="40" rx="8" style="stroke:var(--lav);fill:var(--lav);fill-opacity:.1;"></rect>
+          <text x="172" y="416" style="font-size:9.5px;">UNAS PRO</text>
+          <text class="sub" x="172" y="429" style="font-size:8px;">storage · int zone</text>
+        </g>
+
+        <!-- shr zone -->
+        <g class="topo-node">
+          <rect class="body" x="36" y="534" width="330" height="146" rx="8" style="stroke:var(--violet);fill:var(--violet);fill-opacity:.1;"></rect>
+          <text x="48" y="551" style="text-anchor:start;font-size:9.5px;fill:var(--violet);">shr · shared services</text>
+          <rect x="48" y="560" width="96" height="36" rx="5" fill="var(--bg-panel-2)" stroke="var(--line)"></rect>
+          <text x="96" y="575" style="font-size:9.5px;">Gitea CI/CD</text>
+          <text class="sub" x="96" y="588" style="font-size:8px;">runners · merge</text>
+          <rect x="152" y="560" width="96" height="36" rx="5" fill="var(--bg-panel-2)" stroke="var(--line)"></rect>
+          <text x="200" y="575" style="font-size:9.5px;">OpenClaw</text>
+          <text class="sub" x="200" y="588" style="font-size:8px;">agent team</text>
+          <rect x="256" y="560" width="98" height="36" rx="5" fill="var(--bg-panel-2)" stroke="var(--line)"></rect>
+          <text x="305" y="575" style="font-size:9.5px;">OpenBao</text>
+          <text class="sub" x="305" y="588" style="font-size:8px;">secrets · AppRoles</text>
+          <rect x="48" y="604" width="306" height="66" rx="5" fill="var(--bg-panel-2)" stroke="var(--violet)" stroke-opacity=".5"></rect>
+          <text x="60" y="620" style="text-anchor:start;font-size:9.5px;">k3s HA cluster</text>
+          <text x="342" y="620" class="sub" style="text-anchor:end;font-size:8px;">etcd · keepalived VIP</text>
+          <rect x="60" y="632" width="50" height="26" rx="4" fill="var(--violet-dim)" stroke="var(--violet)"></rect>
+          <text x="85" y="649" style="font-size:8.5px;">server</text>
+          <rect x="118" y="632" width="50" height="26" rx="4" fill="var(--violet-dim)" stroke="var(--violet)"></rect>
+          <text x="143" y="649" style="font-size:8.5px;">server</text>
+          <rect x="176" y="632" width="50" height="26" rx="4" fill="var(--violet-dim)" stroke="var(--violet)"></rect>
+          <text x="201" y="649" style="font-size:8.5px;">server</text>
+          <rect x="240" y="632" width="50" height="26" rx="4" fill="none" stroke="var(--text-faint)"></rect>
+          <text x="265" y="649" style="font-size:8.5px;">worker</text>
+          <rect x="296" y="632" width="50" height="26" rx="4" fill="none" stroke="var(--text-faint)"></rect>
+          <text x="321" y="649" style="font-size:8.5px;">worker</text>
+        </g>
+
+        <!-- dmz zone -->
+        <g class="topo-node">
+          <rect class="body" x="378" y="534" width="100" height="146" rx="8" style="stroke:var(--pink);fill:var(--pink);fill-opacity:.1;"></rect>
+          <text x="390" y="551" style="text-anchor:start;font-size:9.5px;fill:var(--pink);">dmz</text>
+          <rect x="390" y="560" width="76" height="36" rx="5" fill="var(--bg-panel-2)" stroke="var(--line)"></rect>
+          <text x="428" y="575" style="font-size:9.5px;">app VM</text>
+          <text class="sub" x="428" y="588" style="font-size:8px;">Fedora 44</text>
+        </g>
+
+        <!-- stg zone -->
+        <g class="topo-node">
+          <rect class="body" x="490" y="534" width="120" height="146" rx="8" style="stroke:var(--blue);fill:var(--blue);fill-opacity:.1;"></rect>
+          <text x="502" y="551" style="text-anchor:start;font-size:9.5px;fill:var(--blue);">stg · templates</text>
+          <text class="sub" x="502" y="576" style="text-anchor:start;font-size:8.5px;">Ubuntu 26.04</text>
+          <text class="sub" x="502" y="594" style="text-anchor:start;font-size:8.5px;">Arch Linux</text>
+          <text class="sub" x="502" y="612" style="text-anchor:start;font-size:8.5px;">Fedora 44</text>
+          <text class="sub" x="502" y="630" style="text-anchor:start;font-size:8.5px;">NixOS 26.05</text>
+          <text class="sub" x="502" y="664" style="text-anchor:start;font-size:8px;">golden images</text>
+        </g>
+
+        <!-- mgt zone -->
+        <g class="topo-node">
+          <rect class="body" x="622" y="534" width="100" height="146" rx="8" style="stroke:var(--lav);fill:var(--lav);fill-opacity:.1;"></rect>
+          <text x="634" y="551" style="text-anchor:start;font-size:9.5px;fill:var(--lav);">mgt</text>
+          <rect x="634" y="560" width="76" height="36" rx="5" fill="var(--bg-panel-2)" stroke="var(--line)"></rect>
+          <text x="672" y="575" style="font-size:9.5px;">host mgmt</text>
+          <text class="sub" x="672" y="588" style="font-size:8px;">protected</text>
+          <text class="sub" x="634" y="664" style="text-anchor:start;font-size:8px;">no guests allowed</text>
+        </g>
+
+        <!-- wifi + iot zones (routed on UDM) -->
+        <g class="topo-node">
+          <rect class="body dmz" x="734" y="534" width="132" height="68" rx="8" style="stroke:var(--gold);fill:var(--gold);fill-opacity:.1;"></rect>
+          <text x="746" y="551" style="text-anchor:start;font-size:9.5px;fill:var(--gold);">wifi · via UDM</text>
+          <text x="746" y="572" style="text-anchor:start;font-size:9.5px;">AdGuard ×2</text>
+          <text class="sub" x="746" y="590" style="text-anchor:start;font-size:8px;">egress → Proton MY</text>
+        </g>
+        <g class="topo-node">
+          <rect class="body dmz" x="734" y="612" width="132" height="68" rx="8" style="stroke:var(--gold);fill:var(--gold);fill-opacity:.1;"></rect>
+          <text x="746" y="629" style="text-anchor:start;font-size:9.5px;fill:var(--gold);">iot · via UDM</text>
+          <text x="746" y="650" style="text-anchor:start;font-size:9.5px;">AdGuard ×2</text>
+          <text class="sub" x="746" y="668" style="text-anchor:start;font-size:8px;">egress → Proton SG</text>
+        </g>
+
+        <circle id="homelabPacket" class="packet" style="fill:var(--blue);filter:drop-shadow(0 0 4px var(--blue));" r="4" cx="0" cy="0"></circle>
         <circle id="vpnPacket" class="packet vpn" r="3.5" cx="0" cy="0"></circle>
       </svg>
       <div class="topo-legend">
-        <span><svg width="14" height="14" viewBox="0 0 30 30"><polygon points="26,15 21,6 9,6 4,15 9,24 21,24" fill="none" stroke="var(--text-faint)" stroke-width="2"></polygon></svg> routing</span>
-        <span><svg width="14" height="14" viewBox="0 0 30 30"><rect x="4" y="8" width="22" height="14" rx="3" fill="none" stroke="var(--text-faint)" stroke-width="2"></rect></svg> switching / compute</span>
-        <span><svg width="14" height="14" viewBox="0 0 30 30"><polygon points="15,4 26,15 15,26 4,15" fill="none" stroke="var(--text-faint)" stroke-width="2"></polygon></svg> wireless</span>
+        <span><svg width="22" height="14" viewBox="0 0 44 30"><path d="M2,15 L42,15" stroke="var(--gold)" stroke-width="3"></path></svg> WAN / VPN</span>
+        <span><svg width="22" height="14" viewBox="0 0 44 30"><path d="M2,15 L42,15" stroke="var(--blue)" stroke-width="3"></path></svg> 10G</span>
+        <span><svg width="22" height="14" viewBox="0 0 44 30"><path d="M2,15 L42,15" stroke="var(--violet)" stroke-width="3"></path></svg> 1G / 2.5G</span>
+        <span><svg width="22" height="14" viewBox="0 0 44 30"><path d="M2,15 L42,15" stroke="var(--pink)" stroke-width="3"></path></svg> AP uplink</span>
+        <span><svg width="22" height="14" viewBox="0 0 44 30"><path d="M2,15 L42,15" stroke="var(--pink)" stroke-width="3" stroke-dasharray="3 6"></path></svg> mesh</span>
+        <span><svg width="14" height="14" viewBox="0 0 30 30"><polygon points="26,15 21,6 9,6 4,15 9,24 21,24" fill="none" stroke="var(--gold)" stroke-width="2"></polygon></svg> gateway</span>
+        <span><svg width="14" height="14" viewBox="0 0 30 30"><rect x="4" y="8" width="22" height="14" rx="3" fill="none" stroke="var(--violet)" stroke-width="2"></rect></svg> switch / zone</span>
+        <span><svg width="14" height="14" viewBox="0 0 30 30"><polygon points="15,4 26,15 15,26 4,15" fill="none" stroke="var(--pink)" stroke-width="2"></polygon></svg> access point</span>
       </div>
       <div class="topo-chips">
-        <span class="topo-chip">UDM Pro Max — gateway &amp; firewall</span>
+        <span class="topo-chip">UDM Pro Max — zone firewall, WAN failover</span>
         <span class="topo-chip">USW Pro Max 24 — L3 core</span>
-        <span class="topo-chip">SFP Agg switch — pure L2</span>
-        <span class="topo-chip">U7 Pro XGS — wired APs</span>
-        <span class="topo-chip">Proxmox DMZ — 32c/64t · 128GB RAM</span>
-        <span class="topo-chip">Cudy WR6000 — portable WireGuard to UDM</span>
+        <span class="topo-chip">USW Aggregation — 8× SFP+ 10G, L2</span>
+        <span class="topo-chip">3× UX7 — wired, daisy-chained &amp; mesh</span>
+        <span class="topo-chip">Proxmox VE 9.2 — 2× Xeon E5-2640 v4 · 39 GiB</span>
+        <span class="topo-chip">2×10G LACP guest trunk · 1G mgmt LAG</span>
+        <span class="topo-chip">UNAS Pro — 10G + 1G</span>
+        <span class="topo-chip">Proton VPN SG / MY / JP · 3 WireGuard tunnels</span>
+        <span class="topo-chip">11 VLANs · 9 firewall zones</span>
+        <span class="topo-chip">k3s HA — 3 servers + 2 workers</span>
+        <span class="topo-chip">Terraform + Ansible via Gitea</span>
+        <span class="topo-chip">OpenBao secrets · Prometheus, 37 targets</span>
       </div>
     </div>
   </div>
@@ -1051,6 +1168,19 @@ document.addEventListener('DOMContentLoaded', () => {
 document.addEventListener('DOMContentLoaded', () => {
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  // ---- hero particle-ocean video: pause offscreen / under reduced motion ----
+  const heroVideo = document.getElementById('heroVideo');
+  if (heroVideo) {
+    if (reduce) {
+      heroVideo.removeAttribute('autoplay');
+      heroVideo.pause();
+    } else if ('IntersectionObserver' in window) {
+      new IntersectionObserver((entries) => {
+        entries.forEach(e => { if (e.isIntersecting) heroVideo.play().catch(() => {}); else heroVideo.pause(); });
+      }, {threshold:0}).observe(heroVideo);
+    }
+  }
+
   // Fail-safe: if anime.js didn't load for any reason, reveal everything that
   // starts hidden (opacity:0 / transformed) so content is never stuck invisible.
   if (typeof anime === 'undefined') {
@@ -1061,133 +1191,21 @@ document.addEventListener('DOMContentLoaded', () => {
     return;
   }
 
-  // ---- hero PSP XMB background: themed flowing waves + rising bubbles (hero only) ----
-  const sectionThemes = {
-    intro:          {a:'#4FD1C5', b:'#F4A93E', waves:4, bubbles:true,  glow:'#4FD1C5'}
-  };
-  const SVGNS = 'http://www.w3.org/2000/svg';
-
-  function wavePath(baseY, amp, phase) {
-    const p = phase || 0;
-    return `M-200,${baseY} C100,${baseY-amp+p} 300,${baseY+amp} 600,${baseY-p} C900,${baseY-amp} 1100,${baseY+amp-p} 1400,${baseY}`;
-  }
-
-  Object.keys(sectionThemes).forEach(id => {
-    const section = document.getElementById(id);
-    if (!section) return;
-    const theme = sectionThemes[id];
-
-    // soft radial glow wash keyed to the section's hue (the "catchy" color per section)
-    const glow = document.createElement('div');
-    glow.className = 'sec-glow';
-    glow.style.background = `radial-gradient(120% 80% at 80% 20%, ${theme.glow}0F 0%, transparent 55%), radial-gradient(90% 70% at 10% 90%, ${theme.b}0C 0%, transparent 50%)`;
-    section.insertBefore(glow, section.firstChild);
-
-    if (reduce) return; // no moving waves/bubbles under reduced motion
-
-    const svg = document.createElementNS(SVGNS, 'svg');
-    svg.setAttribute('class', 'sec-xmb');
-    svg.setAttribute('viewBox', '0 0 1200 800');
-    svg.setAttribute('preserveAspectRatio', 'xMidYMid slice');
-    svg.setAttribute('aria-hidden', 'true');
-
-    // per-section gradient defs so wave strokes fade at both edges
-    const defs = document.createElementNS(SVGNS, 'defs');
-    ['a','b'].forEach(k => {
-      const g = document.createElementNS(SVGNS, 'linearGradient');
-      g.setAttribute('id', `wg-${id}-${k}`);
-      g.setAttribute('x1','0'); g.setAttribute('y1','0'); g.setAttribute('x2','1'); g.setAttribute('y2','0');
-      [['0','0'],['0.5','1'],['1','0']].forEach(([off,op]) => {
-        const s = document.createElementNS(SVGNS, 'stop');
-        s.setAttribute('offset', off);
-        s.setAttribute('stop-color', k === 'a' ? theme.a : theme.b);
-        s.setAttribute('stop-opacity', op);
-        g.appendChild(s);
-      });
-      defs.appendChild(g);
-    });
-    svg.appendChild(defs);
-
-    // spread the waves down the section, alternating hue + drift direction
-    for (let i = 0; i < theme.waves; i++) {
-      const baseY = 240 + i * (320 / theme.waves) + (i % 2 ? 40 : 0);
-      const amp = 55 + (i % 3) * 22;
-      const path = document.createElementNS(SVGNS, 'path');
-      path.setAttribute('class', 'sec-wave');
-      path.setAttribute('d', wavePath(baseY, amp, i * 12));
-      path.setAttribute('stroke', `url(#wg-${id}-${i % 2 ? 'b' : 'a'})`);
-      path.style.opacity = String(0.5 - i * 0.08);
-      path.style.animationName = i % 2 ? 'waveDriftB' : 'waveDriftA';
-      path.style.animationDuration = (9 + i * 2.5) + 's';
-      path.style.animationTimingFunction = 'ease-in-out';
-      path.style.animationIterationCount = 'infinite';
-      path.style.animationDelay = (-i * 1.5) + 's';
-      svg.appendChild(path);
-    }
-
-    const bubbleGroup = document.createElementNS(SVGNS, 'g');
-    svg.appendChild(bubbleGroup);
-    section.insertBefore(svg, section.firstChild);
-
-    // fade the layer in
-    anime({targets: svg, opacity:[0,1], duration:1400, easing:'easeOutQuad'});
-
-    // pause wave animation while the section is offscreen (perf)
-    const viz = new IntersectionObserver((entries) => {
-      entries.forEach(e => svg.classList.toggle('in-view', e.isIntersecting));
-    }, {threshold:0});
-    viz.observe(section);
-
-    // rising bubbles only on the bookend sections (hero + contact)
-    if (theme.bubbles) {
-      const colors = [theme.a, theme.b, '#E8EDF2'];
-      let bubbleTimer = null;
-      let sectionVisible = false;
-      const spawnBubble = () => {
-        if (!sectionVisible) return;
-        const c = document.createElementNS(SVGNS, 'circle');
-        const r = 2 + Math.random() * 6;
-        const x = Math.random() * 1200;
-        c.setAttribute('class', 'xmb-bubble');
-        c.setAttribute('cx', x); c.setAttribute('cy', 820); c.setAttribute('r', r);
-        c.setAttribute('fill', colors[Math.floor(Math.random() * colors.length)]);
-        bubbleGroup.appendChild(c);
-        anime({
-          targets: c,
-          cy: -40,
-          cx: x + (Math.random() * 120 - 60),
-          opacity: [{value: 0.35 + Math.random() * 0.3, duration: 1200},
-                    {value: 0, duration: 2000, delay: 4000 + Math.random() * 3000}],
-          duration: 9000 + Math.random() * 7000,
-          easing: 'easeInOutSine',
-          complete: () => c.remove()
-        });
-      };
-      const bubbleViz = new IntersectionObserver((entries) => {
-        entries.forEach(e => {
-          sectionVisible = e.isIntersecting;
-          if (sectionVisible && !bubbleTimer) {
-            for (let i = 0; i < 6; i++) setTimeout(spawnBubble, i * 700);
-            bubbleTimer = setInterval(spawnBubble, 1500);
-          } else if (!sectionVisible && bubbleTimer) {
-            clearInterval(bubbleTimer); bubbleTimer = null;
-          }
-        });
-      }, {threshold:0});
-      bubbleViz.observe(section);
-    }
-  });
-
   // ---- hero terminal + name sequence ----
-  const tl = anime.timeline({easing:'easeOutQuad'});
-  tl.add({targets:'.term', opacity:[0,1], translateY:[16,0], duration: reduce?1:600})
-    .add({targets:'.term-line', opacity:[0,1], translateX:[-8,0], delay: anime.stagger(reduce?1:220), duration: reduce?1:400}, '-=200')
-    .add({targets:'.hero-kicker', opacity:[0,1], translateY:[10,0], duration: reduce?1:500}, '-=100')
-    .add({targets:'.hero-name', opacity:[0,1], duration: reduce?1:400}, '-=250')
-    .add({targets:'.hn-word, .hn-to', opacity:[0,1], translateY:[24,0], duration: reduce?1:650, delay: anime.stagger(reduce?0:120)}, '-=250')
-    .add({targets:'.hero-role', opacity:[0,1], translateY:[14,0], duration: reduce?1:600}, '-=400')
-    .add({targets:'.hero-meta', opacity:[0,1], translateY:[10,0], duration: reduce?1:600}, '-=350')
-    .add({targets:'.scroll-cue', opacity:[0,1], duration: reduce?1:600}, '-=300');
+  // under reduced motion, reveal directly — 1ms timeline steps can leave the first targets hidden
+  if (reduce) {
+    anime.set('.term, .term-line, .hero-kicker, .hero-name, .hn-word, .hn-to, .hero-role, .hero-meta, .scroll-cue', {opacity:1});
+  } else {
+    anime.timeline({easing:'easeOutQuad'})
+      .add({targets:'.term', opacity:[0,1], translateY:[16,0], duration:600})
+      .add({targets:'.term-line', opacity:[0,1], translateX:[-8,0], delay: anime.stagger(220), duration:400}, '-=200')
+      .add({targets:'.hero-kicker', opacity:[0,1], translateY:[10,0], duration:500}, '-=100')
+      .add({targets:'.hero-name', opacity:[0,1], duration:400}, '-=250')
+      .add({targets:'.hn-word, .hn-to', opacity:[0,1], translateY:[24,0], duration:650, delay: anime.stagger(120)}, '-=250')
+      .add({targets:'.hero-role', opacity:[0,1], translateY:[14,0], duration:600}, '-=400')
+      .add({targets:'.hero-meta', opacity:[0,1], translateY:[10,0], duration:600}, '-=350')
+      .add({targets:'.scroll-cue', opacity:[0,1], duration:600}, '-=300');
+  }
 
   // ---- refinement table: platform stack, category-level, widening + deepening across phases ----
   const refineTable = document.getElementById('refineTable');
