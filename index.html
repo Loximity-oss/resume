@@ -392,7 +392,11 @@
   .topo-node .body.dmz{stroke:var(--gold);}
   .vpn-line{stroke:var(--gold);}
   .dmz-line{stroke-dasharray:5 5;}
-  .packet.vpn{fill:var(--gold);filter:drop-shadow(0 0 4px var(--gold));}
+  .flow-dot{filter:drop-shadow(0 0 4px currentColor);transition:fill .25s ease;}
+  .flow-list{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:12px;font-family:var(--mono);font-size:10.5px;color:var(--text-faint);}
+  .flow-list span{display:flex;align-items:center;opacity:.45;transition:opacity .3s ease, color .3s ease;}
+  .flow-list span.on{opacity:1;color:var(--text-muted);}
+  .flow-list i{width:6px;height:6px;border-radius:50%;margin-right:7px;background:currentColor;box-shadow:0 0 6px currentColor;}
   .topo-legend{display:flex;gap:18px;flex-wrap:wrap;margin-top:16px;font-family:var(--mono);font-size:10.5px;color:var(--text-faint);}
   .topo-legend span{display:flex;align-items:center;gap:6px;}
   .growth-arrow{stroke:var(--violet);stroke-width:2;stroke-dasharray:none;animation:none;}
@@ -420,7 +424,6 @@
   .topo-node text.sub{fill:var(--text-faint);font-size:9px;font-weight:400;}
   .hub-ping{fill:none;stroke:var(--hub, var(--violet));stroke-width:1.4;opacity:.55;transform-box:fill-box;transform-origin:center;animation:ping 2.4s ease-out infinite;}
   @keyframes ping{0%{transform:scale(1);opacity:.5;}100%{transform:scale(1.7);opacity:0;}}
-  .packet{fill:var(--violet);filter:drop-shadow(0 0 4px var(--violet));opacity:0;}
   .topo-caption{font-family:var(--mono);font-size:12px;color:var(--text-faint);margin-top:18px;}
   .topo-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;}
   .topo-chip{font-family:var(--mono);font-size:11px;color:var(--text-muted);border:1px solid var(--line);background:var(--bg-panel);padding:6px 11px;border-radius:16px;opacity:0;}
@@ -845,196 +848,235 @@
 
     <div class="topo-wrap" style="margin-top:34px;">
       <div class="topo-caption" style="margin-top:0;margin-bottom:14px;">$ cat homelab-topology.yaml — every cable: gateway → core → aggregation → host</div>
-      <svg class="topo-svg homelab-svg" viewBox="0 0 900 710" xmlns="http://www.w3.org/2000/svg">
-        <path id="homelabFlowPath" d="M200,60 L200,240 C170,270 105,270 105,300 L105,320 L170,320 C370,320 370,400 370,500" fill="none" stroke="none"></path>
-        <path id="vpnFlowPath" d="M244,120 L330,120" fill="none" stroke="none"></path>
+      <svg class="topo-svg homelab-svg" viewBox="0 0 900 748" xmlns="http://www.w3.org/2000/svg">
+        <!-- blueprint grid behind the diagram: minor 20, major 100, fading out at the edges -->
+        <defs>
+          <pattern id="hlGridMinor" width="20" height="20" patternUnits="userSpaceOnUse">
+            <path d="M20,0 L0,0 0,20" fill="none" stroke="var(--violet)" stroke-opacity=".02" stroke-width="1"></path>
+          </pattern>
+          <pattern id="hlGrid" width="100" height="100" patternUnits="userSpaceOnUse">
+            <rect width="100" height="100" fill="url(#hlGridMinor)"></rect>
+            <path d="M100,0 L0,0 0,100" fill="none" stroke="var(--violet)" stroke-opacity=".05" stroke-width="1"></path>
+          </pattern>
+          <radialGradient id="hlGridFade" cx="50%" cy="50%" r="62%">
+            <stop offset="55%" stop-color="#fff"></stop>
+            <stop offset="100%" stop-color="#fff" stop-opacity="0"></stop>
+          </radialGradient>
+          <mask id="hlGridMask"><rect width="900" height="748" fill="url(#hlGridFade)"></rect></mask>
+        </defs>
+        <rect class="topo-node" width="900" height="748" fill="url(#hlGrid)" mask="url(#hlGridMask)"></rect>
 
-        <!-- cabling -->
-        <path class="topo-line" d="M200,60 L200,82" style="stroke:var(--gold);stroke-width:1.8;"></path>
-        <path class="topo-line vpn-line" d="M244,120 L330,120" style="stroke-width:1.8;"></path>
-        <path class="topo-line" d="M200,158 L200,200" style="stroke:var(--blue);stroke-width:1.8;"></path>
-        <path class="topo-line" d="M170,240 C170,270 105,270 105,300" style="stroke:var(--blue);stroke-width:1.8;"></path>
-        <path class="topo-line" d="M260,220 C320,220 360,256 360,298" style="stroke:var(--pink);stroke-width:1.8;"></path>
-        <path class="topo-line" d="M382,320 L438,320" style="stroke:var(--pink);stroke-width:1.8;"></path>
-        <path class="topo-line" d="M372,300 C420,262 520,262 548,300" style="stroke:var(--pink);stroke-dasharray:2 5;stroke-width:1.8;"></path>
-        <path class="topo-line" d="M260,228 C450,232 685,250 685,300" style="stroke:var(--violet);stroke-width:1.8;"></path>
-        <path class="topo-line" d="M60,340 L60,400" style="stroke:var(--blue);stroke-width:1.8;"></path>
-        <path class="topo-line" d="M150,340 C150,370 165,370 165,400" style="stroke:var(--blue);stroke-width:1.8;"></path>
-        <path class="topo-line" d="M225,240 L225,400" style="stroke:var(--violet);stroke-width:1.8;"></path>
-        <path class="topo-line" d="M250,240 L250,500" style="stroke:var(--violet);stroke-width:1.8;"></path>
-        <path class="topo-line" d="M170,320 C370,320 370,400 370,500" style="stroke:var(--blue);stroke-width:1.8;"></path>
+        <!-- purpose groups, drawn first so cables sit on top -->
+        <g class="topo-node">
+          <rect x="200" y="14" width="560" height="136" rx="12" fill="none" stroke="var(--line)" stroke-width="1.5" stroke-dasharray="4 4"></rect>
+          <text x="748" y="142" style="text-anchor:end;font-size:9px;fill:var(--text-muted);">EDGE · GATEWAY</text>
+          <rect x="20" y="270" width="360" height="170" rx="12" fill="none" stroke="var(--line)" stroke-width="1.5" stroke-dasharray="4 4"></rect>
+          <text x="368" y="432" style="text-anchor:end;font-size:9px;fill:var(--text-muted);">WIRELESS · 3× UX7</text>
+          <rect x="440" y="270" width="140" height="170" rx="12" fill="none" stroke="var(--line)" stroke-width="1.5" stroke-dasharray="4 4"></rect>
+          <text x="570" y="432" style="text-anchor:end;font-size:9px;fill:var(--text-muted);">STORAGE</text>
+          <rect x="600" y="270" width="280" height="170" rx="12" fill="none" stroke="var(--line)" stroke-width="1.5" stroke-dasharray="4 4"></rect>
+          <text x="868" y="432" style="text-anchor:end;font-size:9px;fill:var(--text-muted);">ACCESS · 10G + TRUSTED</text>
+        </g>
+
+        <!-- cabling: every run orthogonal, no crossings -->
+        <path class="topo-line" d="M262,82 L426,82" style="stroke:var(--gold);stroke-width:1.8;"></path>
+        <path class="topo-line vpn-line" d="M514,82 L550,82" style="stroke-width:1.8;"></path>
+        <path class="topo-line" d="M470,120 L470,195" style="stroke:var(--blue);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M400,215 L100,215 Q90,215 90,225 L90,313" style="stroke:var(--pink);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M112,335 L178,335" style="stroke:var(--pink);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M100,323 C140,290 260,290 300,323" style="stroke:var(--pink);stroke-width:1.8;stroke-dasharray:2 5;"></path>
+        <path class="topo-line" d="M540,207 L815,207 Q825,207 825,217 L825,305" style="stroke:var(--violet);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M540,227 L670,227 Q680,227 680,237 L680,305" style="stroke:var(--blue);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M480,235 L480,305" style="stroke:var(--violet);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M416,235 L416,454 Q416,458 412,458 L86,458 Q82,458 82,462 L82,510" style="stroke:var(--violet);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M424,235 L424,462 Q424,466 420,466 L94,466 Q90,466 90,470 L90,510" style="stroke:var(--violet);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M86,532 L86,560" style="stroke:var(--violet);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M640,532 L640,546" style="stroke:var(--blue);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M313,546 L873,546" style="stroke:var(--blue);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M313,546 L313,560" style="stroke:var(--blue);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M540,546 L540,560" style="stroke:var(--blue);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M662,546 L662,560" style="stroke:var(--blue);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M845,546 L845,560" style="stroke:var(--blue);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M873,546 L873,672 L866,672" style="stroke:var(--blue);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M615,325 L565,325" style="stroke:var(--blue);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M745,335 L755,335 Q760,335 760,340 L760,387 Q760,392 765,392 L780,392" style="stroke:var(--blue);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M636,345 L636,510" style="stroke:var(--blue);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M644,345 L644,510" style="stroke:var(--blue);stroke-width:1.8;"></path>
 
         <!-- link labels -->
         <g class="topo-node">
-          <text class="sub" x="210" y="184" style="fill:var(--blue);text-anchor:start;font-size:8.5px;">10G SFP+ · transit VLAN</text>
-          <text class="sub" x="100" y="268" style="fill:var(--blue);text-anchor:end;font-size:8.5px;">10G</text>
-          <text class="sub" x="692" y="290" style="fill:var(--violet);text-anchor:start;font-size:8.5px;">2.5G</text>
-          <text class="sub" x="66" y="374" style="fill:var(--blue);text-anchor:start;font-size:8.5px;">10G</text>
-          <text class="sub" x="146" y="374" style="fill:var(--blue);text-anchor:end;font-size:8.5px;">10G</text>
-          <text class="sub" x="231" y="374" style="fill:var(--violet);text-anchor:start;font-size:8.5px;">1G</text>
-          <text class="sub" x="244" y="462" style="fill:var(--violet);text-anchor:end;font-size:8.5px;">1G LAG · mgmt</text>
-          <text class="sub" x="376" y="462" style="fill:var(--blue);text-anchor:start;font-size:8.5px;">2×10G LACP · guest trunk</text>
+          <text class="sub" x="344" y="74" style="fill:var(--text-faint);text-anchor:middle;font-size:8px;">PPPoE primary · DHCP failover</text>
+          <text class="sub" x="478" y="170" style="fill:var(--blue);text-anchor:start;font-size:8.5px;">10G SFP+ · transit VLAN</text>
+          <text class="sub" x="240" y="209" style="fill:var(--pink);text-anchor:middle;font-size:8.5px;">AP uplink</text>
+          <text class="sub" x="686" y="262" style="fill:var(--blue);text-anchor:start;font-size:8.5px;">10G</text>
+          <text class="sub" x="831" y="262" style="fill:var(--violet);text-anchor:start;font-size:8.5px;">2.5G</text>
+          <text class="sub" x="486" y="262" style="fill:var(--violet);text-anchor:start;font-size:8.5px;">1G</text>
+          <text class="sub" x="590" y="318" style="fill:var(--blue);text-anchor:middle;font-size:8.5px;">10G</text>
+          <text class="sub" x="765" y="366" style="fill:var(--blue);text-anchor:start;font-size:8.5px;">10G</text>
+          <text class="sub" x="262" y="452" style="fill:var(--violet);text-anchor:start;font-size:8.5px;">1G LAG · mgmt</text>
+          <text class="sub" x="658" y="462" style="fill:var(--blue);text-anchor:start;font-size:8.5px;">2×10G LACP · guest trunk</text>
         </g>
 
-        <!-- Proxmox host -->
+        <!-- LAG rings: ellipse around the bundled member links -->
         <g class="topo-node">
-          <rect x="20" y="470" width="860" height="226" rx="12" fill="none" stroke="var(--line)" stroke-width="1.5" stroke-dasharray="4 4"></rect>
-          <text x="36" y="490" style="text-anchor:start;font-size:9.5px;fill:var(--text-muted);">PROXMOX VE 9.2 · 2× XEON E5-2640 v4 · 40 THREADS</text>
-          <rect x="200" y="500" width="100" height="22" rx="4" fill="var(--violet)" fill-opacity=".12" stroke="var(--violet)"></rect>
-          <text x="250" y="515" style="font-size:8.5px;">vmbr0 · mgt</text>
-          <rect x="320" y="500" width="170" height="22" rx="4" fill="var(--blue)" fill-opacity=".12" stroke="var(--blue)"></rect>
-          <text x="405" y="515" style="font-size:8.5px;">vmbr1 · VLAN-aware trunk</text>
+          <ellipse cx="250" cy="462" rx="6" ry="11" fill="none" stroke="var(--violet)" stroke-width="1.5"></ellipse>
+          <ellipse cx="640" cy="458" rx="11" ry="6" fill="none" stroke="var(--blue)" stroke-width="1.5"></ellipse>
         </g>
 
         <!-- Internet -->
         <g class="topo-node">
-          <path d="M180,46 a10,10 0 0 1 6,-18.6 a13,13 0 0 1 24.6,-3 a11,11 0 0 1 -1.6,21.6 Z" fill="var(--gold)" fill-opacity=".08" stroke="var(--gold)" stroke-width="1.4"></path>
-          <text x="200" y="60" class="sub" style="font-size:9px;">INTERNET</text>
-          <text x="260" y="40" class="sub" style="text-anchor:start;font-size:8.5px;">PPPoE primary · DHCP failover</text>
+          <path d="M220,92 a10,10 0 0 1 6,-18.6 a13,13 0 0 1 24.6,-3 a11,11 0 0 1 -1.6,21.6 Z" fill="var(--gold)" fill-opacity=".08" stroke="var(--gold)" stroke-width="1.4"></path>
+          <text x="240" y="108" class="sub" style="font-size:9px;">INTERNET</text>
         </g>
 
         <!-- UDM Pro Max -->
         <g class="topo-node hub" style="--hub:var(--gold);">
-          <circle class="hub-ping" cx="200" cy="120" r="44"></circle>
-          <polygon class="body" points="244,120 222,81.9 178,81.9 156,120 178,158.1 222,158.1" style="stroke:var(--gold);fill:var(--gold);fill-opacity:.1;"></polygon>
-          <text x="200" y="117">UDM PRO MAX</text>
-          <text class="sub" x="200" y="131">gateway · fw</text>
+          <circle class="hub-ping" cx="470" cy="82" r="44"></circle>
+          <polygon class="body" points="514,82 492,43.9 448,43.9 426,82 448,120.1 492,120.1" style="stroke:var(--gold);fill:var(--gold);fill-opacity:.1;"></polygon>
+          <text x="470" y="79">UDM PRO MAX</text>
+          <text class="sub" x="470" y="93">gateway · fw</text>
         </g>
 
         <!-- VPN on the UDM -->
         <g class="topo-node">
-          <rect class="body dmz" x="330" y="98" width="200" height="44" rx="8" style="stroke:var(--gold);fill:var(--gold);fill-opacity:.1;"></rect>
-          <text x="430" y="116" style="font-size:10px;fill:var(--gold);">PROTON VPN · SG / MY / JP</text>
-          <text class="sub" x="430" y="130">+ 3 WireGuard site-to-site</text>
+          <rect class="body dmz" x="550" y="60" width="190" height="44" rx="8" style="stroke:var(--gold);fill:var(--gold);fill-opacity:.1;"></rect>
+          <text x="645" y="78" style="font-size:10px;fill:var(--gold);">PROTON VPN · SG / MY / JP</text>
+          <text class="sub" x="645" y="92">+ 3 WireGuard site-to-site</text>
         </g>
 
         <!-- core switch -->
         <g class="topo-node">
-          <rect class="body core" x="140" y="200" width="120" height="40" rx="8" style="stroke:var(--violet);fill:var(--violet);fill-opacity:.1;"></rect>
-          <text x="200" y="216">USW PRO MAX 24</text>
-          <text class="sub" x="200" y="229">core switch · L3</text>
+          <rect class="body core" x="400" y="195" width="140" height="40" rx="8" style="stroke:var(--violet);fill:var(--violet);fill-opacity:.1;"></rect>
+          <text x="470" y="211">USW PRO MAX 24</text>
+          <text class="sub" x="470" y="224">core switch · L3</text>
         </g>
 
-        <!-- USW Aggregation -->
+        <!-- wireless -->
         <g class="topo-node">
-          <rect class="body" x="40" y="300" width="130" height="40" rx="8" style="stroke:var(--blue);fill:var(--blue);fill-opacity:.1;"></rect>
-          <text x="105" y="316" style="font-size:9.5px;">USW AGGREGATION</text>
-          <text class="sub" x="105" y="329" style="font-size:8px;">8× SFP+ · L2</text>
+          <polygon class="body" points="90,313 112,335 90,357 68,335" style="stroke:var(--pink);fill:var(--pink);fill-opacity:.1;"></polygon>
+          <text x="90" y="338" style="font-size:9px;">UX7</text>
+          <text class="sub" x="90" y="374" style="font-size:8px;">Centre Hallway</text>
+          <text class="sub" x="90" y="385" style="font-size:7.5px;">wired · core</text>
+        </g>
+        <g class="topo-node">
+          <polygon class="body" points="200,313 222,335 200,357 178,335" style="stroke:var(--pink);fill:var(--pink);fill-opacity:.1;"></polygon>
+          <text x="200" y="338" style="font-size:9px;">UX7</text>
+          <text class="sub" x="200" y="374" style="font-size:8px;">Living Room</text>
+          <text class="sub" x="200" y="385" style="font-size:7.5px;">daisy-chained</text>
+        </g>
+        <g class="topo-node">
+          <polygon class="body" points="310,313 332,335 310,357 288,335" style="stroke:var(--pink);fill:var(--pink);fill-opacity:.1;"></polygon>
+          <text x="310" y="338" style="font-size:9px;">UX7</text>
+          <text class="sub" x="310" y="374" style="font-size:8px;">Main Hallway</text>
+          <text class="sub" x="310" y="385" style="font-size:7.5px;">mesh uplink</text>
         </g>
 
-        <!-- UX7 access points -->
+        <!-- storage -->
         <g class="topo-node">
-          <polygon class="body" points="360,298 382,320 360,342 338,320" style="stroke:var(--pink);fill:var(--pink);fill-opacity:.1;"></polygon>
-          <text x="360" y="323" style="font-size:9px;">UX7</text>
-          <text class="sub" x="360" y="358" style="font-size:8px;">Centre Hallway</text>
-          <text class="sub" x="360" y="369" style="font-size:7.5px;">wired · core</text>
-        </g>
-        <g class="topo-node">
-          <polygon class="body" points="460,298 482,320 460,342 438,320" style="stroke:var(--pink);fill:var(--pink);fill-opacity:.1;"></polygon>
-          <text x="460" y="323" style="font-size:9px;">UX7</text>
-          <text class="sub" x="460" y="358" style="font-size:8px;">Living Room</text>
-          <text class="sub" x="460" y="369" style="font-size:7.5px;">daisy-chained</text>
-        </g>
-        <g class="topo-node">
-          <polygon class="body" points="560,298 582,320 560,342 538,320" style="stroke:var(--pink);fill:var(--pink);fill-opacity:.1;"></polygon>
-          <text x="560" y="323" style="font-size:9px;">UX7</text>
-          <text class="sub" x="560" y="358" style="font-size:8px;">Main Hallway</text>
-          <text class="sub" x="560" y="369" style="font-size:7.5px;">mesh uplink</text>
+          <rect class="body" x="455" y="305" width="110" height="40" rx="8" style="stroke:var(--lav);fill:var(--lav);fill-opacity:.1;"></rect>
+          <text x="510" y="321" style="font-size:9.5px;">UNAS PRO</text>
+          <text class="sub" x="510" y="334" style="font-size:8px;">10G + 1G · int</text>
         </g>
 
-        <!-- TR3000 -->
+        <!-- access: 10G aggregation + trusted clients -->
         <g class="topo-node">
-          <rect class="body" x="630" y="300" width="110" height="40" rx="8" style="stroke:var(--gold);fill:var(--gold);fill-opacity:.1;"></rect>
-          <text x="685" y="316" style="font-size:9.5px;">TR3000</text>
-          <text class="sub" x="685" y="329" style="font-size:8px;">trusted</text>
+          <rect class="body" x="615" y="305" width="130" height="40" rx="8" style="stroke:var(--blue);fill:var(--blue);fill-opacity:.1;"></rect>
+          <text x="680" y="321" style="font-size:9.5px;">USW AGGREGATION</text>
+          <text class="sub" x="680" y="334" style="font-size:8px;">8× SFP+ · L2</text>
+        </g>
+        <g class="topo-node">
+          <rect class="body" x="780" y="305" width="90" height="40" rx="8" style="stroke:var(--gold);fill:var(--gold);fill-opacity:.1;"></rect>
+          <text x="825" y="321" style="font-size:9.5px;">TR3000</text>
+          <text class="sub" x="825" y="334" style="font-size:8px;">trusted</text>
+        </g>
+        <g class="topo-node">
+          <rect class="body" x="780" y="372" width="90" height="40" rx="8" style="stroke:var(--gold);fill:var(--gold);fill-opacity:.1;"></rect>
+          <text x="825" y="388" style="font-size:9px;">WORKSTATION</text>
+          <text class="sub" x="825" y="401" style="font-size:8px;">trusted</text>
         </g>
 
-        <!-- endpoints off the aggregation -->
+        <!-- Proxmox host -->
         <g class="topo-node">
-          <rect class="body" x="20" y="400" width="80" height="40" rx="8" style="stroke:var(--gold);fill:var(--gold);fill-opacity:.1;"></rect>
-          <text x="60" y="416" style="font-size:9px;">WORKSTATION</text>
-          <text class="sub" x="60" y="429" style="font-size:8px;">trusted</text>
-        </g>
-        <g class="topo-node">
-          <rect class="body" x="110" y="400" width="125" height="40" rx="8" style="stroke:var(--lav);fill:var(--lav);fill-opacity:.1;"></rect>
-          <text x="172" y="416" style="font-size:9.5px;">UNAS PRO</text>
-          <text class="sub" x="172" y="429" style="font-size:8px;">storage · int zone</text>
-        </g>
-
-        <!-- shr zone -->
-        <g class="topo-node">
-          <rect class="body" x="36" y="534" width="330" height="146" rx="8" style="stroke:var(--violet);fill:var(--violet);fill-opacity:.1;"></rect>
-          <text x="48" y="551" style="text-anchor:start;font-size:9.5px;fill:var(--violet);">shr · shared services</text>
-          <rect x="48" y="560" width="96" height="36" rx="5" fill="var(--bg-panel-2)" stroke="var(--line)"></rect>
-          <text x="96" y="575" style="font-size:9.5px;">Gitea CI/CD</text>
-          <text class="sub" x="96" y="588" style="font-size:8px;">runners · merge</text>
-          <rect x="152" y="560" width="96" height="36" rx="5" fill="var(--bg-panel-2)" stroke="var(--line)"></rect>
-          <text x="200" y="575" style="font-size:9.5px;">OpenClaw</text>
-          <text class="sub" x="200" y="588" style="font-size:8px;">agent team</text>
-          <rect x="256" y="560" width="98" height="36" rx="5" fill="var(--bg-panel-2)" stroke="var(--line)"></rect>
-          <text x="305" y="575" style="font-size:9.5px;">OpenBao</text>
-          <text class="sub" x="305" y="588" style="font-size:8px;">secrets · AppRoles</text>
-          <rect x="48" y="604" width="306" height="66" rx="5" fill="var(--bg-panel-2)" stroke="var(--violet)" stroke-opacity=".5"></rect>
-          <text x="60" y="620" style="text-anchor:start;font-size:9.5px;">k3s HA cluster</text>
-          <text x="342" y="620" class="sub" style="text-anchor:end;font-size:8px;">etcd · keepalived VIP</text>
-          <rect x="60" y="632" width="50" height="26" rx="4" fill="var(--violet-dim)" stroke="var(--violet)"></rect>
-          <text x="85" y="649" style="font-size:8.5px;">server</text>
-          <rect x="118" y="632" width="50" height="26" rx="4" fill="var(--violet-dim)" stroke="var(--violet)"></rect>
-          <text x="143" y="649" style="font-size:8.5px;">server</text>
-          <rect x="176" y="632" width="50" height="26" rx="4" fill="var(--violet-dim)" stroke="var(--violet)"></rect>
-          <text x="201" y="649" style="font-size:8.5px;">server</text>
-          <rect x="240" y="632" width="50" height="26" rx="4" fill="none" stroke="var(--text-faint)"></rect>
-          <text x="265" y="649" style="font-size:8.5px;">worker</text>
-          <rect x="296" y="632" width="50" height="26" rx="4" fill="none" stroke="var(--text-faint)"></rect>
-          <text x="321" y="649" style="font-size:8.5px;">worker</text>
-        </g>
-
-        <!-- dmz zone -->
-        <g class="topo-node">
-          <rect class="body" x="378" y="534" width="100" height="146" rx="8" style="stroke:var(--pink);fill:var(--pink);fill-opacity:.1;"></rect>
-          <text x="390" y="551" style="text-anchor:start;font-size:9.5px;fill:var(--pink);">dmz</text>
-          <rect x="390" y="560" width="76" height="36" rx="5" fill="var(--bg-panel-2)" stroke="var(--line)"></rect>
-          <text x="428" y="575" style="font-size:9.5px;">app VM</text>
-          <text class="sub" x="428" y="588" style="font-size:8px;">Fedora 44</text>
-        </g>
-
-        <!-- stg zone -->
-        <g class="topo-node">
-          <rect class="body" x="490" y="534" width="120" height="146" rx="8" style="stroke:var(--blue);fill:var(--blue);fill-opacity:.1;"></rect>
-          <text x="502" y="551" style="text-anchor:start;font-size:9.5px;fill:var(--blue);">stg · templates</text>
-          <text class="sub" x="502" y="576" style="text-anchor:start;font-size:8.5px;">Ubuntu 26.04</text>
-          <text class="sub" x="502" y="594" style="text-anchor:start;font-size:8.5px;">Arch Linux</text>
-          <text class="sub" x="502" y="612" style="text-anchor:start;font-size:8.5px;">Fedora 44</text>
-          <text class="sub" x="502" y="630" style="text-anchor:start;font-size:8.5px;">NixOS 26.05</text>
-          <text class="sub" x="502" y="664" style="text-anchor:start;font-size:8px;">golden images</text>
+          <rect x="20" y="480" width="860" height="258" rx="12" fill="none" stroke="var(--line)" stroke-width="1.5" stroke-dasharray="4 4"></rect>
+          <text x="868" y="730" style="text-anchor:end;font-size:9px;fill:var(--text-muted);">PROXMOX VE 9.2 · 2× XEON E5-2640 v4 · 40 THREADS</text>
+          <rect x="36" y="510" width="100" height="22" rx="4" fill="var(--violet)" fill-opacity=".12" stroke="var(--violet)"></rect>
+          <text x="86" y="525" style="font-size:8.5px;">vmbr0 · mgt</text>
+          <rect x="560" y="510" width="170" height="22" rx="4" fill="var(--blue)" fill-opacity=".12" stroke="var(--blue)"></rect>
+          <text x="645" y="525" style="font-size:8.5px;">vmbr1 · VLAN-aware trunk</text>
         </g>
 
         <!-- mgt zone -->
         <g class="topo-node">
-          <rect class="body" x="622" y="534" width="100" height="146" rx="8" style="stroke:var(--lav);fill:var(--lav);fill-opacity:.1;"></rect>
-          <text x="634" y="551" style="text-anchor:start;font-size:9.5px;fill:var(--lav);">mgt</text>
-          <rect x="634" y="560" width="76" height="36" rx="5" fill="var(--bg-panel-2)" stroke="var(--line)"></rect>
-          <text x="672" y="575" style="font-size:9.5px;">host mgmt</text>
-          <text class="sub" x="672" y="588" style="font-size:8px;">protected</text>
-          <text class="sub" x="634" y="664" style="text-anchor:start;font-size:8px;">no guests allowed</text>
+          <rect class="body" x="36" y="560" width="100" height="146" rx="8" style="stroke:var(--lav);fill:var(--lav);fill-opacity:.1;"></rect>
+          <text x="48" y="577" style="text-anchor:start;font-size:9.5px;fill:var(--lav);">mgt</text>
+          <rect x="48" y="586" width="76" height="36" rx="5" fill="var(--bg-panel-2)" stroke="var(--line)"></rect>
+          <text x="86" y="601" style="font-size:9.5px;">host mgmt</text>
+          <text class="sub" x="86" y="614" style="font-size:8px;">protected</text>
+          <text class="sub" x="48" y="690" style="text-anchor:start;font-size:8px;">no guests allowed</text>
+        </g>
+
+        <!-- shr zone -->
+        <g class="topo-node">
+          <rect class="body" x="148" y="560" width="330" height="146" rx="8" style="stroke:var(--violet);fill:var(--violet);fill-opacity:.1;"></rect>
+          <text x="160" y="577" style="text-anchor:start;font-size:9.5px;fill:var(--violet);">shr · shared services</text>
+          <rect x="160" y="586" width="96" height="36" rx="5" fill="var(--bg-panel-2)" stroke="var(--line)"></rect>
+          <text x="208" y="601" style="font-size:9.5px;">Gitea CI/CD</text>
+          <text class="sub" x="208" y="614" style="font-size:8px;">runners · merge</text>
+          <rect x="264" y="586" width="96" height="36" rx="5" fill="var(--bg-panel-2)" stroke="var(--line)"></rect>
+          <text x="312" y="601" style="font-size:9.5px;">OpenClaw</text>
+          <text class="sub" x="312" y="614" style="font-size:8px;">agent team</text>
+          <rect x="368" y="586" width="98" height="36" rx="5" fill="var(--bg-panel-2)" stroke="var(--line)"></rect>
+          <text x="417" y="601" style="font-size:9.5px;">OpenBao</text>
+          <text class="sub" x="417" y="614" style="font-size:8px;">secrets · AppRoles</text>
+          <rect x="160" y="630" width="306" height="66" rx="5" fill="var(--bg-panel-2)" stroke="var(--violet)" stroke-opacity=".5"></rect>
+          <text x="172" y="646" style="text-anchor:start;font-size:9.5px;">k3s HA cluster</text>
+          <text x="454" y="646" class="sub" style="text-anchor:end;font-size:8px;">etcd · keepalived VIP</text>
+          <rect x="172" y="658" width="50" height="26" rx="4" fill="var(--violet-dim)" stroke="var(--violet)"></rect>
+          <text x="197" y="675" style="font-size:8.5px;">server</text>
+          <rect x="230" y="658" width="50" height="26" rx="4" fill="var(--violet-dim)" stroke="var(--violet)"></rect>
+          <text x="255" y="675" style="font-size:8.5px;">server</text>
+          <rect x="288" y="658" width="50" height="26" rx="4" fill="var(--violet-dim)" stroke="var(--violet)"></rect>
+          <text x="313" y="675" style="font-size:8.5px;">server</text>
+          <rect x="352" y="658" width="50" height="26" rx="4" fill="none" stroke="var(--text-faint)"></rect>
+          <text x="377" y="675" style="font-size:8.5px;">worker</text>
+          <rect x="408" y="658" width="50" height="26" rx="4" fill="none" stroke="var(--text-faint)"></rect>
+          <text x="433" y="675" style="font-size:8.5px;">worker</text>
+        </g>
+
+        <!-- dmz zone -->
+        <g class="topo-node">
+          <rect class="body" x="490" y="560" width="100" height="146" rx="8" style="stroke:var(--pink);fill:var(--pink);fill-opacity:.1;"></rect>
+          <text x="502" y="577" style="text-anchor:start;font-size:9.5px;fill:var(--pink);">dmz</text>
+          <rect x="502" y="586" width="76" height="36" rx="5" fill="var(--bg-panel-2)" stroke="var(--line)"></rect>
+          <text x="540" y="601" style="font-size:9.5px;">app VM</text>
+          <text class="sub" x="540" y="614" style="font-size:8px;">Fedora 44</text>
+        </g>
+
+        <!-- stg zone -->
+        <g class="topo-node">
+          <rect class="body" x="602" y="560" width="120" height="146" rx="8" style="stroke:var(--blue);fill:var(--blue);fill-opacity:.1;"></rect>
+          <text x="614" y="577" style="text-anchor:start;font-size:9.5px;fill:var(--blue);">stg · templates</text>
+          <text class="sub" x="614" y="602" style="text-anchor:start;font-size:8.5px;">Ubuntu 26.04</text>
+          <text class="sub" x="614" y="620" style="text-anchor:start;font-size:8.5px;">Arch Linux</text>
+          <text class="sub" x="614" y="638" style="text-anchor:start;font-size:8.5px;">Fedora 44</text>
+          <text class="sub" x="614" y="656" style="text-anchor:start;font-size:8.5px;">NixOS 26.05</text>
+          <text class="sub" x="614" y="690" style="text-anchor:start;font-size:8px;">golden images</text>
         </g>
 
         <!-- wifi + iot zones (routed on UDM) -->
         <g class="topo-node">
-          <rect class="body dmz" x="734" y="534" width="132" height="68" rx="8" style="stroke:var(--gold);fill:var(--gold);fill-opacity:.1;"></rect>
-          <text x="746" y="551" style="text-anchor:start;font-size:9.5px;fill:var(--gold);">wifi · via UDM</text>
-          <text x="746" y="572" style="text-anchor:start;font-size:9.5px;">AdGuard ×2</text>
-          <text class="sub" x="746" y="590" style="text-anchor:start;font-size:8px;">egress → Proton MY</text>
+          <rect class="body dmz" x="734" y="560" width="132" height="68" rx="8" style="stroke:var(--gold);fill:var(--gold);fill-opacity:.1;"></rect>
+          <text x="746" y="577" style="text-anchor:start;font-size:9.5px;fill:var(--gold);">wifi · via UDM</text>
+          <text x="746" y="598" style="text-anchor:start;font-size:9.5px;">AdGuard ×2</text>
+          <text class="sub" x="746" y="616" style="text-anchor:start;font-size:8px;">egress → Proton MY</text>
         </g>
         <g class="topo-node">
-          <rect class="body dmz" x="734" y="612" width="132" height="68" rx="8" style="stroke:var(--gold);fill:var(--gold);fill-opacity:.1;"></rect>
-          <text x="746" y="629" style="text-anchor:start;font-size:9.5px;fill:var(--gold);">iot · via UDM</text>
-          <text x="746" y="650" style="text-anchor:start;font-size:9.5px;">AdGuard ×2</text>
-          <text class="sub" x="746" y="668" style="text-anchor:start;font-size:8px;">egress → Proton SG</text>
+          <rect class="body dmz" x="734" y="638" width="132" height="68" rx="8" style="stroke:var(--gold);fill:var(--gold);fill-opacity:.1;"></rect>
+          <text x="746" y="655" style="text-anchor:start;font-size:9.5px;fill:var(--gold);">iot · via UDM</text>
+          <text x="746" y="676" style="text-anchor:start;font-size:9.5px;">AdGuard ×2</text>
+          <text class="sub" x="746" y="694" style="text-anchor:start;font-size:8px;">egress → Proton SG</text>
         </g>
 
-        <circle id="homelabPacket" class="packet" style="fill:var(--blue);filter:drop-shadow(0 0 4px var(--blue));" r="4" cx="0" cy="0"></circle>
-        <circle id="vpnPacket" class="packet vpn" r="3.5" cx="0" cy="0"></circle>
       </svg>
       <div class="topo-legend">
         <span><svg width="22" height="14" viewBox="0 0 44 30"><path d="M2,15 L42,15" stroke="var(--gold)" stroke-width="3"></path></svg> WAN / VPN</span>
@@ -1042,10 +1084,12 @@
         <span><svg width="22" height="14" viewBox="0 0 44 30"><path d="M2,15 L42,15" stroke="var(--violet)" stroke-width="3"></path></svg> 1G / 2.5G</span>
         <span><svg width="22" height="14" viewBox="0 0 44 30"><path d="M2,15 L42,15" stroke="var(--pink)" stroke-width="3"></path></svg> AP uplink</span>
         <span><svg width="22" height="14" viewBox="0 0 44 30"><path d="M2,15 L42,15" stroke="var(--pink)" stroke-width="3" stroke-dasharray="3 6"></path></svg> mesh</span>
+        <span><svg width="22" height="14" viewBox="0 0 44 30"><path d="M2,11 L42,11 M2,19 L42,19" stroke="var(--text-muted)" stroke-width="2.5"></path><ellipse cx="22" cy="15" rx="6" ry="11" fill="none" stroke="var(--text-muted)" stroke-width="2.5"></ellipse></svg> LAG / LACP</span>
         <span><svg width="14" height="14" viewBox="0 0 30 30"><polygon points="26,15 21,6 9,6 4,15 9,24 21,24" fill="none" stroke="var(--gold)" stroke-width="2"></polygon></svg> gateway</span>
         <span><svg width="14" height="14" viewBox="0 0 30 30"><rect x="4" y="8" width="22" height="14" rx="3" fill="none" stroke="var(--violet)" stroke-width="2"></rect></svg> switch / zone</span>
         <span><svg width="14" height="14" viewBox="0 0 30 30"><polygon points="15,4 26,15 15,26 4,15" fill="none" stroke="var(--pink)" stroke-width="2"></polygon></svg> access point</span>
       </div>
+      <div class="flow-list" id="flowList" aria-label="Traffic patterns"></div>
       <div class="topo-chips">
         <span class="topo-chip">UDM Pro Max — zone firewall, WAN failover</span>
         <span class="topo-chip">USW Pro Max 24 — L3 core</span>
@@ -1184,7 +1228,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Fail-safe: if anime.js didn't load for any reason, reveal everything that
   // starts hidden (opacity:0 / transformed) so content is never stuck invisible.
   if (typeof anime === 'undefined') {
-    document.querySelectorAll('.hero-kicker, .hero-name, .hero-role, .hero-meta, .scroll-cue, .term, .term-line, .sec-head, .about-p, .kv-row, .card, .badge, .pub, .honor-chip, .footer-panel, .proj-card, .chip, .topo-chip, .refine-row, .refine-dot, .card-contribution, .hop, .topo-node, .topo-line, .packet, .growth-arrow, [id^="growthBar"]').forEach(el => {
+    document.querySelectorAll('.hero-kicker, .hero-name, .hero-role, .hero-meta, .scroll-cue, .term, .term-line, .sec-head, .about-p, .kv-row, .card, .badge, .pub, .honor-chip, .footer-panel, .proj-card, .chip, .topo-chip, .refine-row, .refine-dot, .card-contribution, .hop, .topo-node, .topo-line, .growth-arrow, [id^="growthBar"]').forEach(el => {
       el.style.opacity = '1';
       el.style.transform = 'none';
     });
@@ -1412,43 +1456,157 @@ document.addEventListener('DOMContentLoaded', () => {
     topoIO.observe(topo);
   }
 
-  // ---- homelab topology: node/line reveal + anime.js path-driven packet ----
+  // ---- homelab topology: node/line reveal, then live traffic over the real cabling ----
   const homelabSvg = document.querySelector('.homelab-svg');
   if (homelabSvg) {
+    const SVGNS = 'http://www.w3.org/2000/svg';
+    // appliances: where packets enter/leave, and the colour a packet takes once it passes through
+    const N = {
+      inet:{x:262,y:82,c:'gold'},  udm:{x:470,y:82,c:'gold'},   vpn:{x:600,y:82,c:'gold'},
+      core:{x:470,y:215,c:'violet'},
+      apC:{x:90,y:335,c:'pink'},   apL:{x:200,y:335,c:'pink'},  apM:{x:310,y:335,c:'pink'},
+      unas:{x:510,y:325,c:'lav'},  agg:{x:680,y:325,c:'blue'},  tr:{x:825,y:325,c:'gold'}, ws:{x:825,y:392,c:'gold'},
+      vmbr0:{x:86,y:521,c:'violet'}, vmbr1:{x:640,y:521,c:'blue'},
+      k3s:{x:313,y:572,c:'violet'}, mgt:{x:86,y:598,c:'lav'}, wifi:{x:845,y:572,c:'gold'}
+    };
+    // cable bends between appliances, matching the drawn runs (reversed automatically)
+    const cubic = (p0,p1,p2,p3,t) => p0*(1-t)**3 + 3*p1*t*(1-t)**2 + 3*p2*t*t*(1-t) + p3*t**3;
+    const mesh = [];
+    for (let t = 0; t <= 1.001; t += 0.1) mesh.push([cubic(100,140,260,300,t), cubic(323,290,290,323,t)]);
+    const E = {
+      'inet|udm':[], 'udm|vpn':[], 'udm|core':[],
+      'core|apC':[[400,215],[90,215]], 'apC|apL':[], 'apC|apM':mesh,
+      'core|unas':[[480,215],[480,325]], 'core|agg':[[470,227],[680,227]], 'core|tr':[[470,207],[825,207]],
+      'core|vmbr0':[[420,215],[420,462],[86,462]],
+      'agg|unas':[], 'agg|ws':[[760,325],[760,392]], 'agg|vmbr1':[[640,325]],
+      'vmbr1|k3s':[[640,546],[313,546]], 'vmbr0|mgt':[], 'vmbr1|wifi':[[640,546],[845,546]]
+    };
+    const PATTERNS = [
+      {label:'Wi-Fi client ⇄ Proton VPN',            seq:['apM','apC','core','udm','vpn']},
+      {label:'Workstation ⇄ UNAS · routed on UDM',    seq:['ws','agg','core','udm','core','agg','unas']},
+      {label:'Wi-Fi DNS ⇄ AdGuard · L2',              seq:['apL','apC','core','agg','vmbr1','wifi']},
+      {label:'shared services ⇄ Internet',                        seq:['k3s','vmbr1','agg','core','udm','inet']},
+      {label:'TR3000 ⇄ Proxmox UI · routed on UDM',   seq:['tr','core','udm','core','vmbr0','mgt']}
+    ];
+
+    function buildRoute(seq) {
+      const pts = [[N[seq[0]].x, N[seq[0]].y]], cum = [0], stops = [{d:0, c:N[seq[0]].c}];
+      const push = (p) => {
+        const q = pts[pts.length-1];
+        cum.push(cum[cum.length-1] + Math.hypot(p[0]-q[0], p[1]-q[1]));
+        pts.push(p);
+      };
+      for (let i = 1; i < seq.length; i++) {
+        const a = seq[i-1], b = seq[i];
+        const mids = E[a+'|'+b] || (E[b+'|'+a] || []).slice().reverse();
+        mids.forEach(push);
+        push([N[b].x, N[b].y]);
+        stops.push({d:cum[cum.length-1], c:N[b].c});
+      }
+      return {pts, cum, len:cum[cum.length-1], stops};
+    }
+    const routes = PATTERNS.map(p => [buildRoute(p.seq), buildRoute(p.seq.slice().reverse())]);
+
+    function pointAt(r, d) {
+      let i = 1;
+      while (i < r.cum.length-1 && r.cum[i] < d) i++;
+      const seg = r.cum[i] - r.cum[i-1], k = seg ? (d - r.cum[i-1]) / seg : 0;
+      return [r.pts[i-1][0] + (r.pts[i][0]-r.pts[i-1][0])*k, r.pts[i-1][1] + (r.pts[i][1]-r.pts[i-1][1])*k];
+    }
+    function colourAt(r, d) {
+      let c = r.stops[0].c;
+      for (const s of r.stops) { if (s.d <= d) c = s.c; else break; }
+      return c;
+    }
+
+    // legend of the five patterns; the ones in flight light up
+    const list = document.getElementById('flowList');
+    PATTERNS.forEach(p => {
+      const span = document.createElement('span');
+      span.innerHTML = `<i style="color:var(--${N[p.seq[0]].c})"></i>${p.label}`;
+      list.appendChild(span);
+    });
+    const listItems = [...list.children];
+
+    const MAX = 5, SPEED = 0.14, GAP = 16;
+    const layer = document.createElementNS(SVGNS, 'g');
+    homelabSvg.appendChild(layer);
+    const flows = [], active = new Set();
+    let running = false, raf = null, spawner = null;
+
+    const markList = () => listItems.forEach((el, i) => el.classList.toggle('on', active.has(i)));
+
+    function spawn(pi, rev) {
+      if (!running || flows.length >= MAX || active.has(pi)) return;
+      const dots = [5, 3.6, 2.6].map((r, k) => {
+        const c = document.createElementNS(SVGNS, 'circle');
+        c.setAttribute('r', r);
+        c.setAttribute('class', 'flow-dot');
+        c.setAttribute('visibility', 'hidden');
+        c.style.opacity = [1, .6, .35][k];
+        layer.appendChild(c);
+        return c;
+      });
+      flows.push({pi, rev, route:routes[pi][rev ? 1 : 0], dots, t0:performance.now()});
+      active.add(pi);
+      markList();
+      if (!raf) raf = requestAnimationFrame(tick);
+    }
+    function spawnRandom() {
+      const idle = PATTERNS.map((_, i) => i).filter(i => !active.has(i));
+      if (idle.length) spawn(idle[Math.floor(Math.random()*idle.length)], Math.random() < .5);
+    }
+
+    function tick(now) {
+      for (let i = flows.length-1; i >= 0; i--) {
+        const f = flows[i], d = (now - f.t0) * SPEED;
+        f.dots.forEach((c, k) => {
+          const dk = Math.min(d - k*GAP, f.route.len);
+          if (dk < 0) return;
+          const [x, y] = pointAt(f.route, dk);
+          c.setAttribute('cx', x); c.setAttribute('cy', y);
+          c.setAttribute('visibility', 'visible');
+          const col = colourAt(f.route, dk);
+          if (c.dataset.c !== col) { c.dataset.c = col; c.style.fill = c.style.color = `var(--${col})`; }
+        });
+        if (d - 2*GAP >= f.route.len) {
+          f.dots.forEach(c => c.remove());
+          flows.splice(i, 1);
+          active.delete(f.pi);
+          markList();
+          // most requests get a reply: the same conversation, flowing back
+          if (Math.random() < .6) setTimeout(() => spawn(f.pi, !f.rev), 250 + Math.random()*500);
+        }
+      }
+      raf = (running || flows.length) ? requestAnimationFrame(tick) : null;
+    }
+
     const homelabIO = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          anime.timeline({easing:'easeOutCubic'})
-            .add({targets: homelabSvg.querySelectorAll('.topo-node'), opacity:[0,1], translateY: reduce?0:[8,0], duration: reduce?1:450, delay: anime.stagger(reduce?0:140)})
-            .add({targets: homelabSvg.querySelectorAll('.topo-line'), opacity:[0,.9], duration: reduce?1:450}, '-=250')
-            .add({targets: ['#homelabPacket','#vpnPacket'], opacity:[0,1], duration: reduce?1:300}, '-=200');
-
-          if (!reduce) {
-            const flowPath = anime.path('#homelabFlowPath');
-            anime({
-              targets: '#homelabPacket',
-              translateX: flowPath('x'),
-              translateY: flowPath('y'),
-              easing: 'linear',
-              duration: 2800,
-              loop: true
-            });
-            const vpnPath = anime.path('#vpnFlowPath');
-            anime({
-              targets: '#vpnPacket',
-              translateX: vpnPath('x'),
-              translateY: vpnPath('y'),
-              easing: 'linear',
-              duration: 2200,
-              loop: true,
-              delay: 600
-            });
-          }
+          anime.timeline({easing:'easeOutCubic', complete: () => { revealed = true; startTraffic(); }})
+            .add({targets: homelabSvg.querySelectorAll('.topo-node'), opacity:[0,1], translateY: reduce?0:[8,0], duration: reduce?1:400, delay: anime.stagger(reduce?0:45)})
+            .add({targets: homelabSvg.querySelectorAll('.topo-line'), opacity:[0,.9], duration: reduce?1:450}, '-=250');
           homelabIO.unobserve(entry.target);
         }
       });
     }, {threshold:0.25});
     homelabIO.observe(homelabSvg);
+
+    // traffic starts once every appliance and cable has rendered, and only runs while the diagram is on screen
+    let revealed = false, inView = false;
+    function startTraffic() {
+      running = !reduce && revealed && inView;
+      if (running && !spawner) {
+        setTimeout(spawnRandom, 300); setTimeout(spawnRandom, 1000); setTimeout(spawnRandom, 1700);
+        spawner = setInterval(spawnRandom, 1100);
+      } else if (!running && spawner) {
+        clearInterval(spawner); spawner = null;
+      }
+    }
+    new IntersectionObserver((entries) => {
+      entries.forEach(e => { inView = e.isIntersecting; startTraffic(); });
+    }, {threshold:0.1}).observe(homelabSvg);
   }
 
   // ---- nav breadcrumb ----
