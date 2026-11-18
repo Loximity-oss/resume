@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#000080">
+<title>Faris — Cloud &amp; Network Engineering (Windows CE)</title>
+<script>
+/* device + resolution check: big screens and mice get the Windows NT edition */
+(function () {
+  var q = location.search, pref = null;
+  try {
+    if (/[?&]desktop=1/.test(q)) localStorage.setItem('viewMode', 'desktop');
+    if (/[?&]ce=1/.test(q)) localStorage.setItem('viewMode', 'ce');
+    pref = localStorage.getItem('viewMode');
+  } catch (e) {}
+  var ua = /Android|iPhone|iPod|Windows Phone|IEMobile|Mobile/i.test(navigator.userAgent);
+  var small = Math.min(screen.width, screen.height) <= 820;
+  var coarse = window.matchMedia && matchMedia('(pointer:coarse)').matches;
+  var mobile = ua || (coarse && small);
+  if (pref === 'desktop' || (!pref && !mobile)) location.replace('index.html' + location.hash);
+})();
+</script>
+<style>
+@font-face{font-family:"MS Sans Serif";src:url("assets/fonts/ms_sans_serif.woff2") format("woff2"),url("assets/fonts/ms_sans_serif.woff") format("woff");font-weight:400;font-style:normal;font-display:swap;}
+@font-face{font-family:"MS Sans Serif";src:url("assets/fonts/ms_sans_serif_bold.woff2") format("woff2"),url("assets/fonts/ms_sans_serif_bold.woff") format("woff");font-weight:700;font-style:normal;font-display:swap;}
+:root{--face:#c0c0c0;--hi:#fff;--shadow:#808080;--dark:#404040;--navy:#000080;--paper:#fff;--link:#0000c0;--teal:#008080;}
+*{box-sizing:border-box;}
+html,body{margin:0;height:100%;background:#000;color:#000;font:13px/1.45 "MS Sans Serif",Arial,sans-serif;-webkit-font-smoothing:none;text-rendering:optimizeSpeed;-webkit-text-size-adjust:100%;}
+button{font:inherit;color:inherit;}
+img{border:0;image-rendering:pixelated;}
+a{color:var(--link);}
+a:visited{color:#600060;}
+/* ---- device screen ---- */
+#dev{position:fixed;inset:0;display:flex;flex-direction:column;background:var(--paper);overflow:hidden;}
+.nav{flex:none;display:flex;align-items:center;gap:6px;height:30px;padding:0 4px;background:var(--navy);color:#fff;font-weight:bold;padding-top:env(safe-area-inset-top);box-sizing:content-box;}
+.start{display:flex;align-items:center;gap:4px;height:24px;padding:0 8px 0 4px;background:var(--face);color:#000;border:1px solid;border-color:#fff #000 #000 #fff;box-shadow:inset 1px 1px 0 #dfdfdf,inset -1px -1px 0 #808080;font-weight:bold;}
+.start img{width:16px;height:16px;}
+.start.on{border-color:#000 #fff #fff #000;box-shadow:inset 1px 1px 0 #808080;}
+.nav .ttl{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.nav .clk{display:flex;align-items:center;gap:5px;font-weight:normal;}
+.nav .clk img{width:16px;height:16px;}
+.addr{flex:none;display:flex;align-items:center;gap:6px;padding:4px 6px;background:var(--face);border-bottom:1px solid var(--shadow);}
+.addr label{font-size:12px;}
+.addr .fld{flex:1;min-width:0;height:26px;padding:3px 6px;background:#fff;border:2px solid;border-color:#808080 #fff #fff #808080;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:12px;}
+.addr .go{width:34px;height:26px;background:var(--face);border:1px solid;border-color:#fff #000 #000 #fff;box-shadow:inset 1px 1px 0 #dfdfdf,inset -1px -1px 0 #808080;font-size:12px;}
+.view{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;background:#fff;}
+.cmd{flex:none;display:flex;align-items:center;height:32px;padding:0 4px;background:var(--face);border-top:1px solid #fff;box-shadow:0 -1px 0 var(--shadow);padding-bottom:env(safe-area-inset-bottom);box-sizing:content-box;}
+.cmd button{height:26px;padding:0 10px;background:transparent;border:1px solid transparent;font-size:12px;}
+.cmd button:active,.cmd button.on{border-color:#808080 #fff #fff #808080;}
+.cmd .sp{flex:1;}
+.cmd .sip{width:34px;padding:0;}
+.cmd .sip svg{display:block;margin:auto;}
+/* ---- start menu ---- */
+#menu{position:fixed;left:2px;top:32px;z-index:50;width:min(260px,86vw);background:var(--face);border:2px solid;border-color:#fff #404040 #404040 #fff;box-shadow:1px 1px 0 #000;display:flex;max-height:calc(100% - 80px);overflow:auto;}
+#menu[hidden]{display:none;}
+#menu .side{width:24px;flex:none;background:var(--navy);position:relative;min-height:100%;}
+#menu .side b{position:absolute;left:0;bottom:6px;width:24px;writing-mode:vertical-rl;transform:rotate(180deg);color:#fff;font:bold 15px/24px Arial,sans-serif;text-align:left;white-space:nowrap;}
+#menu .side b i{font-weight:normal;font-style:normal;}
+#menu ul{flex:1;list-style:none;margin:0;padding:2px 0;}
+#menu li a{display:flex;align-items:center;gap:10px;min-height:44px;padding:0 10px 0 6px;color:#000;text-decoration:none;}
+#menu li a img{width:32px;height:32px;}
+#menu li a:active{background:var(--navy);color:#fff;}
+#menu hr{margin:2px 3px;border:0;border-top:1px solid #808080;border-bottom:1px solid #fff;}
+/* ---- today / hero ---- */
+.today{padding:12px 12px 8px;background:linear-gradient(#e8e8f8,#fff);border-bottom:1px solid var(--shadow);}
+.today h1{margin:0 0 2px;font:bold 26px/1.1 Arial,Helvetica,sans-serif;font-style:italic;letter-spacing:-1px;color:var(--navy);}
+.today .tag{margin:0 0 8px;font-size:12px;color:#404040;}
+.today p{margin:0 0 6px;font-size:13px;}
+.today .own{margin:0;padding:6px 8px;border:1px solid var(--shadow);background:#ffffe1;font-size:12px;}
+/* ---- tree sections ---- */
+.tv{border-bottom:1px solid #a0a0a0;}
+.tv-h{display:flex;align-items:center;gap:10px;width:100%;min-height:52px;padding:6px 10px;background:#f4f4f4;border:0;text-align:left;cursor:pointer;}
+.tv-h[aria-expanded="true"]{background:#dcdcf0;}
+.tv-h .box{flex:none;position:relative;width:13px;height:13px;border:1px solid #808080;background:#fff;}
+.tv-h .box:before{content:"";position:absolute;left:2px;right:2px;top:5px;height:1px;background:#000;}
+.tv-h .box:after{content:"";position:absolute;top:2px;bottom:2px;left:5px;width:1px;background:#000;}
+.tv-h[aria-expanded="true"] .box:after{display:none;}
+.tv-h img{flex:none;width:32px;height:32px;}
+.tv-h .tt{display:block;min-width:0;}
+.tv-h .tt b{display:block;font-size:14px;color:var(--navy);}
+.tv-h .tt small{display:block;font-size:11px;color:#404040;}
+.tv-b{padding:10px 10px 14px;background:#fff;}
+.tv-b[hidden]{display:none;}
+.tv-b p{margin:0 0 9px;}
+h4.grp{margin:14px -10px 8px;padding:4px 10px;background:var(--navy);color:#fff;font-size:12px;}
+h4.grp:first-child{margin-top:0;}
+dl.props{margin:0;}
+dt.tab{margin:10px 0 3px;padding:2px 6px;background:#e4e4e4;border:1px solid #a0a0a0;font-weight:bold;font-size:12px;}
+dl.props dd{margin:0;padding:5px 2px;border-bottom:1px dotted #b0b0b0;}
+dl.props .k{color:#404040;font-size:12px;display:block;}
+.rec{margin:0 0 12px;border:1px solid #808080;box-shadow:1px 1px 0 #fff inset;}
+.rec-h{padding:5px 8px;background:#e4e4f4;border-bottom:1px solid #a0a0a0;font-size:12px;}
+.rec-h .tm{display:block;color:#404040;font-weight:normal;}
+.rec .role{padding:6px 8px 0;font-weight:bold;color:var(--navy);}
+.rec ul,.rec p{margin:6px 0 8px;}
+.rec ul{padding:0 10px 0 28px;}
+.rec li,.slide li,.proj li{margin:0 0 6px;}
+.rec p{padding:0 8px;}
+table.xl{width:100%;border-collapse:collapse;font-size:12px;}
+table.xl td,table.xl th{border:1px solid #b0b0b0;padding:4px 5px;text-align:left;vertical-align:top;}
+table.xl th{background:var(--face);}
+.slide,.proj,.chap,.pub{margin:0 0 10px;padding:8px;border:1px solid #808080;background:#fafafa;}
+.slide-t{font-size:11px;color:#404040;}
+.slide h5,.proj-h{margin:2px 0;font-size:14px;color:var(--navy);font-weight:bold;}
+.sub{font-size:12px;color:#404040;margin:0 0 6px;}
+.mods{color:var(--navy);font-size:12px;}
+.chap-h{font-weight:bold;color:var(--navy);margin-bottom:3px;}
+.chap-h .no{display:inline-block;min-width:20px;color:#404040;}
+.chap p{margin:0;}
+.sk{margin:0 0 10px;}
+.sk-n{font-weight:bold;font-size:12px;}.sk-n span{float:right;font-weight:normal;}
+.sk-t{font-size:11px;color:#404040;margin-top:2px;}
+.bar{display:flex;gap:2px;height:16px;padding:2px;background:#fff;border:2px solid;border-color:#808080 #fff #fff #808080;}
+.bar i,.legend i{flex:1;display:block;}
+.bar i.i,.legend i.i{background:#000080;}.bar i.e,.legend i.e{background:#008080;}.bar i.l,.legend i.l{background:#00ff00;box-shadow:inset 0 0 0 1px #008000;}.bar i.z{background:#c0c0c0;}
+.legend{font-size:11px;}.legend i{display:inline-block;width:10px;height:10px;vertical-align:-1px;margin:0 3px 0 8px;}
+.btns{margin:14px 0 0;display:flex;flex-wrap:wrap;gap:6px;}
+.btns img{width:88px;height:31px;display:block;}
+.foot{padding:10px;background:var(--face);border-top:1px solid #fff;font-size:11px;color:#202020;}
+.foot a{color:var(--link);}
+/* ---- diagrams: the same drawings as the desktop edition, in a pan-and-zoom viewer ---- */
+{{TOPOCSS}}
+.dg{margin:0 0 12px;border:2px solid;border-color:#808080 #fff #fff #808080;background:#c0c0c0;}
+.dg-tabs{display:flex;gap:2px;overflow-x:auto;padding:4px 4px 0;background:#c0c0c0;-webkit-overflow-scrolling:touch;}
+.dg-tabs button{flex:none;min-height:34px;padding:0 10px;background:#c0c0c0;border:1px solid;border-color:#fff #404040 transparent #fff;border-bottom:0;font-size:12px;white-space:nowrap;}
+.dg-tabs button[aria-selected="true"]{background:#fff;font-weight:bold;color:var(--navy);}
+.dg-pan{height:min(54vh,380px);overflow:auto;background:#000;border-top:1px solid #404040;-webkit-overflow-scrolling:touch;}
+.dg-pan svg{display:block;max-width:none;height:auto;}
+.dg-bar{display:flex;gap:4px;align-items:center;padding:4px;background:#c0c0c0;}
+.dg-bar button{min-width:44px;height:34px;padding:0 8px;background:#c0c0c0;border:1px solid;border-color:#fff #000 #000 #fff;box-shadow:inset 1px 1px 0 #dfdfdf,inset -1px -1px 0 #808080;font-size:13px;}
+.dg-bar button:active{border-color:#000 #fff #fff #000;box-shadow:inset 1px 1px 0 #808080;}
+.dg-bar .sp{flex:1;}
+.dg-flows{padding:6px 8px;background:#000;color:#fff;font-size:11px;}
+.dg-flows:empty{display:none;}
+.dg-flows span{display:block;margin:2px 0;opacity:.7;}
+.dg-flows span.on{opacity:1;font-weight:bold;}
+.dg-flows i{display:inline-block;width:8px;height:8px;margin-right:6px;background:currentColor;border:1px solid #fff;}
+.dg-cap{padding:6px 8px 10px;background:#fff;border-top:1px solid #808080;font-size:13px;}
+.dg-cap b{display:block;margin-bottom:3px;color:var(--navy);}
+.dg-cap p{margin:0;}
+/* ---- boot ---- */
+#boot{position:fixed;inset:0;z-index:100;background:#000;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;}
+#boot[hidden],#boot [hidden]{display:none !important;}
+#boot .fr{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;}
+#boot .splash{background:var(--navy);}
+#boot .splash img{width:64px;height:64px;margin-bottom:14px;}
+#boot .splash b{font:bold 26px/1.1 Arial,Helvetica,sans-serif;}
+#boot .splash small{display:block;margin-top:8px;font:12px Arial,sans-serif;color:#c0c0ff;}
+#boot .tdy{background:#fff;color:#000;justify-content:flex-start;align-items:stretch;text-align:left;padding:0;}
+#boot .tdy .nav{flex:none;}
+#boot .tdy .body{padding:14px 12px;}
+#boot .tdy h2{margin:0 0 6px;font:bold 20px/1.2 Arial,sans-serif;color:var(--navy);}
+#boot .tdy ul{list-style:none;margin:12px 0 0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
+#boot .tdy li{text-align:center;font-size:11px;}
+#boot .tdy li img{display:block;margin:0 auto 3px;width:32px;height:32px;}
+#boot .ie{background:var(--face);color:#000;}
+#boot .ie .win{width:min(340px,92vw);background:var(--face);border:2px solid;border-color:#fff #404040 #404040 #fff;box-shadow:1px 1px 0 #000;padding:2px;text-align:left;}
+#boot .ie .tb{display:flex;align-items:center;gap:4px;height:20px;padding:0 4px;background:var(--navy);color:#fff;font-weight:bold;}
+#boot .ie .tb img{width:16px;height:16px;}
+#boot .ie .bd{display:flex;gap:12px;align-items:center;padding:16px 14px 8px;}
+#boot .ie .bd img{width:32px;height:32px;}
+#boot .ie .prog{height:18px;margin:6px 14px 14px;padding:2px;background:#fff;border:2px solid;border-color:#808080 #fff #fff #808080;}
+#boot .ie .prog i{display:block;height:100%;width:0;background:repeating-linear-gradient(90deg,#000080 0 8px,#fff 8px 10px);}
+#skip{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(16px + env(safe-area-inset-bottom));z-index:101;background:rgba(0,0,0,.6);border:0;color:#fff;font-size:12px;padding:8px 16px;}
+</style>
+</head>
+<body>
+<div id="boot" role="dialog" aria-modal="true" aria-label="Windows CE start-up">
+  <button type="button" id="skip">Skip intro &raquo;</button>
+  <div class="fr splash" data-f="0"><img src="assets/icons/win98/windows_0.png" alt=""><b>Windows&reg; CE</b><small>Pocket PC edition &middot; Faris</small></div>
+  <div class="fr tdy" data-f="1" hidden>
+    <div class="nav"><span class="start"><img src="assets/icons/win98/windows_start.png" alt="">Start</span><span class="ttl">Today</span><span class="clk"><img src="assets/icons/win98/loudspeaker_16.png" alt=""><span class="ck">12:00 PM</span></span></div>
+    <div class="body"><h2>Faris</h2><p>Cloud &amp; network engineering</p>
+      <ul><li><img src="assets/icons/win98/computer_2.png" alt="">My Pocket PC</li><li><img src="assets/icons/win98/envelope_closed_0.png" alt="">Inbox</li><li><img src="assets/icons/win98/briefcase_0.png" alt="">Briefcase</li><li><img src="assets/icons/win98/msie1_0.png" alt="">Internet Explorer</li></ul></div>
+  </div>
+  <div class="fr ie" data-f="2" hidden><div class="win"><div class="tb"><img src="assets/icons/win98/msie1_0.png" alt="">Pocket Internet Explorer</div><div class="bd"><img src="assets/icons/win98/world_0.png" alt=""><div>Opening <b>http://resume.loximity.dev/</b><br>Connecting to site...</div></div><div class="prog"><i></i></div></div></div>
+</div>
+
+<div id="dev">
+  <div class="nav"><button type="button" class="start" id="startBtn" aria-haspopup="true" aria-expanded="false"><img src="assets/icons/win98/windows_start.png" alt="">Start</button><span class="ttl">Pocket Internet Explorer</span><span class="clk"><img src="assets/icons/win98/loudspeaker_16.png" alt=""><span class="ck" id="clk">12:00 PM</span></span></div>
+  <div class="addr"><label for="addrF">Address</label><div class="fld" id="addrF">http://resume.loximity.dev/</div><span class="go" aria-hidden="true" style="display:flex;align-items:center;justify-content:center">Go</span></div>
+  <div class="view" id="view">
+    <div class="today"><h1>Faris</h1><div class="tag">cloud &amp; network engineering</div><p>{{TAGLINE}}</p></div>
+    {{ROWS}}
+    <div class="btns" style="padding:10px;margin:0"><img src="assets/buttons/ie.gif" alt="Microsoft Internet Explorer" width="88" height="31"><img src="assets/buttons/netscape-now-4.gif" alt="Netscape Now! 4.0" width="88" height="31"><img src="assets/buttons/y2k-ready.gif" alt="Ready for Y2K" width="88" height="31"></div>
+    <div class="foot">{{UPDATED}}<br>{{AINOTE}}<br><a href="index.html?desktop=1">Switch to the desktop (Windows NT) version</a></div>
+  </div>
+  <div class="cmd"><button type="button" id="cmdContents">Contents</button><button type="button" id="cmdTop">Top</button><span class="sp"></span><button type="button" class="sip" aria-label="Input panel" aria-hidden="true"><svg width="22" height="14" viewBox="0 0 22 14" shape-rendering="crispEdges"><rect x=".5" y=".5" width="21" height="13" fill="#fff" stroke="#000"/><path d="M3 4h2M7 4h2M11 4h2M15 4h2M3 7h2M7 7h2M11 7h2M15 7h2M5 10h12" stroke="#000"/></svg></button></div>
+</div>
+
+<div id="menu" hidden role="menu"><div class="side"><b>Windows <i>CE</i></b></div><ul>{{MENU}}<li><hr></li><li><a href="index.html?desktop=1"><img src="assets/icons/win98/computer_2.png" alt=""><span>Desktop version</span></a></li></ul></div>
+
+<script>
+{{WINDOWIZE}}
+</script>
+<script>
+{{TRAFFIC}}
+</script>
+<script>
+(function () {
+  var $ = function (i) { return document.getElementById(i); };
+  var boot = $('boot'), view = $('view'), menu = $('menu'), sb = $('startBtn');
+  /* clock */
+  function tick() { var d = new Date(), h = d.getHours(), m = d.getMinutes(), t = ((h % 12) || 12) + ':' + (m < 10 ? '0' : '') + m + ' ' + (h < 12 ? 'AM' : 'PM'); [].forEach.call(document.querySelectorAll('.ck'), function (e) { e.textContent = t; }); }
+  tick(); setInterval(tick, 15000);
+
+  /* diagram viewers: chapter tabs, spotlight, zoom */
+  function viewer(dg) {
+    if (dg.getAttribute('data-ready')) return; dg.setAttribute('data-ready', '1');
+    var data = JSON.parse(dg.querySelector('.dg-data').textContent), svg = dg.querySelector('svg'), pan = dg.querySelector('.dg-pan');
+    var tabs = dg.querySelector('.dg-tabs'), cap = dg.querySelector('.dg-cap');
+    var vb = svg.getAttribute('viewBox').split(' ').map(Number), cur = 0, scale = 1;
+    var hole = svg.querySelector('.spot-hole'), dim = svg.querySelector('.spot-dim'), ring = svg.querySelector('.spot-ring');
+    var groups = [].slice.call(svg.querySelectorAll('.tl-ph'));
+    var traffic = window.ceTraffic && window.ceTraffic[dg.getAttribute('data-k')] ? window.ceTraffic[dg.getAttribute('data-k')](svg, dg.querySelector('.dg-flows')) : null;
+    function fit() { return Math.max(.2, pan.clientWidth / vb[2]); }
+    function setScale(k) { scale = Math.max(fit() * .9, Math.min(3, k)); svg.style.width = (vb[2] * scale) + 'px'; }
+    function phase(n) { groups.forEach(function (g) { var from = +g.getAttribute('data-from'), to = +g.getAttribute('data-to'), retired = g.getAttribute('data-retire') && n > to; g.classList.toggle('retired', !!retired); g.style.opacity = retired ? .6 : (n < from || n > to) ? 0 : (g.getAttribute('data-dim') && n === 1) ? .6 : 1; }); }
+    function put(el, r) { if (!el) return; el.setAttribute('x', r[0]); el.setAttribute('y', r[1]); el.setAttribute('width', r[2]); el.setAttribute('height', r[3]); }
+    function show(i) {
+      cur = (i + data.length) % data.length; var c = data[cur], sp = c.spot;
+      [].forEach.call(tabs.children, function (b, k) { b.setAttribute('aria-selected', k === cur ? 'true' : 'false'); });
+      var act = tabs.children[cur]; if (act && act.scrollIntoView) tabs.scrollLeft = act.offsetLeft - 20;
+      cap.innerHTML = '<b>' + String(cur).padStart(2, '0') + ' &middot; ' + c.title + '</b><p>' + c.text + '</p>';
+      if (groups.length) phase(c.phase || 1);
+      if (traffic) traffic.focus(c.flows);
+      if (sp) {
+        put(hole, sp); put(ring, sp); if (dim) dim.setAttribute('opacity', '.6'); if (ring) ring.setAttribute('opacity', '1');
+        setScale(Math.min(2.2, pan.clientWidth / sp[2]));
+        pan.scrollLeft = (sp[0] - vb[0]) * scale; pan.scrollTop = (sp[1] - vb[1]) * scale;
+      } else {
+        put(hole, vb); if (dim) dim.setAttribute('opacity', '0'); if (ring) ring.setAttribute('opacity', '0');
+        setScale(fit()); pan.scrollLeft = 0; pan.scrollTop = 0;
+      }
+    }
+    data.forEach(function (c, k) { var b = document.createElement('button'); b.type = 'button'; b.setAttribute('role', 'tab'); b.textContent = String(k).padStart(2, '0') + ' ' + c.tab; b.addEventListener('click', function () { show(k); }, false); tabs.appendChild(b); });
+    dg.querySelector('.dg-bar').addEventListener('click', function (e) {
+      var b = e.target.closest('button'); if (!b) return;
+      var z = b.getAttribute('data-z'), c = b.getAttribute('data-c');
+      if (z) { var cx = pan.scrollLeft + pan.clientWidth / 2, cy = pan.scrollTop + pan.clientHeight / 2, o = scale; z === 'f' ? setScale(fit()) : setScale(scale * (z === '+' ? 1.4 : 1 / 1.4)); var r = scale / o; pan.scrollLeft = cx * r - pan.clientWidth / 2; pan.scrollTop = cy * r - pan.clientHeight / 2; }
+      if (c) show(cur + (c === '+' ? 1 : -1));
+    }, false);
+    dg._show = function () { show(cur); };
+    show(0);
+  }
+  function ready(sec) { [].forEach.call(sec.querySelectorAll('.dg'), viewer); }
+  window.addEventListener('resize', function () { [].forEach.call(document.querySelectorAll('.dg[data-ready]'), function (d) { if (d._show) d._show(); }); }, false);
+  /* accordion */
+  function toggle(h, open) {
+    var b = $(h.getAttribute('aria-controls')); if (!b) return;
+    var o = open === undefined ? h.getAttribute('aria-expanded') !== 'true' : open;
+    h.setAttribute('aria-expanded', o ? 'true' : 'false'); b.hidden = !o;
+    if (o) ready(b);
+  }
+  [].forEach.call(document.querySelectorAll('.tv-h'), function (h) { h.addEventListener('click', function () { toggle(h); }, false); });
+  function go(id) {
+    var sec = $(id); if (!sec) return;
+    toggle(sec.querySelector('.tv-h'), true);
+    view.scrollTop = sec.offsetTop - 0;
+  }
+  /* start menu */
+  function menuShow(v) { menu.hidden = !v; sb.classList.toggle('on', v); sb.setAttribute('aria-expanded', v ? 'true' : 'false'); }
+  sb.addEventListener('click', function (e) { e.stopPropagation(); menuShow(menu.hidden); }, false);
+  $('cmdContents').addEventListener('click', function (e) { e.stopPropagation(); menuShow(menu.hidden); }, false);
+  $('cmdTop').addEventListener('click', function () { view.scrollTop = 0; }, false);
+  document.addEventListener('click', function (e) { if (!menu.hidden && !menu.contains(e.target)) menuShow(false); }, false);
+  [].forEach.call(menu.querySelectorAll('a[href^="#"]'), function (a) {
+    a.addEventListener('click', function (e) { e.preventDefault(); menuShow(false); go(a.getAttribute('href').slice(1)); }, false);
+  });
+  if (location.hash.length > 1) go(location.hash.slice(1));
+  /* boot: one second a frame, then Pocket Internet Explorer opens */
+  var seen = false; try { seen = sessionStorage.getItem('ceSeen') === '1'; } catch (e) {}
+  function done() { try { sessionStorage.setItem('ceSeen', '1'); } catch (e) {} if (boot.parentNode) boot.parentNode.removeChild(boot); var s = $('skip'); if (s && s.parentNode) s.parentNode.removeChild(s); }
+  if (seen) { done(); return; }
+  var frames = boot.querySelectorAll('.fr'), t = null;
+  function show(i) {
+    [].forEach.call(frames, function (f, k) { f.hidden = k !== i; });
+    if (i < 2) { t = setTimeout(function () { show(i + 1); }, 1000); }
+    else { var bar = boot.querySelector('.prog i'), w = 0; var iv = setInterval(function () { w += 10; bar.style.width = Math.min(100, w) + '%'; if (w >= 100) { clearInterval(iv); done(); } }, 100); }
+  }
+  $('skip').addEventListener('click', function () { clearTimeout(t); done(); }, false);
+  show(0);
+})();
+</script>
+</body>
+</html>

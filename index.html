@@ -1,6 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<script>
+/* device + resolution check: phones and other small touch screens get the Windows CE edition */
+(function () {
+  var q = location.search, pref = null;
+  try {
+    if (/[?&]desktop=1/.test(q)) localStorage.setItem('viewMode', 'desktop');
+    if (/[?&]ce=1/.test(q)) localStorage.setItem('viewMode', 'ce');
+    pref = localStorage.getItem('viewMode');
+  } catch (e) {}
+  var ua = /Android|iPhone|iPod|Windows Phone|IEMobile|Mobile/i.test(navigator.userAgent);
+  var small = Math.min(screen.width, screen.height) <= 820;
+  var coarse = window.matchMedia && matchMedia('(pointer:coarse)').matches;
+  var mobile = ua || (coarse && small);
+  if (pref === 'ce' || (!pref && mobile)) location.replace('ce.html' + location.hash);
+})();
+</script>
+
 <meta charset="UTF-8">
 <title>Faris — Cloud &amp; Network Engineering</title>
 <script>
