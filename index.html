@@ -42,6 +42,7 @@
    ===================================================================== */
 @font-face{font-family:"MS Sans Serif";src:url("assets/fonts/ms_sans_serif.woff2") format("woff2"),url("assets/fonts/ms_sans_serif.woff") format("woff");font-weight:400;font-style:normal;font-display:swap;}
 @font-face{font-family:"MS Sans Serif";src:url("assets/fonts/ms_sans_serif_bold.woff2") format("woff2"),url("assets/fonts/ms_sans_serif_bold.woff") format("woff");font-weight:700;font-style:normal;font-display:swap;}
+@font-face{font-family:"Fixedsys";src:url("assets/fonts/fixedsys.woff2") format("woff2"),url("assets/fonts/fixedsys.woff") format("woff");font-weight:400;font-style:normal;font-display:swap;}
 html{background:var(--desk-base);overflow:hidden;height:100%;}
 body{margin:0;padding:8px 0 16px;background:var(--desk);color:#000;font:11px/1.5 "MS Sans Serif",Arial,sans-serif;}
 button,input,select,textarea{font-family:"MS Sans Serif",Arial,sans-serif;}
@@ -618,7 +619,7 @@ html[data-depth="2"] .topo-node .body,html[data-depth="2"] .topo-node.win rect.i
 .win-details th{background:var(--face);border:2px solid;border-color:var(--hi) var(--dark) var(--dark) var(--hi);padding:1px 6px;font:11px "MS Sans Serif",Arial,sans-serif;font-weight:normal;color:#000;}
 .win-status{margin-top:2px;padding:1px 6px;font:11px "MS Sans Serif",Arial,sans-serif;color:#000;border:1px solid;border-color:var(--shadow) var(--hi) var(--hi) var(--shadow);}
 .win-textarea{background:var(--paper);border:2px solid;border-color:var(--shadow) var(--hi) var(--hi) var(--shadow);padding:8px 10px;margin-top:2px;}
-.notepad .win-textarea .about-p{font:13px/1.45 "Courier New",Courier,monospace;color:#000;margin:0 0 12px;}
+.notepad .win-textarea .about-p{font:16px/16px "Fixedsys","Courier New",monospace;color:#000;margin:0 0 16px;-webkit-font-smoothing:none;}
 .tabs{padding:6px 4px 0;}
 .tab{display:inline-block;margin:0 1px -2px 0;padding:3px 14px 3px;background:var(--face);border:2px solid;border-color:var(--hi) var(--dark) var(--face) var(--hi);font:11px "MS Sans Serif",Arial,sans-serif;color:#000;cursor:default;position:relative;top:0;}
 .tab.sel{padding-bottom:5px;top:-2px;z-index:2;}
