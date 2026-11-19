@@ -2295,7 +2295,7 @@ html.ntbar body{bottom:50px;}
       <div class="dosbox " style="margin-top:0;margin-bottom:14px;"><div class="dos-title"><img src="assets/icons/win98/ms_dos_logo.png" alt="" width="16" height="16"><span class="dos-ttl">MS-DOS Prompt - TYPE</span><span class="dos-wc" aria-hidden="true"><i>_</i><i>□</i><i>×</i></span></div><div class="dosbody"><div class="dos-cmd"><span class="dos-pr">C:\WINDOWS&gt;</span>type retro-lab.yaml</div><div class="dos-out">two ISPs, an exchange and 27 Windows guests (planned)</div></div></div>
       <div class="topo-stage" id="rlStage">
       <div class="story-tabs" role="tablist" aria-label="Retro lab tour"></div>
-      <svg class="topo-svg retro-svg" viewBox="0 0 900 620" xmlns="http://www.w3.org/2000/svg">
+      <svg class="topo-svg retro-svg rl-badge" viewBox="0 0 900 620" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <mask id="rlSpotMask">
             <rect x="-20" y="-20" width="940" height="660" fill="#fff"></rect>
@@ -2418,6 +2418,122 @@ html.ntbar body{bottom:50px;}
         <span class="topo-chip">MPLS L3VPN · PPPoE · IPoE · CGNAT</span>
         <span class="topo-chip">198.18.0.0/15 · 3fff::/20 · AS 64496–64511, 65536</span>
         <span class="topo-chip">NT4, Win2K, 2003, XP, Vista, 98 SE</span>
+      </div>
+    </div>
+    <div class="topo-wrap" style="margin-top:46px;">
+      <div class="dosbox " style="margin-top:0;margin-bottom:14px;"><div class="dos-title"><img src="assets/icons/win98/ms_dos_logo.png" alt="" width="16" height="16"><span class="dos-ttl">MS-DOS Prompt - TYPE</span><span class="dos-wc" aria-hidden="true"><i>_</i><i>□</i><i>×</i></span></div><div class="dosbody"><div class="dos-cmd"><span class="dos-pr">C:\WINDOWS&gt;</span>type guests.txt</div><div class="dos-out">inside the customer sites: 24 VMs behind six CPEs, plus three homes</div></div></div>
+      <div class="topo-stage">
+      <svg class="topo-svg retro-svg rl-badge" viewBox="0 0 900 612" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Architecture of the retro lab customer sites: each enterprise has a prod and a DR site with two domain controllers, a member server and a client behind a CPE">
+        <rect x="-20" y="-20" width="940" height="652" fill="url(#hlBp)"></rect>
+        <g class="topo-node"><rect x="10" y="10" width="430" height="142" rx="12" fill="none" stroke="var(--line)" stroke-width="1.5" stroke-dasharray="4 4"></rect><text x="22" y="25" style="text-anchor:start;font-size:9px;fill:var(--text-muted);">ENT1 PROD · LAN 10.1.1.0/24 · NT4 · domain ENT1 (no AD) · 128 MB per VM</text></g>
+        <g class="topo-node"><rect class="body" x="130" y="40" width="190" height="30" rx="8" style="stroke:var(--blue);fill:var(--blue);fill-opacity:.1;"></rect><text x="225.0" y="52" style="font-size:8.5px;">OpenWrt CPE · 10.1.1.1</text><text class="sub" x="225.0" y="64" style="font-size:7.5px;">uplink PE-A1 · L3VPN hub</text></g>
+        <path class="topo-line" d="M225,70 L225,86" style="stroke:var(--lav);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M70,86 L382,86" style="stroke:var(--lav);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M70,86 L70,100" style="stroke:var(--lav);stroke-width:1.8;"></path>
+        <g class="topo-node"><rect class="body" x="24" y="100" width="92" height="44" rx="8" style="stroke:var(--lav);fill:var(--lav);fill-opacity:.1;"></rect><text x="70.0" y="112" style="font-size:8.5px;">DC1 · .10</text><text class="sub" x="70.0" y="124" style="font-size:7.5px;">NT4 Server PDC</text><text class="sub" x="70.0" y="136" style="font-size:7.5px;">WINS + DHCP</text></g>
+        <path class="topo-line" d="M174,86 L174,100" style="stroke:var(--lav);stroke-width:1.8;"></path>
+        <g class="topo-node"><rect class="body" x="128" y="100" width="92" height="44" rx="8" style="stroke:var(--lav);fill:var(--lav);fill-opacity:.1;"></rect><text x="174.0" y="112" style="font-size:8.5px;">DC2 · .11</text><text class="sub" x="174.0" y="124" style="font-size:7.5px;">NT4 Server BDC</text><text class="sub" x="174.0" y="136" style="font-size:7.5px;">WINS</text></g>
+        <path class="topo-line" d="M278,86 L278,100" style="stroke:var(--lav);stroke-width:1.8;"></path>
+        <g class="topo-node"><rect class="body" x="232" y="100" width="92" height="44" rx="8" style="stroke:var(--lav);fill:var(--lav);fill-opacity:.1;"></rect><text x="278.0" y="112" style="font-size:8.5px;">Member · .20</text><text class="sub" x="278.0" y="124" style="font-size:7.5px;">NT4 Server</text><text class="sub" x="278.0" y="136" style="font-size:7.5px;">file / print</text></g>
+        <path class="topo-line" d="M382,86 L382,100" style="stroke:var(--lav);stroke-width:1.8;"></path>
+        <g class="topo-node"><rect class="body" x="336" y="100" width="92" height="44" rx="8" style="stroke:var(--lav);fill:var(--lav);fill-opacity:.1;"></rect><text x="382.0" y="112" style="font-size:8.5px;">Client</text><text class="sub" x="382.0" y="124" style="font-size:7.5px;">NT4 Workstation</text><text class="sub" x="382.0" y="136" style="font-size:7.5px;">DHCP .100–.199</text></g>
+        <g class="topo-node"><rect x="460" y="10" width="430" height="142" rx="12" fill="none" stroke="var(--line)" stroke-width="1.5" stroke-dasharray="4 4"></rect><text x="472" y="25" style="text-anchor:start;font-size:9px;fill:var(--text-muted);">ENT1 DR · LAN 10.1.2.0/24 · NT4 · domain ENT1 (no AD) · 128 MB per VM</text></g>
+        <g class="topo-node"><rect class="body" x="580" y="40" width="190" height="30" rx="8" style="stroke:var(--blue);fill:var(--blue);fill-opacity:.1;"></rect><text x="675.0" y="52" style="font-size:8.5px;">OpenWrt CPE · 10.1.2.1</text><text class="sub" x="675.0" y="64" style="font-size:7.5px;">uplink PE-A2 · L3VPN spoke</text></g>
+        <path class="topo-line" d="M675,70 L675,86" style="stroke:var(--lav);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M520,86 L832,86" style="stroke:var(--lav);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M520,86 L520,100" style="stroke:var(--lav);stroke-width:1.8;"></path>
+        <g class="topo-node"><rect class="body" x="474" y="100" width="92" height="44" rx="8" style="stroke:var(--lav);fill:var(--lav);fill-opacity:.1;"></rect><text x="520.0" y="112" style="font-size:8.5px;">DC1 · .10</text><text class="sub" x="520.0" y="124" style="font-size:7.5px;">NT4 Server PDC</text><text class="sub" x="520.0" y="136" style="font-size:7.5px;">WINS + DHCP</text></g>
+        <path class="topo-line" d="M624,86 L624,100" style="stroke:var(--lav);stroke-width:1.8;"></path>
+        <g class="topo-node"><rect class="body" x="578" y="100" width="92" height="44" rx="8" style="stroke:var(--lav);fill:var(--lav);fill-opacity:.1;"></rect><text x="624.0" y="112" style="font-size:8.5px;">DC2 · .11</text><text class="sub" x="624.0" y="124" style="font-size:7.5px;">NT4 Server BDC</text><text class="sub" x="624.0" y="136" style="font-size:7.5px;">WINS</text></g>
+        <path class="topo-line" d="M728,86 L728,100" style="stroke:var(--lav);stroke-width:1.8;"></path>
+        <g class="topo-node"><rect class="body" x="682" y="100" width="92" height="44" rx="8" style="stroke:var(--lav);fill:var(--lav);fill-opacity:.1;"></rect><text x="728.0" y="112" style="font-size:8.5px;">Member · .20</text><text class="sub" x="728.0" y="124" style="font-size:7.5px;">NT4 Server</text><text class="sub" x="728.0" y="136" style="font-size:7.5px;">file / print</text></g>
+        <path class="topo-line" d="M832,86 L832,100" style="stroke:var(--lav);stroke-width:1.8;"></path>
+        <g class="topo-node"><rect class="body" x="786" y="100" width="92" height="44" rx="8" style="stroke:var(--lav);fill:var(--lav);fill-opacity:.1;"></rect><text x="832.0" y="112" style="font-size:8.5px;">Client</text><text class="sub" x="832.0" y="124" style="font-size:7.5px;">NT4 Workstation</text><text class="sub" x="832.0" y="136" style="font-size:7.5px;">DHCP .100–.199</text></g>
+        <path class="topo-line" d="M310,55 L580,55" style="stroke:var(--violet);stroke-width:2.4;"></path>
+        <rect x="352" y="41" width="196" height="30" fill="#000"></rect>
+        <g class="topo-node"><text class="sub" x="450" y="51" style="fill:var(--violet);font-size:8.5px;">L3VPN hub ⇄ spoke</text><text class="sub" x="450" y="67" style="font-size:7.5px;">prod is the default route for DR</text></g>
+        <g class="topo-node"><rect x="10" y="160" width="430" height="142" rx="12" fill="none" stroke="var(--line)" stroke-width="1.5" stroke-dasharray="4 4"></rect><text x="22" y="175" style="text-anchor:start;font-size:9px;fill:var(--text-muted);">ENT2 PROD · LAN 10.2.1.0/24 · Win2K · ent2.lab · AD site per location · 256 MB per VM</text></g>
+        <g class="topo-node"><rect class="body" x="130" y="190" width="190" height="30" rx="8" style="stroke:var(--blue);fill:var(--blue);fill-opacity:.1;"></rect><text x="225.0" y="202" style="font-size:8.5px;">OpenWrt CPE · 10.2.1.1</text><text class="sub" x="225.0" y="214" style="font-size:7.5px;">uplink PE-A3 · static /29 · 20 Mb/s</text></g>
+        <path class="topo-line" d="M225,220 L225,236" style="stroke:var(--lav);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M70,236 L382,236" style="stroke:var(--lav);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M70,236 L70,250" style="stroke:var(--lav);stroke-width:1.8;"></path>
+        <g class="topo-node"><rect class="body" x="24" y="250" width="92" height="44" rx="8" style="stroke:var(--lav);fill:var(--lav);fill-opacity:.1;"></rect><text x="70.0" y="262" style="font-size:8.5px;">DC1 · .10</text><text class="sub" x="70.0" y="274" style="font-size:7.5px;">Win2K Server</text><text class="sub" x="70.0" y="286" style="font-size:7.5px;">AD DNS + DHCP</text></g>
+        <path class="topo-line" d="M174,236 L174,250" style="stroke:var(--lav);stroke-width:1.8;"></path>
+        <g class="topo-node"><rect class="body" x="128" y="250" width="92" height="44" rx="8" style="stroke:var(--lav);fill:var(--lav);fill-opacity:.1;"></rect><text x="174.0" y="262" style="font-size:8.5px;">DC2 · .11</text><text class="sub" x="174.0" y="274" style="font-size:7.5px;">Win2K Server</text><text class="sub" x="174.0" y="286" style="font-size:7.5px;">AD DNS + GC</text></g>
+        <path class="topo-line" d="M278,236 L278,250" style="stroke:var(--lav);stroke-width:1.8;"></path>
+        <g class="topo-node"><rect class="body" x="232" y="250" width="92" height="44" rx="8" style="stroke:var(--lav);fill:var(--lav);fill-opacity:.1;"></rect><text x="278.0" y="262" style="font-size:8.5px;">Member · .20</text><text class="sub" x="278.0" y="274" style="font-size:7.5px;">Win2K Server</text><text class="sub" x="278.0" y="286" style="font-size:7.5px;">file / print</text></g>
+        <path class="topo-line" d="M382,236 L382,250" style="stroke:var(--lav);stroke-width:1.8;"></path>
+        <g class="topo-node"><rect class="body" x="336" y="250" width="92" height="44" rx="8" style="stroke:var(--lav);fill:var(--lav);fill-opacity:.1;"></rect><text x="382.0" y="262" style="font-size:8.5px;">Client</text><text class="sub" x="382.0" y="274" style="font-size:7.5px;">Win2K Pro</text><text class="sub" x="382.0" y="286" style="font-size:7.5px;">DHCP .100–.199</text></g>
+        <g class="topo-node"><rect x="460" y="160" width="430" height="142" rx="12" fill="none" stroke="var(--line)" stroke-width="1.5" stroke-dasharray="4 4"></rect><text x="472" y="175" style="text-anchor:start;font-size:9px;fill:var(--text-muted);">ENT2 DR · LAN 10.2.2.0/24 · Win2K · ent2.lab · AD site per location · 256 MB per VM</text></g>
+        <g class="topo-node"><rect class="body" x="580" y="190" width="190" height="30" rx="8" style="stroke:var(--blue);fill:var(--blue);fill-opacity:.1;"></rect><text x="675.0" y="202" style="font-size:8.5px;">OpenWrt CPE · 10.2.2.1</text><text class="sub" x="675.0" y="214" style="font-size:7.5px;">uplink PE-B1 · static /29</text></g>
+        <path class="topo-line" d="M675,220 L675,236" style="stroke:var(--lav);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M520,236 L832,236" style="stroke:var(--lav);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M520,236 L520,250" style="stroke:var(--lav);stroke-width:1.8;"></path>
+        <g class="topo-node"><rect class="body" x="474" y="250" width="92" height="44" rx="8" style="stroke:var(--lav);fill:var(--lav);fill-opacity:.1;"></rect><text x="520.0" y="262" style="font-size:8.5px;">DC1 · .10</text><text class="sub" x="520.0" y="274" style="font-size:7.5px;">Win2K Server</text><text class="sub" x="520.0" y="286" style="font-size:7.5px;">AD DNS + DHCP</text></g>
+        <path class="topo-line" d="M624,236 L624,250" style="stroke:var(--lav);stroke-width:1.8;"></path>
+        <g class="topo-node"><rect class="body" x="578" y="250" width="92" height="44" rx="8" style="stroke:var(--lav);fill:var(--lav);fill-opacity:.1;"></rect><text x="624.0" y="262" style="font-size:8.5px;">DC2 · .11</text><text class="sub" x="624.0" y="274" style="font-size:7.5px;">Win2K Server</text><text class="sub" x="624.0" y="286" style="font-size:7.5px;">AD DNS + GC</text></g>
+        <path class="topo-line" d="M728,236 L728,250" style="stroke:var(--lav);stroke-width:1.8;"></path>
+        <g class="topo-node"><rect class="body" x="682" y="250" width="92" height="44" rx="8" style="stroke:var(--lav);fill:var(--lav);fill-opacity:.1;"></rect><text x="728.0" y="262" style="font-size:8.5px;">Member · .20</text><text class="sub" x="728.0" y="274" style="font-size:7.5px;">Win2K Server</text><text class="sub" x="728.0" y="286" style="font-size:7.5px;">file / print</text></g>
+        <path class="topo-line" d="M832,236 L832,250" style="stroke:var(--lav);stroke-width:1.8;"></path>
+        <g class="topo-node"><rect class="body" x="786" y="250" width="92" height="44" rx="8" style="stroke:var(--lav);fill:var(--lav);fill-opacity:.1;"></rect><text x="832.0" y="262" style="font-size:8.5px;">Client</text><text class="sub" x="832.0" y="274" style="font-size:7.5px;">Win2K Pro</text><text class="sub" x="832.0" y="286" style="font-size:7.5px;">DHCP .100–.199</text></g>
+        <path class="topo-line" d="M310,205 L580,205" style="stroke:var(--blue);stroke-width:2.4;"></path>
+        <rect x="352" y="191" width="196" height="30" fill="#000"></rect>
+        <g class="topo-node"><text class="sub" x="450" y="201" style="fill:var(--blue);font-size:8.5px;">IPsec tunnel · prod ⇄ DR</text><text class="sub" x="450" y="217" style="font-size:7.5px;">public /29 per site · failover is a DNS change</text></g>
+        <g class="topo-node"><rect x="10" y="310" width="430" height="142" rx="12" fill="none" stroke="var(--line)" stroke-width="1.5" stroke-dasharray="4 4"></rect><text x="22" y="325" style="text-anchor:start;font-size:9px;fill:var(--text-muted);">ENT3 PROD · LAN 10.3.1.0/24 · Server 2003 · ent3.lab · AD site per location · DCs 384 MB, rest 512 MB</text></g>
+        <g class="topo-node"><rect class="body" x="130" y="340" width="190" height="30" rx="8" style="stroke:var(--blue);fill:var(--blue);fill-opacity:.1;"></rect><text x="225.0" y="352" style="font-size:8.5px;">VyOS CPE · AS 64505 · 10.3.1.1</text><text class="sub" x="225.0" y="364" style="font-size:7.5px;">uplink PE-A3 · eBGP</text></g>
+        <path class="topo-line" d="M225,370 L225,386" style="stroke:var(--lav);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M70,386 L382,386" style="stroke:var(--lav);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M70,386 L70,400" style="stroke:var(--lav);stroke-width:1.8;"></path>
+        <g class="topo-node"><rect class="body" x="24" y="400" width="92" height="44" rx="8" style="stroke:var(--lav);fill:var(--lav);fill-opacity:.1;"></rect><text x="70.0" y="412" style="font-size:8.5px;">DC1 · .10</text><text class="sub" x="70.0" y="424" style="font-size:7.5px;">Server 2003</text><text class="sub" x="70.0" y="436" style="font-size:7.5px;">AD DNS + DHCP</text></g>
+        <path class="topo-line" d="M174,386 L174,400" style="stroke:var(--lav);stroke-width:1.8;"></path>
+        <g class="topo-node"><rect class="body" x="128" y="400" width="92" height="44" rx="8" style="stroke:var(--lav);fill:var(--lav);fill-opacity:.1;"></rect><text x="174.0" y="412" style="font-size:8.5px;">DC2 · .11</text><text class="sub" x="174.0" y="424" style="font-size:7.5px;">Server 2003</text><text class="sub" x="174.0" y="436" style="font-size:7.5px;">AD DNS + GC</text></g>
+        <path class="topo-line" d="M278,386 L278,400" style="stroke:var(--lav);stroke-width:1.8;"></path>
+        <g class="topo-node"><rect class="body" x="232" y="400" width="92" height="44" rx="8" style="stroke:var(--lav);fill:var(--lav);fill-opacity:.1;"></rect><text x="278.0" y="412" style="font-size:8.5px;">Member · .20</text><text class="sub" x="278.0" y="424" style="font-size:7.5px;">Server 2003</text><text class="sub" x="278.0" y="436" style="font-size:7.5px;">file / print</text></g>
+        <path class="topo-line" d="M382,386 L382,400" style="stroke:var(--lav);stroke-width:1.8;"></path>
+        <g class="topo-node"><rect class="body" x="336" y="400" width="92" height="44" rx="8" style="stroke:var(--lav);fill:var(--lav);fill-opacity:.1;"></rect><text x="382.0" y="412" style="font-size:8.5px;">Client</text><text class="sub" x="382.0" y="424" style="font-size:7.5px;">XP SP3</text><text class="sub" x="382.0" y="436" style="font-size:7.5px;">DHCP .100–.199</text></g>
+        <g class="topo-node"><rect x="460" y="310" width="430" height="142" rx="12" fill="none" stroke="var(--line)" stroke-width="1.5" stroke-dasharray="4 4"></rect><text x="472" y="325" style="text-anchor:start;font-size:9px;fill:var(--text-muted);">ENT3 DR · LAN 10.3.2.0/24 · Server 2003 · ent3.lab · AD site per location · DCs 384 MB, rest 512 MB</text></g>
+        <g class="topo-node"><rect class="body" x="580" y="340" width="190" height="30" rx="8" style="stroke:var(--blue);fill:var(--blue);fill-opacity:.1;"></rect><text x="675.0" y="352" style="font-size:8.5px;">VyOS CPE · AS 64505 · 10.3.2.1</text><text class="sub" x="675.0" y="364" style="font-size:7.5px;">uplink PE-B1 · eBGP</text></g>
+        <path class="topo-line" d="M675,370 L675,386" style="stroke:var(--lav);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M520,386 L832,386" style="stroke:var(--lav);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M520,386 L520,400" style="stroke:var(--lav);stroke-width:1.8;"></path>
+        <g class="topo-node"><rect class="body" x="474" y="400" width="92" height="44" rx="8" style="stroke:var(--lav);fill:var(--lav);fill-opacity:.1;"></rect><text x="520.0" y="412" style="font-size:8.5px;">DC1 · .10</text><text class="sub" x="520.0" y="424" style="font-size:7.5px;">Server 2003</text><text class="sub" x="520.0" y="436" style="font-size:7.5px;">AD DNS + DHCP</text></g>
+        <path class="topo-line" d="M624,386 L624,400" style="stroke:var(--lav);stroke-width:1.8;"></path>
+        <g class="topo-node"><rect class="body" x="578" y="400" width="92" height="44" rx="8" style="stroke:var(--lav);fill:var(--lav);fill-opacity:.1;"></rect><text x="624.0" y="412" style="font-size:8.5px;">DC2 · .11</text><text class="sub" x="624.0" y="424" style="font-size:7.5px;">Server 2003</text><text class="sub" x="624.0" y="436" style="font-size:7.5px;">AD DNS + GC</text></g>
+        <path class="topo-line" d="M728,386 L728,400" style="stroke:var(--lav);stroke-width:1.8;"></path>
+        <g class="topo-node"><rect class="body" x="682" y="400" width="92" height="44" rx="8" style="stroke:var(--lav);fill:var(--lav);fill-opacity:.1;"></rect><text x="728.0" y="412" style="font-size:8.5px;">Member · .20</text><text class="sub" x="728.0" y="424" style="font-size:7.5px;">Server 2003</text><text class="sub" x="728.0" y="436" style="font-size:7.5px;">file / print</text></g>
+        <path class="topo-line" d="M832,386 L832,400" style="stroke:var(--lav);stroke-width:1.8;"></path>
+        <g class="topo-node"><rect class="body" x="786" y="400" width="92" height="44" rx="8" style="stroke:var(--lav);fill:var(--lav);fill-opacity:.1;"></rect><text x="832.0" y="412" style="font-size:8.5px;">Client</text><text class="sub" x="832.0" y="424" style="font-size:7.5px;">XP SP3</text><text class="sub" x="832.0" y="436" style="font-size:7.5px;">DHCP .100–.199</text></g>
+        <path class="topo-line" d="M310,355 L580,355" style="stroke:var(--gold);stroke-width:2.4;"></path>
+        <rect x="352" y="341" width="196" height="30" fill="#000"></rect>
+        <g class="topo-node"><text class="sub" x="450" y="351" style="fill:var(--gold);font-size:8.5px;">eBGP · same PI 198.19.0.0/24</text><text class="sub" x="450" y="367" style="font-size:7.5px;">announced from both ISPs · DR prepends</text></g>
+        <g class="topo-node"><rect x="10" y="460" width="286" height="142" rx="12" fill="none" stroke="var(--line)" stroke-width="1.5" stroke-dasharray="4 4"></rect><text x="22" y="475" style="text-anchor:start;font-size:9px;fill:var(--text-muted);">HOME 1 · Win 98 SE · LAN 192.168.0.0/24</text></g>
+        <g class="topo-node"><rect class="body" x="24" y="494" width="128" height="40" rx="8" style="stroke:var(--blue);fill:var(--blue);fill-opacity:.1;"></rect><text x="88.0" y="506" style="font-size:8.5px;">OpenWrt CPE</text><text class="sub" x="88.0" y="518" style="font-size:7.5px;">PPPoE · public IPv4</text></g>
+        <path class="topo-line" d="M152,514 L186,514" style="stroke:var(--lav);stroke-width:1.8;"></path>
+        <g class="topo-node"><rect class="body" x="186" y="494" width="96" height="52" rx="8" style="stroke:var(--lav);fill:var(--lav);fill-opacity:.1;"></rect><text x="234.0" y="506" style="font-size:8.5px;">Win 98 SE</text><text class="sub" x="234.0" y="518" style="font-size:7.5px;">128 MB · 1 GB</text><text class="sub" x="234.0" y="530" style="font-size:7.5px;">no IPv6</text></g>
+        <g class="topo-node"><text class="sub" x="153" y="570" style="fill:var(--gold);font-size:8px;">uplink BNG-B1 · ISP B</text><text class="sub" x="153" y="584" style="font-size:7.5px;">1 VM · behind its own NAT</text></g>
+        <g class="topo-node"><rect x="307" y="460" width="286" height="142" rx="12" fill="none" stroke="var(--line)" stroke-width="1.5" stroke-dasharray="4 4"></rect><text x="319" y="475" style="text-anchor:start;font-size:9px;fill:var(--text-muted);">HOME 2 · XP SP3 · LAN 192.168.1.0/24</text></g>
+        <g class="topo-node"><rect class="body" x="321" y="494" width="128" height="40" rx="8" style="stroke:var(--blue);fill:var(--blue);fill-opacity:.1;"></rect><text x="385.0" y="506" style="font-size:8.5px;">OpenWrt CPE</text><text class="sub" x="385.0" y="518" style="font-size:7.5px;">PPPoE + CGNAT</text></g>
+        <path class="topo-line" d="M449,514 L483,514" style="stroke:var(--lav);stroke-width:1.8;"></path>
+        <g class="topo-node"><rect class="body" x="483" y="494" width="96" height="52" rx="8" style="stroke:var(--lav);fill:var(--lav);fill-opacity:.1;"></rect><text x="531.0" y="506" style="font-size:8.5px;">XP SP3</text><text class="sub" x="531.0" y="518" style="font-size:7.5px;">512 MB · 4 GB</text><text class="sub" x="531.0" y="530" style="font-size:7.5px;">IPv6 /56 PD</text></g>
+        <g class="topo-node"><text class="sub" x="450" y="570" style="fill:var(--gold);font-size:8px;">uplink BNG-B2 · ISP B</text><text class="sub" x="450" y="584" style="font-size:7.5px;">1 VM · behind its own NAT</text></g>
+        <g class="topo-node"><rect x="604" y="460" width="286" height="142" rx="12" fill="none" stroke="var(--line)" stroke-width="1.5" stroke-dasharray="4 4"></rect><text x="616" y="475" style="text-anchor:start;font-size:9px;fill:var(--text-muted);">HOME 3 · Vista SP2 · LAN 192.168.1.0/24</text></g>
+        <g class="topo-node"><rect class="body" x="618" y="494" width="128" height="40" rx="8" style="stroke:var(--blue);fill:var(--blue);fill-opacity:.1;"></rect><text x="682.0" y="506" style="font-size:8.5px;">OpenWrt CPE</text><text class="sub" x="682.0" y="518" style="font-size:7.5px;">IPoE + CGNAT</text></g>
+        <path class="topo-line" d="M746,514 L780,514" style="stroke:var(--lav);stroke-width:1.8;"></path>
+        <g class="topo-node"><rect class="body" x="780" y="494" width="96" height="52" rx="8" style="stroke:var(--lav);fill:var(--lav);fill-opacity:.1;"></rect><text x="828.0" y="506" style="font-size:8.5px;">Vista SP2</text><text class="sub" x="828.0" y="518" style="font-size:7.5px;">1.5 GB · 16 GB</text><text class="sub" x="828.0" y="530" style="font-size:7.5px;">IPv6 /56 PD</text></g>
+        <g class="topo-node"><text class="sub" x="747" y="570" style="fill:var(--gold);font-size:8px;">uplink BNG-A1 · ISP A</text><text class="sub" x="747" y="584" style="font-size:7.5px;">1 VM · behind its own NAT</text></g>
+      </svg>
+      </div>
+      <div class="topo-legend">
+        <span><svg width="22" height="14" viewBox="0 0 44 30"><path d="M2,15 L42,15" stroke="var(--violet)" stroke-width="3"></path></svg> L3VPN across ISP A</span>
+        <span><svg width="22" height="14" viewBox="0 0 44 30"><path d="M2,15 L42,15" stroke="var(--blue)" stroke-width="3"></path></svg> IPsec tunnel between sites</span>
+        <span><svg width="22" height="14" viewBox="0 0 44 30"><path d="M2,15 L42,15" stroke="var(--gold)" stroke-width="3"></path></svg> eBGP with a provider-independent block</span>
+        <span><svg width="22" height="14" viewBox="0 0 44 30"><path d="M2,15 L42,15" stroke="var(--lav)" stroke-width="3"></path></svg> site LAN (CPE .1, DC1 .10, DC2 .11, member .20)</span>
+      </div>
+      <div class="topo-chips">
+        <span class="topo-chip">6 enterprise sites × 4 VMs + 3 homes = 27 guests</span>
+        <span class="topo-chip">NT4 needs WINS: browsing doesn't cross routers</span>
+        <span class="topo-chip">Win2K / 2003: one AD site per location</span>
+        <span class="topo-chip">no route to management or the real internet</span>
       </div>
     </div>
   </div>
@@ -3097,6 +3213,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const NS = 'http://www.w3.org/2000/svg', D = 'assets/icons/win98/net/';
   const LINE = {violet:'#ffffff', gold:'#ffff00', blue:'#80ffff', pink:'#ff9bff', lav:'#80ff80'};
   const RULES = [
+    [/tier-1/i,'world'], [/carrier/i,'conn_cloud'], [/^border-/i,'computer_gear'], [/^p-[ab]/i,'server_gear'],
+    [/^pe-/i,'network_cool_two_pcs'], [/^bng-/i,'modem'], [/ix switch/i,'network'], [/route server/i,'server_window'],
+    [/fake cdn/i,'directory_net_web'], [/fake cloud/i,'conn_cloud'], [/fake isp/i,'world_address_book'],
+    [/cpe/i,'modem'], [/^dc\d/i,'server_gear'], [/^member/i,'server_window'], [/^client|subscriber|^win|^xp|^vista|^spare|^home/i,'computer_win'],
+    [/^ent\d/i,'server_window'], [/vyos vm/i,'computer_gear'], [/frr \/ bird/i,'server_gear'], [/openwrt vm/i,'modem'], [/windows vm/i,'computer_win'],
     [/firewall/i,'computer_padlock'], [/policy|standards|classes/i,'certificate_checklist'],
     [/vpn|wireguard|proton|dmz/i,'world_lock'], [/dns/i,'world_address_book'],
     [/app gateway|application gateway|api management|apim|front door/i,'frame_web'],
@@ -3114,12 +3235,17 @@ document.addEventListener('DOMContentLoaded', () => {
     [/saas|banking|payment|partner|hybrid|server|file transfer|devops|app vm/i,'server_window']
   ];
   const pick = (a, b) => { for (const t of [a, b]) for (const [re, ic] of RULES) if (re.test(t)) return ic; return 'directory_closed_0'; };
+  let badge = false;
   const num = (el, k) => parseFloat(el.getAttribute(k)) || 0;
   const mk = (tag, attrs, parent) => { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); parent.appendChild(e); return e; };
 
   // a desktop item: small icon on the left, caption left-aligned beside it (centred caption when there is no room)
   function item(rect, texts, deco) {
     const x = num(rect, 'x'), y = num(rect, 'y'), w = num(rect, 'width'), h = num(rect, 'height');
+    if (badge && w <= 110 && texts.length) {   // retro lab: narrow boxes keep their centred captions, the icon sits on the top edge
+      mk('image', {href:D + pick(texts[0].textContent.trim(), '') + '.png', x:x + w / 2 - 8, y:y - 8, width:16, height:16}, deco);
+      return;
+    }
     if (!texts.length || texts.length > 2 || w < 64 || h < 24) return;
     if (texts.some(t => /text-anchor:\s*(start|end)/.test(t.getAttribute('style') || ''))) return;   // header-style captions stay put
     const size = w <= 100 ? 16 : h >= 50 ? 32 : h >= 34 ? 24 : 16;
@@ -3132,6 +3258,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const inside = (t, r) => { const tx = num(t, 'x'), ty = num(t, 'y'); return tx >= num(r, 'x') - 2 && tx <= num(r, 'x') + num(r, 'width') + 2 && ty >= num(r, 'y') && ty <= num(r, 'y') + num(r, 'height') + 4; };
 
   document.querySelectorAll('.topo-svg').forEach(svg => {
+    badge = svg.classList.contains('rl-badge');
     svg.querySelectorAll('g.topo-node').forEach(g => {
       const body = g.querySelector('rect.body');
       if (!body) return;
@@ -3142,7 +3269,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const nested = [...g.querySelectorAll('rect:not(.body)')];
       const deco = document.createElementNS(NS, 'g'); deco.setAttribute('class', 'wdeco'); deco.setAttribute('pointer-events', 'none');
       g.appendChild(deco);
-      if (!nested.length && texts.length <= 2) { item(body, texts, deco); return; }
+      if (!nested.length && (texts.length <= 2 || badge)) { item(body, texts, deco); return; }
       // container (a host / zone with items inside): dashed outline, header text, each inner box is its own item
       g.classList.add('box');
       const claimed = new Set();
