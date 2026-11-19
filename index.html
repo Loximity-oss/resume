@@ -1539,8 +1539,8 @@ html.ntbar body{bottom:50px;}
       <div class="w97-title hlp-title"><img src="assets/icons/win98/help_book_big_0.png" alt="" width="16" height="16">Windows Help<span class="dos-wc" aria-hidden="true"><i>_</i><i>&#9633;</i><i>&times;</i></span></div>
       <div class="hlp-bar" role="toolbar" aria-label="Help toolbar"><button type="button" class="hlp-tb" id="hlpHide"><svg width="24" height="24" viewBox="0 0 24 24" shape-rendering="crispEdges" aria-hidden="true"><rect x="3.500" y="3.500" width="17" height="17" fill="#fff" stroke="#000"/><rect x="4" y="4" width="6" height="16" fill="#c0c0c0"/><path d="M5 7h4M5 10h4M5 13h4M12 7h7M12 10h7M12 13h7M12 16h7" stroke="#000"/><path d="M13 19l-3-3 3-3" fill="none" stroke="#000080" stroke-width="2"/></svg><span>Hide</span></button><button type="button" class="hlp-tb" id="hlpBack" disabled><svg width="24" height="24" viewBox="0 0 24 24" shape-rendering="crispEdges" aria-hidden="true"><path d="M3 12l9-9v5h9v8h-9v5z" class="ar"/></svg><span>Back</span></button><button type="button" class="hlp-tb" id="hlpFwd" disabled><svg width="24" height="24" viewBox="0 0 24 24" shape-rendering="crispEdges" aria-hidden="true"><path d="M21 12l-9-9v5H3v8h9v5z" class="ar"/></svg><span>Forward</span></button><button type="button" class="hlp-tb" id="hlpOpt"><svg width="24" height="24" viewBox="0 0 24 24" shape-rendering="crispEdges" aria-hidden="true"><path d="M4.500 3.500h9l3 3v14h-12z" fill="#fff" stroke="#000"/><path d="M7 8h6M7 11h8M7 14h8M7 17h8" stroke="#000"/><path d="M15 8l3 4 3-4z" fill="#000"/><rect x="15" y="13" width="6" height="6" fill="#808080" stroke="#000"/></svg><span>Options</span></button><button type="button" class="hlp-tb" id="hlpWeb"><svg width="24" height="24" viewBox="0 0 24 24" shape-rendering="crispEdges" aria-hidden="true"><circle cx="12" cy="12" r="8.500" fill="#fff" stroke="#000" stroke-width="2"/><path d="M5 9h14M5 15h14M12 3.500v17" stroke="#000"/><ellipse cx="12" cy="12" rx="4" ry="8.500" fill="none" stroke="#000"/><path d="M15 16l3-3 4 4-3 3z" fill="#000"/></svg><span>Web Help</span></button></div>
       <div class="hlp-main">
-        <div class="hlp-nav" id="hlpNav"><div class="hlp-tabs" role="presentation"><span class="on">Contents</span><span>Index</span><span>Search</span></div><div class="hlp-tree"><ul role="tree" aria-label="Off the clock projects"><li role="none"><button type="button" role="treeitem" class="hlp-it on" data-i="0" aria-selected="true"><svg class="hlp-q" width="16" height="16" viewBox="0 0 16 16" shape-rendering="crispEdges" aria-hidden="true"><rect x="1.500" y="1.500" width="13" height="13" fill="#fff" stroke="#000"/><rect x="2" y="2" width="12" height="12" fill="#0000ff"/><path d="M5.500 6a2.500 2.500 0 1 1 3.500 2.300c-.7.400-1 .8-1 1.700" fill="none" stroke="#fff" stroke-width="1.500"/><rect x="7.500" y="11.500" width="2" height="2" fill="#fff"/></svg><span>Homelab GitOps Pipeline</span></button></li><li role="none"><button type="button" role="treeitem" class="hlp-it" data-i="1" aria-selected="false"><svg class="hlp-bk" width="16" height="16" viewBox="0 0 16 16" shape-rendering="crispEdges" aria-hidden="true"><path d="M2.500 2.500l8-1.500 3 1.500v11l-3 1.500-8-1.500z" fill="#800080" stroke="#000"/><path d="M2.500 2.500l8 1.500v11" fill="none" stroke="#ff80ff"/><path d="M10.500 4v11" stroke="#000"/><path d="M12 4.500l1.500-.5M12 7l1.500-.5" stroke="#fff"/></svg><span>AIOps Agent Team</span></button></li><li role="none"><button type="button" role="treeitem" class="hlp-it" data-i="2" aria-selected="false"><svg class="hlp-bk" width="16" height="16" viewBox="0 0 16 16" shape-rendering="crispEdges" aria-hidden="true"><path d="M2.500 2.500l8-1.500 3 1.500v11l-3 1.500-8-1.500z" fill="#800080" stroke="#000"/><path d="M2.500 2.500l8 1.500v11" fill="none" stroke="#ff80ff"/><path d="M10.500 4v11" stroke="#000"/><path d="M12 4.500l1.500-.5M12 7l1.500-.5" stroke="#fff"/></svg><span>Segmented Network &amp; k3s</span></button></li></ul></div></div>
-        <div class="hlp-doc" id="hlpDoc" aria-live="polite"><article class="hlp-topic" data-i="0"><div class="hlp-rb"></div><div class="hlp-inner"><h3>Homelab GitOps Pipeline</h3><div class="hlp-sub">Gitea · Terraform · Ansible · OpenBao</div><p>Every change to the lab is a pull request. A plan job runs Terraform, lints, and classes the change by risk: low-risk merges itself, medium-risk needs an agent reviewer, high-risk needs me. Each apply snapshots the guests first, then runs Terraform and Ansible and verifies the result layer by layer. Nightly jobs catch drift and pending patches, and every runner signs in to OpenBao with its own AppRole.</p><div class="hlp-rel">Related topics</div><ul><li>Terraform</li><li>Ansible</li><li>Gitea</li><li>OpenBao</li><li>drift detection</li></ul></div></article><article class="hlp-topic" data-i="1" hidden><div class="hlp-rb"></div><div class="hlp-inner"><h3>AIOps Agent Team</h3><div class="hlp-sub">OpenClaw · MCP · Python · Prometheus</div><p>A team of agents runs the lab through the same pipeline I do: a router that triages work, infra, config and network agents that can only open pull requests, a reviewer agent, and an SRE agent for incidents. They act through MCP servers for DevOps, Proxmox, SSH, UniFi and Prometheus. Anything marked protected (the host, CI, secrets, the agents themselves) is read-only to them. Prometheus and blackbox probes watch 37 targets.</p><div class="hlp-rel">Related topics</div><ul><li>MCP</li><li>Python</li><li>OpenClaw</li><li>UniFi</li><li>Prometheus</li></ul></div></article><article class="hlp-topic" data-i="2" hidden><div class="hlp-rb"></div><div class="hlp-inner"><h3>Segmented Network &amp; k3s</h3><div class="hlp-sub">UniFi · Proxmox VE · k3s · AdGuard</div><p>A UDM Pro Max runs the zone firewall, WAN failover and per-network Proton VPN egress, and links through an inline Sophos firewall (an L2 transparent bridge, 2×10G LACP on both sides) to a USW Pro Max 24 doing L3 for the server zones. A USW Aggregation below the core carries 10G to the Proxmox host's 2×10G LACP guest trunk, the UNAS Pro and my workstation. Three UX7 access points hang off the core: one wired, one daisy-chained, one on mesh. Shared services runs an HA k3s cluster (three etcd servers behind a keepalived VIP, plus two workers), and Wi-Fi and IoT each get a pair of AdGuard resolvers.</p><div class="hlp-rel">Related topics</div><ul><li>VLAN segmentation</li><li>10G SFP+</li><li>LACP</li><li>Proton VPN</li><li>k3s</li><li>AdGuard</li></ul></div></article></div>
+        <div class="hlp-nav" id="hlpNav"><div class="hlp-tabs" role="presentation"><span class="on">Contents</span><span>Index</span><span>Search</span></div><div class="hlp-tree"><ul role="tree" aria-label="Off the clock projects"><li role="none"><button type="button" role="treeitem" class="hlp-it on" data-i="0" aria-selected="true"><svg class="hlp-q" width="16" height="16" viewBox="0 0 16 16" shape-rendering="crispEdges" aria-hidden="true"><rect x="1.500" y="1.500" width="13" height="13" fill="#fff" stroke="#000"/><rect x="2" y="2" width="12" height="12" fill="#0000ff"/><path d="M5.500 6a2.500 2.500 0 1 1 3.500 2.300c-.7.400-1 .8-1 1.700" fill="none" stroke="#fff" stroke-width="1.500"/><rect x="7.500" y="11.500" width="2" height="2" fill="#fff"/></svg><span>Homelab GitOps Pipeline</span></button></li><li role="none"><button type="button" role="treeitem" class="hlp-it" data-i="1" aria-selected="false"><svg class="hlp-bk" width="16" height="16" viewBox="0 0 16 16" shape-rendering="crispEdges" aria-hidden="true"><path d="M2.500 2.500l8-1.500 3 1.500v11l-3 1.500-8-1.500z" fill="#800080" stroke="#000"/><path d="M2.500 2.500l8 1.500v11" fill="none" stroke="#ff80ff"/><path d="M10.500 4v11" stroke="#000"/><path d="M12 4.500l1.500-.5M12 7l1.500-.5" stroke="#fff"/></svg><span>AIOps Agent Team</span></button></li><li role="none"><button type="button" role="treeitem" class="hlp-it" data-i="2" aria-selected="false"><svg class="hlp-bk" width="16" height="16" viewBox="0 0 16 16" shape-rendering="crispEdges" aria-hidden="true"><path d="M2.500 2.500l8-1.500 3 1.500v11l-3 1.500-8-1.500z" fill="#800080" stroke="#000"/><path d="M2.500 2.500l8 1.500v11" fill="none" stroke="#ff80ff"/><path d="M10.500 4v11" stroke="#000"/><path d="M12 4.500l1.500-.5M12 7l1.500-.5" stroke="#fff"/></svg><span>Segmented Network &amp; k3s</span></button></li><li role="none"><button type="button" role="treeitem" class="hlp-it" data-i="3" aria-selected="false"><svg class="hlp-bk" width="16" height="16" viewBox="0 0 16 16" shape-rendering="crispEdges" aria-hidden="true"><path d="M2.500 2.500l8-1.500 3 1.500v11l-3 1.500-8-1.500z" fill="#800080" stroke="#000"/><path d="M2.500 2.500l8 1.500v11" fill="none" stroke="#ff80ff"/><path d="M10.500 4v11" stroke="#000"/><path d="M12 4.500l1.500-.5M12 7l1.500-.5" stroke="#fff"/></svg><span>Retro ISP Lab (planned)</span></button></li></ul></div></div>
+        <div class="hlp-doc" id="hlpDoc" aria-live="polite"><article class="hlp-topic" data-i="0"><div class="hlp-rb"></div><div class="hlp-inner"><h3>Homelab GitOps Pipeline</h3><div class="hlp-sub">Gitea · Terraform · Ansible · OpenBao</div><p>Every change to the lab is a pull request. A plan job runs Terraform, lints, and classes the change by risk: low-risk merges itself, medium-risk needs an agent reviewer, high-risk needs me. Each apply snapshots the guests first, then runs Terraform and Ansible and verifies the result layer by layer. Nightly jobs catch drift and pending patches, and every runner signs in to OpenBao with its own AppRole.</p><div class="hlp-rel">Related topics</div><ul><li>Terraform</li><li>Ansible</li><li>Gitea</li><li>OpenBao</li><li>drift detection</li></ul></div></article><article class="hlp-topic" data-i="1" hidden><div class="hlp-rb"></div><div class="hlp-inner"><h3>AIOps Agent Team</h3><div class="hlp-sub">OpenClaw · MCP · Python · Prometheus</div><p>A team of agents runs the lab through the same pipeline I do: a router that triages work, infra, config and network agents that can only open pull requests, a reviewer agent, and an SRE agent for incidents. They act through MCP servers for DevOps, Proxmox, SSH, UniFi and Prometheus. Anything marked protected (the host, CI, secrets, the agents themselves) is read-only to them. Prometheus and blackbox probes watch 37 targets.</p><div class="hlp-rel">Related topics</div><ul><li>MCP</li><li>Python</li><li>OpenClaw</li><li>UniFi</li><li>Prometheus</li></ul></div></article><article class="hlp-topic" data-i="2" hidden><div class="hlp-rb"></div><div class="hlp-inner"><h3>Segmented Network &amp; k3s</h3><div class="hlp-sub">UniFi · Proxmox VE · k3s · AdGuard</div><p>A UDM Pro Max runs the zone firewall, WAN failover and per-network Proton VPN egress, and links through an inline Sophos firewall (an L2 transparent bridge, 2×10G LACP on both sides) to a USW Pro Max 24 doing L3 for the server zones. A USW Aggregation below the core carries 10G to the Proxmox host's 2×10G LACP guest trunk, the UNAS Pro and my workstation. Three UX7 access points hang off the core: one wired, one daisy-chained, one on mesh. Shared services runs an HA k3s cluster (three etcd servers behind a keepalived VIP, plus two workers), and Wi-Fi and IoT each get a pair of AdGuard resolvers.</p><div class="hlp-rel">Related topics</div><ul><li>VLAN segmentation</li><li>10G SFP+</li><li>LACP</li><li>Proton VPN</li><li>k3s</li><li>AdGuard</li></ul></div></article><article class="hlp-topic" data-i="3" hidden><div class="hlp-rb"></div><div class="hlp-inner"><h3>Retro ISP Lab (planned)</h3><div class="hlp-sub">VyOS · FRR · BGP · MPLS · IS-IS · Legacy Windows</div><p>A designed but not yet built lab of 55 nodes on an isolated bridge with no uplink. Two ISPs run IS-IS and LDP with iBGP route reflectors, one 4-byte AS, and carry L3VPN, static and eBGP enterprise handoffs plus IPoE, PPPoE and CGNAT subscribers. They reach each other over latency-shaped &ldquo;submarine cables&rdquo; and a BIRD route server at a shared IX with fake CDN, cloud and ISP peers. Customer sites run prod and DR domains on NT4, Win2K and Server 2003 behind OpenWrt and VyOS CPEs, and Win98, XP and Vista homes dial in. All addressing comes from test and documentation ranges (198.18.0.0/15, 3fff::/20, 64496&ndash;64511). It needs a host RAM upgrade to 96 GB; nothing is deployed yet.</p><div class="hlp-rel">Related topics</div><ul><li>VyOS</li><li>FRRouting</li><li>MPLS L3VPN</li><li>IS-IS</li><li>BGP</li><li>CGNAT</li></ul></div></article></div>
       </div>
     </div>
 
@@ -2291,6 +2291,135 @@ html.ntbar body{bottom:50px;}
       </div>
       <div class="flow-list" id="flowListDV" aria-label="GitOps pipeline paths"></div>
     </div>
+    <div class="topo-wrap" style="margin-top:46px;">
+      <div class="dosbox " style="margin-top:0;margin-bottom:14px;"><div class="dos-title"><img src="assets/icons/win98/ms_dos_logo.png" alt="" width="16" height="16"><span class="dos-ttl">MS-DOS Prompt - TYPE</span><span class="dos-wc" aria-hidden="true"><i>_</i><i>□</i><i>×</i></span></div><div class="dosbody"><div class="dos-cmd"><span class="dos-pr">C:\WINDOWS&gt;</span>type retro-lab.yaml</div><div class="dos-out">two ISPs, an exchange and 27 Windows guests (planned)</div></div></div>
+      <div class="topo-stage" id="rlStage">
+      <div class="story-tabs" role="tablist" aria-label="Retro lab tour"></div>
+      <svg class="topo-svg retro-svg" viewBox="0 0 900 620" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <mask id="rlSpotMask">
+            <rect x="-20" y="-20" width="940" height="660" fill="#fff"></rect>
+            <rect class="spot-hole" x="0" y="0" width="900" height="620" rx="14" fill="#000"></rect>
+          </mask>
+        </defs>
+        <rect x="-20" y="-20" width="940" height="660" fill="url(#hlBp)"></rect>
+
+        <!-- groups -->
+        <g class="topo-node"><rect x="10" y="158" width="366" height="222" rx="12" fill="none" stroke="var(--line)" stroke-width="1.5" stroke-dasharray="4 4"></rect><text x="22" y="174" style="text-anchor:start;font-size:9px;fill:var(--text-muted);">ISP A · AS 64500 · IS-IS + LDP</text><rect x="386" y="158" width="128" height="284" rx="12" fill="none" stroke="var(--line)" stroke-width="1.5" stroke-dasharray="4 4"></rect><text x="450" y="174" style="text-anchor:middle;font-size:9px;fill:var(--text-muted);">IX · PEERING LAN</text><rect x="524" y="158" width="366" height="222" rx="12" fill="none" stroke="var(--line)" stroke-width="1.5" stroke-dasharray="4 4"></rect><text x="878" y="174" style="text-anchor:end;font-size:9px;fill:var(--text-muted);">ISP B · AS 65536 (4-byte)</text><rect x="10" y="414" width="366" height="86" rx="12" fill="none" stroke="var(--line)" stroke-width="1.5" stroke-dasharray="4 4"></rect><text x="22" y="494" style="text-anchor:start;font-size:9px;fill:var(--text-muted);">ISP A CUSTOMERS</text><rect x="524" y="414" width="366" height="86" rx="12" fill="none" stroke="var(--line)" stroke-width="1.5" stroke-dasharray="4 4"></rect><text x="536" y="494" style="text-anchor:start;font-size:9px;fill:var(--text-muted);">ISP B CUSTOMERS</text><rect x="10" y="512" width="880" height="96" rx="12" fill="none" stroke="var(--line)" stroke-width="1.5" stroke-dasharray="4 4"></rect><text x="22" y="528" style="text-anchor:start;font-size:9px;fill:var(--text-muted);">ONE PROXMOX HOST · INTERNAL VLAN-AWARE BRIDGE · NO UPLINK</text></g>
+
+        <!-- cabling -->
+        <path class="topo-line" d="M375,36 L200,36 L200,82" style="stroke:var(--blue);stroke-width:3.4;"></path>
+        <path class="topo-line" d="M525,36 L700,36 L700,82" style="stroke:var(--blue);stroke-width:3.4;"></path>
+        <path class="topo-line" d="M200,118 L200,140 L330,140 L330,188" style="stroke:var(--gold);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M700,118 L700,140 L590,140 L590,188" style="stroke:var(--gold);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M288,205 L182,205" style="stroke:var(--violet);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M140,222 L140,270" style="stroke:var(--violet);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M52,270 L330,270" style="stroke:var(--violet);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M52,270 L52,311" style="stroke:var(--violet);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M120,270 L120,311" style="stroke:var(--violet);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M222,270 L222,311" style="stroke:var(--violet);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M330,270 L330,311" style="stroke:var(--violet);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M632,205 L718,205" style="stroke:var(--violet);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M760,222 L760,270" style="stroke:var(--violet);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M602,270 L840,270" style="stroke:var(--violet);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M602,270 L602,311" style="stroke:var(--violet);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M704,270 L704,311" style="stroke:var(--violet);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M772,270 L772,311" style="stroke:var(--violet);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M840,270 L840,311" style="stroke:var(--violet);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M372,205 L408,205" style="stroke:var(--gold);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M492,205 L548,205" style="stroke:var(--gold);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M396,205 L396,405" style="stroke:var(--gold);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M396,255 L408,255" style="stroke:var(--gold);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M396,305 L408,305" style="stroke:var(--gold);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M396,355 L408,355" style="stroke:var(--gold);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M396,405 L408,405" style="stroke:var(--gold);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M52,349 L52,430" style="stroke:var(--lav);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M120,349 L120,430" style="stroke:var(--lav);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M330,349 L330,430" style="stroke:var(--lav);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M222,349 L222,390" style="stroke:var(--lav);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M188,390 L256,390" style="stroke:var(--lav);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M188,390 L188,430" style="stroke:var(--lav);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M256,390 L256,430" style="stroke:var(--lav);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M602,349 L602,390" style="stroke:var(--lav);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M568,390 L636,390" style="stroke:var(--lav);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M568,390 L568,430" style="stroke:var(--lav);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M636,390 L636,430" style="stroke:var(--lav);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M704,349 L704,430" style="stroke:var(--lav);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M772,349 L772,430" style="stroke:var(--lav);stroke-width:1.8;"></path>
+        <path class="topo-line" d="M840,349 L840,430" style="stroke:var(--text-muted);stroke-width:1.8;stroke-dasharray:3 5;"></path>
+
+        <!-- link labels -->
+        <g class="topo-node"><text class="sub" x="288" y="28" style="fill:var(--blue);text-anchor:middle;font-size:8px;">submarine cable 1</text><text class="sub" x="612" y="28" style="fill:var(--blue);text-anchor:middle;font-size:8px;">submarine cable 2</text><text class="sub" x="266" y="134" style="fill:var(--gold);text-anchor:middle;font-size:8px;">eBGP · transit</text><text class="sub" x="645" y="134" style="fill:var(--gold);text-anchor:middle;font-size:8px;">eBGP · transit</text><text class="sub" x="236" y="264" style="fill:var(--violet);text-anchor:middle;font-size:8px;">iBGP → P (route reflector)</text><text class="sub" x="681" y="264" style="fill:var(--violet);text-anchor:middle;font-size:8px;">iBGP → P (route reflector)</text><text class="sub" x="160" y="382" style="fill:var(--lav);text-anchor:middle;font-size:8px;"></text></g>
+
+        <!-- nodes -->
+        <g class="topo-node"><rect class="body" x="375" y="18" width="150" height="36" rx="8" style="stroke:var(--blue);fill:var(--blue);fill-opacity:.1;"></rect><text x="450" y="33" style="font-size:9.5px;">TIER-1 BACKBONE</text><text class="sub" x="450" y="46" style="font-size:7.5px;">AS 64496 · FRR</text></g>
+        <g class="topo-node"><rect class="body" x="125" y="82" width="150" height="36" rx="8" style="stroke:var(--blue);fill:var(--blue);fill-opacity:.1;"></rect><text x="200" y="97" style="font-size:9.5px;">CABLE 1 CARRIER</text><text class="sub" x="200" y="110" style="font-size:7.5px;">AS 64497 · FRR · netem</text></g>
+        <g class="topo-node"><rect class="body" x="625" y="82" width="150" height="36" rx="8" style="stroke:var(--blue);fill:var(--blue);fill-opacity:.1;"></rect><text x="700" y="97" style="font-size:9.5px;">CABLE 2 CARRIER</text><text class="sub" x="700" y="110" style="font-size:7.5px;">AS 64498 · FRR · netem</text></g>
+        <g class="topo-node"><rect class="body" x="288" y="188" width="84" height="34" rx="8" style="stroke:var(--violet);fill:var(--violet);fill-opacity:.1;"></rect><text x="330" y="202" style="font-size:9.5px;">BORDER-A</text><text class="sub" x="330" y="215" style="font-size:7.5px;">eBGP carrier + IX</text></g>
+        <g class="topo-node"><rect class="body" x="98" y="188" width="84" height="34" rx="8" style="stroke:var(--violet);fill:var(--violet);fill-opacity:.1;"></rect><text x="140" y="202" style="font-size:9.5px;">P-A · RR</text><text class="sub" x="140" y="215" style="font-size:7.5px;">IS-IS · LDP</text></g>
+        <g class="topo-node"><rect class="body" x="19" y="311" width="66" height="38" rx="8" style="stroke:var(--violet);fill:var(--violet);fill-opacity:.1;"></rect><text x="52" y="327" style="font-size:9px;">PE-A1</text><text class="sub" x="52" y="340" style="font-size:7.5px;">L3VPN hub</text></g>
+        <g class="topo-node"><rect class="body" x="87" y="311" width="66" height="38" rx="8" style="stroke:var(--violet);fill:var(--violet);fill-opacity:.1;"></rect><text x="120" y="327" style="font-size:9px;">PE-A2</text><text class="sub" x="120" y="340" style="font-size:7.5px;">L3VPN spoke</text></g>
+        <g class="topo-node"><rect class="body" x="189" y="311" width="66" height="38" rx="8" style="stroke:var(--violet);fill:var(--violet);fill-opacity:.1;"></rect><text x="222" y="327" style="font-size:9px;">PE-A3</text><text class="sub" x="222" y="340" style="font-size:7.5px;">static · eBGP</text></g>
+        <g class="topo-node"><rect class="body" x="297" y="311" width="66" height="38" rx="8" style="stroke:var(--violet);fill:var(--violet);fill-opacity:.1;"></rect><text x="330" y="327" style="font-size:9px;">BNG-A1</text><text class="sub" x="330" y="340" style="font-size:7.5px;">IPoE · CGNAT</text></g>
+        <g class="topo-node"><rect class="body" x="548" y="188" width="84" height="34" rx="8" style="stroke:var(--violet);fill:var(--violet);fill-opacity:.1;"></rect><text x="590" y="202" style="font-size:9.5px;">BORDER-B</text><text class="sub" x="590" y="215" style="font-size:7.5px;">eBGP carrier + IX</text></g>
+        <g class="topo-node"><rect class="body" x="718" y="188" width="84" height="34" rx="8" style="stroke:var(--violet);fill:var(--violet);fill-opacity:.1;"></rect><text x="760" y="202" style="font-size:9.5px;">P-B · RR</text><text class="sub" x="760" y="215" style="font-size:7.5px;">IS-IS · LDP</text></g>
+        <g class="topo-node"><rect class="body" x="569" y="311" width="66" height="38" rx="8" style="stroke:var(--violet);fill:var(--violet);fill-opacity:.1;"></rect><text x="602" y="327" style="font-size:9px;">PE-B1</text><text class="sub" x="602" y="340" style="font-size:7.5px;">static · eBGP</text></g>
+        <g class="topo-node"><rect class="body" x="671" y="311" width="66" height="38" rx="8" style="stroke:var(--violet);fill:var(--violet);fill-opacity:.1;"></rect><text x="704" y="327" style="font-size:9px;">BNG-B1</text><text class="sub" x="704" y="340" style="font-size:7.5px;">PPPoE · public</text></g>
+        <g class="topo-node"><rect class="body" x="739" y="311" width="66" height="38" rx="8" style="stroke:var(--violet);fill:var(--violet);fill-opacity:.1;"></rect><text x="772" y="327" style="font-size:9px;">BNG-B2</text><text class="sub" x="772" y="340" style="font-size:7.5px;">PPPoE · CGNAT</text></g>
+        <g class="topo-node"><rect class="body" x="807" y="311" width="66" height="38" rx="8" style="stroke:var(--text-muted);fill:none;stroke-dasharray:4 3;"></rect><text x="840" y="327" style="font-size:9px;">BNG-B3</text><text class="sub" x="840" y="340" style="font-size:7.5px;">spare · IPoE</text></g>
+        <g class="topo-node"><rect class="body" x="408" y="188" width="84" height="34" rx="8" style="stroke:var(--gold);fill:var(--gold);fill-opacity:.1;"></rect><text x="450" y="202" style="font-size:9px;">IX SWITCH</text><text class="sub" x="450" y="215" style="font-size:7.5px;">198.18.128.0/24</text></g>
+        <g class="topo-node"><rect class="body" x="408" y="238" width="84" height="34" rx="8" style="stroke:var(--gold);fill:var(--gold);fill-opacity:.1;"></rect><text x="450" y="252" style="font-size:9px;">ROUTE SERVER</text><text class="sub" x="450" y="265" style="font-size:7.5px;">BIRD · AS 64510</text></g>
+        <g class="topo-node"><rect class="body" x="408" y="288" width="84" height="34" rx="8" style="stroke:var(--gold);fill:var(--gold);fill-opacity:.1;"></rect><text x="450" y="302" style="font-size:9px;">FAKE CDN</text><text class="sub" x="450" y="315" style="font-size:7.5px;">AS 64502 · FRR</text></g>
+        <g class="topo-node"><rect class="body" x="408" y="338" width="84" height="34" rx="8" style="stroke:var(--gold);fill:var(--gold);fill-opacity:.1;"></rect><text x="450" y="352" style="font-size:9px;">FAKE CLOUD</text><text class="sub" x="450" y="365" style="font-size:7.5px;">AS 64503 · FRR</text></g>
+        <g class="topo-node"><rect class="body" x="408" y="388" width="84" height="34" rx="8" style="stroke:var(--gold);fill:var(--gold);fill-opacity:.1;"></rect><text x="450" y="402" style="font-size:9px;">FAKE ISP 3</text><text class="sub" x="450" y="415" style="font-size:7.5px;">AS 64504 · FRR</text></g>
+        <g class="topo-node"><rect class="body" x="21" y="430" width="62" height="52" rx="8" style="stroke:var(--lav);fill:var(--lav);fill-opacity:.1;"></rect><text x="52" y="444" style="font-size:8.5px;">ENT1 PROD</text><text class="sub" x="52" y="457" style="font-size:7.5px;">NT4 · hub</text><text class="sub" x="52" y="469" style="font-size:7.5px;">4 VMs</text></g>
+        <g class="topo-node"><rect class="body" x="89" y="430" width="62" height="52" rx="8" style="stroke:var(--lav);fill:var(--lav);fill-opacity:.1;"></rect><text x="120" y="444" style="font-size:8.5px;">ENT1 DR</text><text class="sub" x="120" y="457" style="font-size:7.5px;">NT4 · spoke</text><text class="sub" x="120" y="469" style="font-size:7.5px;">4 VMs</text></g>
+        <g class="topo-node"><rect class="body" x="157" y="430" width="62" height="52" rx="8" style="stroke:var(--lav);fill:var(--lav);fill-opacity:.1;"></rect><text x="188" y="444" style="font-size:8.5px;">ENT2 PROD</text><text class="sub" x="188" y="457" style="font-size:7.5px;">Win2K · /29</text><text class="sub" x="188" y="469" style="font-size:7.5px;">4 VMs</text></g>
+        <g class="topo-node"><rect class="body" x="225" y="430" width="62" height="52" rx="8" style="stroke:var(--lav);fill:var(--lav);fill-opacity:.1;"></rect><text x="256" y="444" style="font-size:8.5px;">ENT3 PROD</text><text class="sub" x="256" y="457" style="font-size:7.5px;">2003 · eBGP</text><text class="sub" x="256" y="469" style="font-size:7.5px;">4 VMs</text></g>
+        <g class="topo-node"><rect class="body" x="299" y="430" width="62" height="52" rx="8" style="stroke:var(--lav);fill:var(--lav);fill-opacity:.1;"></rect><text x="330" y="444" style="font-size:8.5px;">HOME 3</text><text class="sub" x="330" y="457" style="font-size:7.5px;">Vista SP2</text><text class="sub" x="330" y="469" style="font-size:7.5px;">IPoE · CGNAT</text></g>
+        <g class="topo-node"><rect class="body" x="537" y="430" width="62" height="52" rx="8" style="stroke:var(--lav);fill:var(--lav);fill-opacity:.1;"></rect><text x="568" y="444" style="font-size:8.5px;">ENT2 DR</text><text class="sub" x="568" y="457" style="font-size:7.5px;">Win2K · IPsec</text><text class="sub" x="568" y="469" style="font-size:7.5px;">4 VMs</text></g>
+        <g class="topo-node"><rect class="body" x="605" y="430" width="62" height="52" rx="8" style="stroke:var(--lav);fill:var(--lav);fill-opacity:.1;"></rect><text x="636" y="444" style="font-size:8.5px;">ENT3 DR</text><text class="sub" x="636" y="457" style="font-size:7.5px;">2003 · PI</text><text class="sub" x="636" y="469" style="font-size:7.5px;">4 VMs</text></g>
+        <g class="topo-node"><rect class="body" x="673" y="430" width="62" height="52" rx="8" style="stroke:var(--lav);fill:var(--lav);fill-opacity:.1;"></rect><text x="704" y="444" style="font-size:8.5px;">HOME 1</text><text class="sub" x="704" y="457" style="font-size:7.5px;">Win 98 SE</text><text class="sub" x="704" y="469" style="font-size:7.5px;">PPPoE · public</text></g>
+        <g class="topo-node"><rect class="body" x="741" y="430" width="62" height="52" rx="8" style="stroke:var(--lav);fill:var(--lav);fill-opacity:.1;"></rect><text x="772" y="444" style="font-size:8.5px;">HOME 2</text><text class="sub" x="772" y="457" style="font-size:7.5px;">XP SP3</text><text class="sub" x="772" y="469" style="font-size:7.5px;">PPPoE · CGNAT</text></g>
+        <g class="topo-node"><rect class="body" x="809" y="430" width="62" height="52" rx="8" style="stroke:var(--text-muted);fill:none;stroke-dasharray:4 3;"></rect><text x="840" y="444" style="font-size:8.5px;">SPARE</text><text class="sub" x="840" y="457" style="font-size:7.5px;">4th home</text><text class="sub" x="840" y="469" style="font-size:7.5px;">no VM yet</text></g>
+        <g class="topo-node"><rect class="body" x="25" y="540" width="190" height="44" rx="8" style="stroke:var(--blue);fill:var(--blue);fill-opacity:.1;"></rect><text x="120" y="559" style="font-size:9.5px;">VyOS VM × 14</text><text class="sub" x="120" y="572" style="font-size:7.5px;">PE · BNG · P · Border · CPE</text></g>
+        <g class="topo-node"><rect class="body" x="245" y="540" width="190" height="44" rx="8" style="stroke:var(--blue);fill:var(--blue);fill-opacity:.1;"></rect><text x="340" y="559" style="font-size:9.5px;">FRR / BIRD LXC × 7</text><text class="sub" x="340" y="572" style="font-size:7.5px;">carriers · IX peers · RS</text></g>
+        <g class="topo-node"><rect class="body" x="465" y="540" width="190" height="44" rx="8" style="stroke:var(--blue);fill:var(--blue);fill-opacity:.1;"></rect><text x="560" y="559" style="font-size:9.5px;">OpenWrt VM × 7</text><text class="sub" x="560" y="572" style="font-size:7.5px;">home + enterprise CPE</text></g>
+        <g class="topo-node"><rect class="body" x="685" y="540" width="190" height="44" rx="8" style="stroke:var(--blue);fill:var(--blue);fill-opacity:.1;"></rect><text x="780" y="559" style="font-size:9.5px;">Windows VM × 27</text><text class="sub" x="780" y="572" style="font-size:7.5px;">NT4 → Vista · console only</text></g>
+
+
+        <rect class="spot-dim" data-overlay x="-20" y="-20" width="940" height="660" fill="#000" opacity="0" mask="url(#rlSpotMask)" pointer-events="none"></rect>
+        <rect class="spot-ring" x="0" y="0" width="900" height="620" rx="14" opacity="0" pointer-events="none"></rect>
+      </svg>
+      <table class="story-panel" width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr><td colspan="2" style="padding:0"><span class="story-progress"></span></td></tr>
+        <tr><td><div class="story-meta"><span class="story-step"></span><b class="story-title"></b></div>
+        <p class="story-text" aria-live="polite"></p></td>
+        <td class="story-nav" width="80" valign="middle">
+          <button type="button" class="story-prev" aria-label="Previous chapter">←</button>
+          <button type="button" class="story-next" aria-label="Next chapter">→</button>
+        </td></tr>
+      </table>
+      </div>
+      <div class="topo-legend">
+        <span><svg width="22" height="14" viewBox="0 0 44 30"><path d="M2,15 L42,15" stroke="var(--blue)" stroke-width="3"></path></svg> submarine cable (netem)</span>
+        <span><svg width="22" height="14" viewBox="0 0 44 30"><path d="M2,15 L42,15" stroke="var(--gold)" stroke-width="3"></path></svg> eBGP / IX</span>
+        <span><svg width="22" height="14" viewBox="0 0 44 30"><path d="M2,15 L42,15" stroke="var(--violet)" stroke-width="3"></path></svg> IS-IS + LDP core, iBGP to RR</span>
+        <span><svg width="22" height="14" viewBox="0 0 44 30"><path d="M2,15 L42,15" stroke="var(--lav)" stroke-width="3"></path></svg> access link (PE–CE, PPPoE, IPoE)</span>
+        <span><svg width="22" height="14" viewBox="0 0 44 30"><path d="M2,15 L42,15" stroke="var(--text-muted)" stroke-width="3" stroke-dasharray="3 6"></path></svg> spare, nothing attached</span>
+      </div>
+      <div class="flow-list" id="flowListRL" aria-label="Retro lab traffic paths"></div>
+      <div class="topo-chips">
+        <span class="topo-chip">Planned 2026-10-25 — nothing built yet</span>
+        <span class="topo-chip">55 nodes · ~28 GB RAM · needs 96 GB host</span>
+        <span class="topo-chip">VyOS PE / BNG / P / Border</span>
+        <span class="topo-chip">FRR + BIRD carriers, IX peers, route server</span>
+        <span class="topo-chip">IS-IS L2 + LDP · iBGP route reflectors</span>
+        <span class="topo-chip">MPLS L3VPN · PPPoE · IPoE · CGNAT</span>
+        <span class="topo-chip">198.18.0.0/15 · 3fff::/20 · AS 64496–64511, 65536</span>
+        <span class="topo-chip">NT4, Win2K, 2003, XP, Vista, 98 SE</span>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -2378,6 +2507,7 @@ html.ntbar body{bottom:50px;}
     <div class="badges88" role="group" aria-label="Site badges"><img class="btn88" src="assets/buttons/ie.gif" alt="Microsoft Internet Explorer" width="88" height="31"><img class="btn88" src="assets/buttons/netscape-now-4.gif" alt="Netscape Now! 4.0" width="88" height="31"><img class="btn88" src="assets/buttons/best-1024.gif" alt="Best viewed at 1024 x 768" width="88" height="31"><img class="btn88" src="assets/buttons/made-with-windows.gif" alt="Made with Windows" width="88" height="31"><img class="btn88" src="assets/buttons/y2k-ready.gif" alt="Ready for Y2K" width="88" height="31"><img class="btn88" src="assets/buttons/noframes.gif" alt="No frames" width="88" height="31"><a class="btn88-a" href="#contact"><img class="btn88" src="assets/buttons/click-here.gif" alt="Click here! Get in touch" width="88" height="31"></a></div>
     <div class="updated">Last updated: November 18, 2026</div>
     <div class="footer-note footer-ai">built with AI assistance; the work and the numbers are mine</div>
+    <div class="footer-note footer-legal">Not affiliated with or endorsed by Microsoft. Windows, Windows NT, Internet Explorer and MS-DOS are trademarks of Microsoft Corporation; Netscape and other names belong to their owners. This is a personal nostalgia tribute.</div>
   </div>
 </section>
 </td></tr>
@@ -2835,6 +2965,57 @@ document.addEventListener('DOMContentLoaded', () => {
        text:'<em>02:30</em> plans every stack for drift, <em>03:00</em> verifies every guest, <em>03:15</em> checks app health, and a patch scan runs every six hours — Sev1/2 fixes patch themselves behind a snapshot, the rest wait for a monthly bundle I approve. Each finding becomes an issue; the <em>OpenClaw poller</em> sends drift to the SRE agent and failures to the PM.'}
     ];
     diagramTour(document.getElementById('dvStage'), traffic, CHAPTERS, [0, 0, 900, 700]);
+  }
+
+  // ---- Retro lab: two ISPs, an IX and the Windows customers behind them (a design, not yet built) ----
+  const retroSvg = document.querySelector('.retro-svg');
+  if (retroSvg) {
+    const N = {
+      t1:{x:450,y:36,c:'blue'}, c1:{x:200,y:100,c:'blue'}, c2:{x:700,y:100,c:'blue'},
+      borderA:{x:330,y:205,c:'gold'}, pA:{x:140,y:205,c:'violet'},
+      peA1:{x:52,y:330,c:'violet'}, peA2:{x:120,y:330,c:'violet'}, peA3:{x:222,y:330,c:'violet'}, bngA1:{x:330,y:330,c:'violet'},
+      borderB:{x:590,y:205,c:'gold'}, pB:{x:760,y:205,c:'violet'},
+      peB1:{x:602,y:330,c:'violet'}, bngB1:{x:704,y:330,c:'violet'}, bngB2:{x:772,y:330,c:'violet'},
+      ix:{x:450,y:205,c:'gold'}, cdn:{x:450,y:305,c:'gold'}, cloud:{x:450,y:355,c:'gold'},
+      ent1p:{x:52,y:456,c:'lav'}, ent1d:{x:120,y:456,c:'lav'}, ent2p:{x:188,y:456,c:'lav'}, ent3p:{x:256,y:456,c:'lav'}, home3:{x:330,y:456,c:'lav'},
+      ent2d:{x:568,y:456,c:'lav'}, ent3d:{x:636,y:456,c:'lav'}, home1:{x:704,y:456,c:'lav'}, home2:{x:772,y:456,c:'lav'}
+    };
+    const E = {
+      't1|c1':[[200,36]], 't1|c2':[[700,36]],
+      'c1|borderA':[[200,140],[330,140]], 'c2|borderB':[[700,140],[590,140]],
+      'borderA|pA':[], 'borderB|pB':[], 'borderA|ix':[], 'borderB|ix':[],
+      'ix|cdn':[[396,205],[396,305]], 'ix|cloud':[[396,205],[396,355]],
+      'pA|peA1':[[140,270],[52,270]], 'pA|peA2':[[140,270],[120,270]], 'pA|peA3':[[140,270],[222,270]], 'pA|bngA1':[[140,270],[330,270]],
+      'pB|peB1':[[760,270],[602,270]], 'pB|bngB1':[[760,270],[704,270]], 'pB|bngB2':[[760,270],[772,270]],
+      'peA1|ent1p':[], 'peA2|ent1d':[], 'peA3|ent2p':[[222,390],[188,390]], 'peA3|ent3p':[[222,390],[256,390]], 'bngA1|home3':[],
+      'peB1|ent2d':[[602,390],[568,390]], 'peB1|ent3d':[[602,390],[636,390]], 'bngB1|home1':[], 'bngB2|home2':[]
+    };
+    const PATTERNS = [
+      {label:'Home 3 (Vista) → fake CDN · ISP A to IX',    seq:['home3','bngA1','pA','borderA','ix','cdn']},
+      {label:'Home 1 (Win 98) → fake cloud · ISP B to IX', seq:['home1','bngB1','pB','borderB','ix','cloud']},
+      {label:'Ent 1 prod ⇄ DR · L3VPN hub and spoke',      seq:['ent1p','peA1','pA','peA2','ent1d']},
+      {label:'Ent 3 prod → DR · over the submarine cables', seq:['ent3p','peA3','pA','borderA','c1','t1','c2','borderB','pB','peB1','ent3d']},
+      {label:'Ent 2 prod → DR · across the IX',            seq:['ent2p','peA3','pA','borderA','ix','borderB','pB','peB1','ent2d']}
+    ];
+    const traffic = trafficDiagram(retroSvg, N, E, PATTERNS, document.getElementById('flowListRL'), {max:3, reply:.5, speed:.16, every:1300});
+
+    const CHAPTERS = [
+      {tab:'overview', title:'A small internet, on paper', spot:null, flows:null,
+       text:'A planned lab that behaves like the internet: <em>two ISPs, three carriers, an exchange point and 27 Windows guests</em> on one isolated bridge. Nothing is built yet. This is the design, drawn to the cable, and the packets below follow routes that exist in it.'},
+      {tab:'transit', title:'Submarine cables between the carriers', spot:[10, 10, 880, 142], flows:[3],
+       text:'A <em>Tier-1 backbone</em> (AS 64496) joins two <em>cable carriers</em> over latency-shaped links, with delay and loss added by <em>tc netem</em>. Carrier 1 sells transit to ISP A and carrier 2 to ISP B. All three are light FRR containers.'},
+      {tab:'two ISPs', title:'Two ISPs with different business models', spot:[10, 152, 880, 236], flows:[2, 4],
+       text:'Each ISP runs VyOS: a border speaking <em>eBGP</em>, a P router on <em>IS-IS level 2 and LDP</em> that doubles as iBGP route reflector, and PE and BNG edges. ISP A sells <em>L3VPN, a static /29 with QoS, and IPoE with CGNAT</em>. ISP B is a <em>4-byte AS</em> with PPPoE, both public and CGNAT, and a spare IPoE BNG.'},
+      {tab:'the IX', title:'Where the ISPs meet their peers', spot:[382, 152, 136, 296], flows:[0, 1, 4],
+       text:'Both borders and three fake peers (a CDN, a cloud and a third ISP) share one <em>peering LAN</em>, 198.18.128.0/24. A <em>BIRD route server</em> (AS 64510) is transparent, so it never appears in the AS path. Every address comes from test and documentation ranges, and none overlap the real homelab.'},
+      {tab:'customers', title:'Three enterprises and three homes', spot:[10, 408, 880, 98], flows:[2, 3, 4],
+       text:'<em>Enterprise 1</em> rides an L3VPN hub and spoke, <em>enterprise 2</em> a static /29 capped at 20 Mb/s, and <em>enterprise 3</em> is multi-homed with its own AS and a PI block announced from both ISPs. Each has a prod and a DR site, and the homes dial in over PPPoE or IPoE.'},
+      {tab:'Windows', title:'The guests nobody patches', spot:[10, 408, 880, 98], flows:[],
+       text:'Every site has two DCs, a member server and a client: <em>NT4, Win2K and Server 2003</em>, plus <em>98 SE, XP and Vista</em> at home. NT4 needs WINS because browsing doesn\'t cross routers, and Win2K and 2003 get one AD site per location. These systems have no route to the management zone or the real internet.'},
+      {tab:'the host', title:'55 nodes, one host, no uplink', spot:[10, 508, 880, 104], flows:[],
+       text:'Everything lives on the one Proxmox host, on an <em>internal VLAN-aware bridge with no uplink</em>: 14 VyOS VMs, 7 FRR and BIRD containers, 7 OpenWrt CPEs and 27 Windows guests. That is about <em>28 GB of RAM</em>, so the host needs its upgrade to 96 GB first.'}
+    ];
+    diagramTour(document.getElementById('rlStage'), traffic, CHAPTERS, [0, 0, 900, 620]);
   }
 
   // ---- buildout time-lapse: one platform drawn as it stood in each role; chapters move between phases ----
